@@ -1,6 +1,6 @@
 package frc.robot;
 
-import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -35,15 +35,15 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 5; // good
-    public static final int kRearLeftDrivingCanId = 8; // good
-    public static final int kFrontRightDrivingCanId = 4; // good
-    public static final int kRearRightDrivingCanId = 2; // good
+    public static final int kFrontLeftDrivingCanId = 5; 
+    public static final int kRearLeftDrivingCanId = 8; 
+    public static final int kFrontRightDrivingCanId = 4;
+    public static final int kRearRightDrivingCanId = 2; 
 
-    public static final int kFrontLeftTurningCanId = 6; // good
-    public static final int kRearLeftTurningCanId = 7; // good
-    public static final int kFrontRightTurningCanId = 3; // good
-    public static final int kRearRightTurningCanId = 1; // good
+    public static final int kFrontLeftTurningCanId = 6;
+    public static final int kRearLeftTurningCanId = 7; 
+    public static final int kFrontRightTurningCanId = 3;
+    public static final int kRearRightTurningCanId = 1;
 
     public static final boolean kGyroReversed = false;
   }
@@ -95,9 +95,9 @@ public final class Constants {
     public static final double kTurningFF = 0;
     public static final double kTurningMinOutput = -1;
     public static final double kTurningMaxOutput = 1;
-
-    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
-    public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
+    
+    public static final IdleMode kDrivingMotorIdleMode = com.revrobotics.CANSparkBase.IdleMode.kBrake;
+    public static final IdleMode kTurningMotorIdleMode = com.revrobotics.CANSparkBase.IdleMode.kBrake;
 
     public static final int kDrivingMotorCurrentLimit = 50; // amps
     public static final int kTurningMotorCurrentLimit = 20; // amps
@@ -121,10 +121,6 @@ public final class Constants {
     // Constraint for the motion profiled robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
-  }
-
-  public static class SetpointConstants {
-    public static double kWristPosition = -1;
   }
 
   public static final class NeoMotorConstants {
