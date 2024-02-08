@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.LimelightCommand;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
 public class RobotContainer {
@@ -19,12 +21,16 @@ public class RobotContainer {
 
   //Subsystem
   SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem();
+  LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
   //Commands
+  LimelightCommand limelightCommand = new LimelightCommand(limelightSubsystem); 
+
 
   //Triggers 
   Trigger yButton = coDriverController.y(); 
   Trigger xButton = coDriverController.x(); 
+  Trigger aButton = driverController.a(); 
 
 
   public RobotContainer() {
@@ -41,11 +47,13 @@ public class RobotContainer {
 
   private void configureBindings() {
 
+     //Driver Controls
+    aButton.onTrue(limelightCommand);
+
+
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
-
-
 
 
   }
