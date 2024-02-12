@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -60,6 +62,26 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       });
 
   public SwerveDriveSubsystem() {
+    AutoBuilder.configureHolonomic(
+            this::getPose, 
+            this::resetOdometry, 
+            this::getRobotRelativeSpeeds, 
+            this::driveRobotRelative, 
+            new HolonomicPathFollowerConfig( 
+                    new PIDConstants(5.0, 0.0, 0.0), 
+                    new PIDConstants(5.0, 0.0, 0.0), 
+                    4.5, 
+                    0.4, 
+                    new ReplanningConfig() 
+            ), () -> {
+
+              var alliance = DriverStation.getAlliance();
+              if (alliance.isPresent()) {
+                return alliance.get() == DriverStation.Alliance.Red;
+              }
+              return false;
+            },
+            this);
   }
 
   public double getRoll() {
