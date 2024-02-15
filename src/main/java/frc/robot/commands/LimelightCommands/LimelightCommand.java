@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.LimelightCommands;
 
 import frc.robot.subsystems.LimelightSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;

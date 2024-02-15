@@ -1,5 +1,8 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.PIDConstants;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -8,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.LimelightCommand;
+import frc.robot.commands.LimelightCommands.LimelightCommand;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
@@ -24,13 +27,19 @@ public class RobotContainer {
   LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
   //Commands
-  LimelightCommand limelightCommand = new LimelightCommand(limelightSubsystem); 
+  LimelightCommand limelightCommand = new LimelightCommand(limelightSubsystem);
 
 
   //Triggers 
   Trigger yButton = coDriverController.y(); 
   Trigger xButton = coDriverController.x(); 
   Trigger aButton = driverController.a(); 
+
+
+  //Configure Path Planner
+  AutoBuilder.configureHolomonic()
+
+
 
 
   public RobotContainer() {

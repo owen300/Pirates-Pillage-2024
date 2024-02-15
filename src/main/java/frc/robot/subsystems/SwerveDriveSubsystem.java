@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
-
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -12,30 +14,32 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDriveSubsystem extends SubsystemBase {
 
-  private final SwerveSubsystem m_frontLeft = new SwerveSubsystem(
+  private static SwerveSubsystem m_frontLeft = new SwerveSubsystem(
       DriveConstants.kFrontLeftDrivingCanId,
       DriveConstants.kFrontLeftTurningCanId,
       DriveConstants.kFrontLeftChassisAngularOffset);
 
-  private final SwerveSubsystem m_frontRight = new SwerveSubsystem(
+  private static SwerveSubsystem m_frontRight = new SwerveSubsystem(
       DriveConstants.kFrontRightDrivingCanId,
       DriveConstants.kFrontRightTurningCanId,
       DriveConstants.kFrontRightChassisAngularOffset);
 
-  private final SwerveSubsystem m_rearLeft = new SwerveSubsystem(
+  private static SwerveSubsystem m_rearLeft = new SwerveSubsystem(
       DriveConstants.kRearLeftDrivingCanId,
       DriveConstants.kRearLeftTurningCanId,
       DriveConstants.kBackLeftChassisAngularOffset);
 
-  private final SwerveSubsystem m_rearRight = new SwerveSubsystem(
+  private static SwerveSubsystem m_rearRight = new SwerveSubsystem(
       DriveConstants.kRearRightDrivingCanId,
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
@@ -62,26 +66,28 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       });
 
   public SwerveDriveSubsystem() {
+    
     AutoBuilder.configureHolonomic(
-            this::getPose, 
-            this::resetOdometry, 
-            this::getRobotRelativeSpeeds, 
-            this::driveRobotRelative, 
+            this::getPose,
+            this::resetOdometry,
+            this::getRobotRelativeSpeeds,
+            this::driveRobotRelative,
             new HolonomicPathFollowerConfig( 
-                    new PIDConstants(5.0, 0.0, 0.0), 
-                    new PIDConstants(5.0, 0.0, 0.0), 
-                    4.5, 
-                    0.4, 
+                    new PIDConstants(Constants.ModuleConstants.kDrivingP, Constants.ModuleConstants.kDrivingI, Constants.ModuleConstants.kDrivingD),
+                    new PIDConstants(Constants.ModuleConstants.kTurningP, Constants.ModuleConstants.kTurningI, Constants.ModuleConstants.kTurningD), 
+                    Constants.DriveConstants.kMaxSpeedMetersPerSecond, 
+                    0.45, 
                     new ReplanningConfig() 
-            ), () -> {
-
+            ),
+            () -> {
               var alliance = DriverStation.getAlliance();
               if (alliance.isPresent()) {
                 return alliance.get() == DriverStation.Alliance.Red;
               }
               return false;
             },
-            this);
+            this
+    );
   }
 
   public double getRoll() {
@@ -214,6 +220,27 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  public void driveRobotRelative(ChassisSpeeds chassisSpeeds) {
+    var swerveModuleStates = 
+        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+  
+    SwerveDriveKinematics.desaturateWheelSpeeds(
+        swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+  
+    m_frontLeft.setDesiredState(swerveModuleStates[0]);
+    m_frontRight.setDesiredState(swerveModuleStates[1]);
+    m_rearLeft.setDesiredState(swerveModuleStates[2]);
+    m_rearRight.setDesiredState(swerveModuleStates[3]);
+  }
+
+  public ChassisSpeeds getRobotRelativeSpeeds() {
+    return DriveConstants.kDriveKinematics.toChassisSpeeds(
+        m_frontLeft.getState(),
+        m_frontRight.getState(),
+        m_rearLeft.getState(),
+        m_rearRight.getState());
   }
 
 }
