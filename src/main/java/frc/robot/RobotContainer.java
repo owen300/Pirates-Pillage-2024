@@ -1,16 +1,15 @@
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.PIDConstants;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LimelightCommand;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
@@ -36,9 +35,6 @@ public class RobotContainer {
   Trigger aButton = driverController.a(); 
 
 
-  //Configure Path Planner
-  AutoBuilder.configureHolomonic()
-
 
 
 
@@ -52,19 +48,27 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
             swerveDriveSubsystem));
+    setAutoCommands();
+    SmartDashboard.putData("Autos", AutoChooser);
   }
 
   private void configureBindings() {
-
      //Driver Controls
     aButton.onTrue(limelightCommand);
-
 
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
 
+  }
 
+  public void setAutoCommands(){
+    AutoCommandHolder autos = new AutoCommandHolder(); 
+    //AutoChooser.addOption();
+  }
+
+  public Command getAutonomousCommand() {
+    return AutoChooser.getSelected(); 
   }
 
 }
