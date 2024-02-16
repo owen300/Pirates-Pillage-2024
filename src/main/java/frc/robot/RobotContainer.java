@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LimelightCommand;
+import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
@@ -26,8 +27,8 @@ public class RobotContainer {
   LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
   //Commands
+  ScoreCommandHolder scoreCommands = new ScoreCommandHolder(); 
   LimelightCommand limelightCommand = new LimelightCommand(limelightSubsystem);
-
 
   //Triggers 
   Trigger yButton = coDriverController.y(); 
