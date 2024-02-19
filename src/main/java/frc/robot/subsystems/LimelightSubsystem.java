@@ -50,12 +50,6 @@ public class LimelightSubsystem extends SubsystemBase {
       return ta; 
     }
 
-    public void driveToTarget(){
-      drive = getTx() * kP; 
-      turn = getTy() * kP; 
-      swerveDriveSubsystem.drive(drive, turn, steer, true, true);
-    }
-   
 
     public void displayData(){
       SmartDashboard.putNumber("LimelightX", getTx());

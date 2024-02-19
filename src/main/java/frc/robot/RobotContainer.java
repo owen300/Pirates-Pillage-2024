@@ -28,7 +28,7 @@ public class RobotContainer {
 
   //Commands
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(); 
-  LimelightCommand limelightCommand = new LimelightCommand(limelightSubsystem);
+  LimelightCommand limelightCommand = new LimelightCommand(swerveDriveSubsystem, limelightSubsystem);
 
   //Triggers 
   Trigger yButton = coDriverController.y(); 

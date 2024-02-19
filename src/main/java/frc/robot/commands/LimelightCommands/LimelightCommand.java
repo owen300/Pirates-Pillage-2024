@@ -1,32 +1,51 @@
 package frc.robot.commands.LimelightCommands;
 
-import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.SwerveDriveSubsystem;
 
 public class LimelightCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final LimelightSubsystem limelightSubsystem;
 
-  
-  public LimelightCommand(LimelightSubsystem limelightSubsystem) {
-    this.limelightSubsystem = limelightSubsystem;
-    addRequirements(limelightSubsystem);
-  }
+    private final SwerveDriveSubsystem swerveDrive;
+    private final LimelightSubsystem limelight; 
+    
+    PIDController m_pidController; 
+    double kP = 0.1; 
+    double kI = 0.00; 
+    double kD = 0.001; 
 
-  @Override
-  public void initialize() {}
+    double currentX;
+    double desiredX; 
+    double maxPower = 0.5; 
 
-  @Override
-  public void execute() {
-    limelightSubsystem.driveToTarget();
-  }
+    public LimelightCommand(SwerveDriveSubsystem swerveDrive, LimelightSubsystem limelight) {
+        this.swerveDrive = swerveDrive;
+        this.limelight = limelight; 
+        addRequirements(swerveDrive);
+    }
 
-  @Override
-  public void end(boolean interrupted) {}
+    @Override
+    public void initialize() {
+        desiredX = 0; //change to desired X
+    }
 
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    @Override
+    public void execute() {
+        currentX = limelight.getTx(); 
+        double output; 
+        if(desiredX < currentX)
+            output = MathUtil.clamp(m_pidController.calculate(currentX), -maxPower, maxPower);
+        else
+            output = 0;
+        
+        swerveDrive.drive(output, 0, 0, true, true);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return desiredX - currentX < 3;  //tolerance likely adjust 
+    }
 }
+
