@@ -12,12 +12,7 @@ public class LimelightSubsystem extends SubsystemBase {
     double ty;
     double ta;
 
-    private boolean hasTarget;
-    private double drive;
-    private double turn; 
-    private double steer;
-    
-    private double kP; 
+
 
 
     public LimelightSubsystem() {
@@ -26,13 +21,6 @@ public class LimelightSubsystem extends SubsystemBase {
       tx = LimelightUtils.getTX("");
       ty = LimelightUtils.getTY("");
       ta = LimelightUtils.getTA("");
-
-      hasTarget = false; 
-      drive = 0.0;
-      turn = 0.0; 
-      steer = 0.0;
-
-      kP = 0.5; 
     }
 
       public double getTx() {
