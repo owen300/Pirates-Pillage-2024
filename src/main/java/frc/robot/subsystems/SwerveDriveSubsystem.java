@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -18,8 +19,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDriveSubsystem extends SubsystemBase {
@@ -44,7 +43,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
 
-  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  private final Pigeon2 m_gyro = new Pigeon2(0); //change device ID
 
   private double m_currentRotation = 0.0;
   private double m_currentTranslationDir = 0.0;
@@ -90,7 +89,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     );
   }
 
-  public double getRoll() {
+  public StatusSignal<Double> getRoll() {
     return m_gyro.getRoll();
   }
 
@@ -104,7 +103,6 @@ public class SwerveDriveSubsystem extends SubsystemBase {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
-    SmartDashboard.putNumber("roll navx", m_gyro.getRoll());
   }
 
   public Pose2d getPose() {

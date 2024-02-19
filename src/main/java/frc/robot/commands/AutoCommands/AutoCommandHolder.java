@@ -12,7 +12,7 @@ public class AutoCommandHolder extends Command{
     
 
 // public SequentialCommandGroup auto1(AutoBuilder autoBuilder){
-//          PathPlannerPath path = PathPlannerPath.fromPathFile("TESTPATH1");
+//        PathPlannerPath path = PathPlannerPath.fromPathFile("TESTPATH1");
 //          return new SequentialCommandGroup(
 //             new MoveWrist(wrist, 0), 
 //             new MoveArm(shoulder, 31.4), 
