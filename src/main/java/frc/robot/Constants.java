@@ -56,9 +56,6 @@ public final class Constants {
     // robot that drives faster).
     public static final int kDrivingMotorPinionTeeth = 14 ;
 
-    // Invert the turning encoder, since the output shaft rotates in the opposite
-    // direction of
-    // the steering motor in the MAXSwerve Module.
     public static final boolean kTurningEncoderInverted = true;
 
     // Calculations required for driving motor conversion factors and feed forward
@@ -126,6 +123,19 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class SubsystemConstants {
+    public static final int kIntakeMotorCANID = 1; 
+
+    public static final int kShootLeadCANID = 1; 
+    public static final int kShootFollowCANID = 1; 
+    public static final double kShootLeadP = 0.0001; 
+    public static final double kShootLeadI = 0.0; 
+    public static final double kShootLeadD = 0.0001;  
+    public static final double kShootLeadMaxPower = 0.01; 
+
+  }
+
 
   public static final class JoystickConstants {
     public static final int kXStick1 = 0;
