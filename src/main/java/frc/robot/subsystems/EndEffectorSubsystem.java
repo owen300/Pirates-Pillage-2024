@@ -52,8 +52,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
       filteredCurrent = 0; 
       filter= LinearFilter.movingAverage(SubsystemConstants.kSampleSize); 
 
-      shootLead = new CANSparkMax(SubsystemConstants.kShootLeadCANID, MotorType.kBrushless);
-      shootFollow =  new CANSparkMax(SubsystemConstants.kShootFollowCANID, MotorType.kBrushless);
+      shootLead = new CANSparkMax(SubsystemConstants.kShootLead, MotorType.kBrushless);
+      shootFollow =  new CANSparkMax(SubsystemConstants.kShootFollow, MotorType.kBrushless);
       shootFollow.follow(shootLead, false);
       shootLead.setIdleMode(IdleMode.kCoast);
       shootFollow.setIdleMode(IdleMode.kCoast);
