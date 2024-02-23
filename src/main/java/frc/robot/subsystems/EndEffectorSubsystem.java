@@ -7,7 +7,6 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SubsystemConstants;
@@ -18,7 +17,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     private final CANSparkMax intakeMotor;
     public boolean intakeMotorInverted; 
     public double intakeMotorSpeed; 
-    public static double filteredCurrent;
+    public static double filteredCurrentIntake;
     public LinearFilter filter;
 
     private final CANSparkMax shootLead;
@@ -45,7 +44,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       intakeMotor = new CANSparkMax(SubsystemConstants.kIntakeMotorCANID, MotorType.kBrushless);
       intakeMotorSpeed = 0; 
       intakeMotorInverted = false; 
-      filteredCurrent = 0; 
+      filteredCurrentIntake = 0; 
       filter= LinearFilter.movingAverage(SubsystemConstants.kSampleSize); 
 
       shootLead = new CANSparkMax(SubsystemConstants.kShootLead, MotorType.kBrushless);
@@ -96,7 +95,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   //SHOOT METHODS
- 
   public void shootLeadMotor(double speed){
     shootLead.set(speed);
   }
@@ -172,7 +170,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic(){
-    filteredCurrent = filter.calculate(intakeMotor.getOutputCurrent());
+    filteredCurrentIntake = filter.calculate(intakeMotor.getOutputCurrent());
 
     // calculateLiftBack();
     getLiftLeadBackDistance();

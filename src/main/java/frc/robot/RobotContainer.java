@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.AutoCommands.AutoCommandHolder;
+// import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LimelightCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
@@ -61,8 +61,9 @@ public class RobotContainer {
   private void configureBindings() {
      //Driver Controls
     // aDriverButton.onTrue(scoreCommands.testIntake());
-    // bDriverButton.onTrue(scoreCommands.testLift());
-    // xDriverButton.onTrue(scoreCommands.testShoot());
+    // bDriverButton.onTrue(scoreCommands.testShoot());
+    // xDriverButton.onTrue(scoreCommands.testLift());
+
 
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
@@ -71,7 +72,7 @@ public class RobotContainer {
   }
 
   public void setAutoCommands(){
-    AutoCommandHolder autos = new AutoCommandHolder(); 
+    // AutoCommandHolder autos = new AutoCommandHolder(); 
     //AutoChooser.addOption();
   }
 

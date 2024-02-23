@@ -25,9 +25,9 @@ public class IntakeCommand extends Command{
     @Override 
     public boolean isFinished(){ 
         if(SubsystemConstants.kDebounce) {
-            return filter_debouncer.calculate(EndEffectorSubsystem.filteredCurrent>SubsystemConstants.kCurrentThreshold);
+            return filter_debouncer.calculate(EndEffectorSubsystem.filteredCurrentIntake>SubsystemConstants.kCurrentThreshold);
         } else {
-            return EndEffectorSubsystem.filteredCurrent > SubsystemConstants.kCurrentThreshold;
+            return EndEffectorSubsystem.filteredCurrentIntake > SubsystemConstants.kCurrentThreshold;
         }
     }
     @Override
