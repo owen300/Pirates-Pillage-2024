@@ -60,8 +60,8 @@ public class RobotContainer {
 
   private void configureBindings() {
      //Driver Controls
-    // aDriverButton.onTrue(scoreCommands.testIntake());
-    // bDriverButton.onTrue(scoreCommands.testShoot());
+    aDriverButton.onTrue(scoreCommands.testIntake());
+    bDriverButton.onTrue(scoreCommands.testShoot());
     // xDriverButton.onTrue(scoreCommands.testLift());
 
 
