@@ -9,17 +9,19 @@ public class IntakeCommand extends Command{
 
     private final EndEffectorSubsystem intakeSubsystem;
     private final double speed;
+    private final boolean inverted; 
     private Debouncer filter_debouncer = new Debouncer(SubsystemConstants.kDebounceTime, Debouncer.DebounceType.kBoth);
 
-    public IntakeCommand(EndEffectorSubsystem intakeSubsystem, double speed){
+    public IntakeCommand(EndEffectorSubsystem intakeSubsystem, double speed, boolean inverted){
         this.intakeSubsystem = intakeSubsystem; 
         this.speed = speed;
+        this.inverted = inverted; 
         addRequirements(intakeSubsystem);
     }
 
     @Override 
     public void initialize(){
-      intakeSubsystem.setIntakeSpeedDirection(speed, false);
+      intakeSubsystem.setIntakeSpeedDirection(speed, inverted);
     }
 
     // @Override 

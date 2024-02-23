@@ -16,7 +16,7 @@ public class ScoreCommandHolder extends Command {
 
     //TEST METHODS
     public Command testIntake(){
-       return new IntakeCommand(endEffectorSubsystem, 0.5); 
+       return new IntakeCommand(endEffectorSubsystem, 0.5, false); 
     }
 
     public Command testShoot(){
@@ -31,7 +31,7 @@ public class ScoreCommandHolder extends Command {
         return new ShootCommand(endEffectorSubsystem, 0); 
     }
     public Command intakeMotorZero(){
-        return new ShootCommand(endEffectorSubsystem, 0); 
+        return new IntakeCommand(endEffectorSubsystem, 0, false); 
     }
 
     //REAL METHODS
