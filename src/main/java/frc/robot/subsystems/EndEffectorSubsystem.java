@@ -7,6 +7,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SubsystemConstants;
@@ -121,10 +122,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     shootLeadSetpoint = 0; 
   }
   
-  public void shoot(double pose) { //amp and speaker 
-    shootLeadPIDController.setSetpoint(pose);
-    shootLeadSetpoint = pose;
- }
+//   public void shoot(double pose) { //amp and speaker 
+//     shootLeadPIDController.setSetpoint(pose);
+//     shootLeadSetpoint = pose;
+//  }
 
   public void calculateShoot(){
     double outputShoot;
@@ -155,10 +156,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftLeadLeftSetpoint = 0; 
   }
   
-  public void liftBack(double pose) { 
-    liftLeadLeftPIDController.setSetpoint(pose);
-    liftLeadLeftSetpoint = pose;
- }
+//   public void liftBack(double pose) { 
+//     liftLeadLeftPIDController.setSetpoint(pose);
+//     liftLeadLeftSetpoint = pose;
+//  }
 
   public void calculateLiftBack(){
     double outputLiftLeft;
@@ -189,10 +190,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftLeadRightSetpoint = 0; 
   }
   
-  public void liftFront(double pose) { 
-    liftLeadRightPIDController.setSetpoint(pose);
-    liftLeadRightSetpoint = pose;
- }
+//   public void liftFront(double pose) { 
+//     liftLeadRightPIDController.setSetpoint(pose);
+//     liftLeadRightSetpoint = pose;
+//  }
 
   public void calculateLiftFront(){
     double outputLiftRight;
@@ -212,13 +213,13 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public void periodic(){
     filteredCurrent = filter.calculate(intakeMotor.getOutputCurrent());
 
-    calculateShoot();
+    // calculateShoot();
     getShootLeadDistance(); 
 
-    calculateLiftBack();
+    // calculateLiftBack();
     getLiftLeadBackDistance();
 
-    calculateLiftFront();
+    // calculateLiftFront();
     getLiftLeadFrontDistance();
 
    }

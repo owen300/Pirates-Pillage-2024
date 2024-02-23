@@ -22,7 +22,7 @@ public class ShootCommand extends Command{
 
     @Override 
     public void execute(){
-       shootSubsystem.shoot(setPoint);
+    //    shootSubsystem.shoot(setPoint);
     }
 
     @Override 
