@@ -20,13 +20,12 @@ public class ScoreCommandHolder extends Command {
     // }
 
     // public Command testShoot(){
-    //     return new LiftCommand(endEffectorSubsystem, 0); 
+    //     return new ShootCommand(endEffectorSubsystem, 0.1); 
     // }
 
     // public Command testLift(){
-    //     return new ShootCommand(endEffectorSubsystem, 0); 
+    //     return new LiftCommand(endEffectorSubsystem, 0); 
     // }
-
 
     //REAL METHODS
     public SequentialCommandGroup name() {

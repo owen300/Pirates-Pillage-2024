@@ -17,7 +17,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    SmartDashboard.putNumber("Sanity Check", 1234);
     m_robotContainer = new RobotContainer();
   }
 

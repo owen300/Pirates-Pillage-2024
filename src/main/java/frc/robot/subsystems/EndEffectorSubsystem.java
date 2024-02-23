@@ -24,11 +24,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
     private final CANSparkMax shootLead;
     private final CANSparkMax shootFollow;
 
-    PIDController shootLeadPIDController; 
-    double shootLeadCurrentDistance;
-    RelativeEncoder shootLeadEncoder;
-    double shootLeadSetpoint; 
-
     private final CANSparkMax liftLeadLeft;
     private final CANSparkMax liftFollowLeft;
 
@@ -57,13 +52,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       shootFollow =  new CANSparkMax(SubsystemConstants.kShootFollow, MotorType.kBrushless);
       shootFollow.follow(shootLead, false);
       shootLead.setIdleMode(IdleMode.kCoast);
-      shootFollow.setIdleMode(IdleMode.kCoast);
-      shootLeadPIDController = new PIDController(SubsystemConstants.kShootLeadP, SubsystemConstants.kShootLeadI, SubsystemConstants.kShootLeadD);
-      shootLeadPIDController.setTolerance(5, 10);
-      shootLeadPIDController.setSetpoint(0);
-      shootLeadEncoder = shootLead.getEncoder();
-      shootLeadEncoder.setPosition(0);
-      shootLeadSetpoint = 0; 
+      shootFollow.setIdleMode(IdleMode.kCoast); 
 
       liftLeadLeft = new CANSparkMax(SubsystemConstants.kLiftLeadLeft, MotorType.kBrushless);
       liftFollowLeft =  new CANSparkMax(SubsystemConstants.kLiftFollowLeft, MotorType.kBrushless);
@@ -107,37 +96,9 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   //SHOOT METHODS
-  public double getShootLeadDistance(){
-    shootLeadCurrentDistance = shootLeadEncoder.getPosition();
-    SmartDashboard.putNumber("ShootCurDist", shootLeadCurrentDistance);
-    return shootLeadCurrentDistance;
-  }
-   
-  public void resetShootLeadEncoder(){
-    shootLeadEncoder.setPosition(0);
-  }
-
-  public void shootLeadMotorZero(){
-    shootLead.set(0);
-    shootLeadSetpoint = 0; 
-  }
-  
-//   public void shoot(double pose) { //amp and speaker 
-//     shootLeadPIDController.setSetpoint(pose);
-//     shootLeadSetpoint = pose;
-//  }
-
-  public void calculateShoot(){
-    double outputShoot;
-    if(shootLeadSetpoint < shootLeadEncoder.getPosition()) 
-        outputShoot = MathUtil.clamp(shootLeadPIDController.calculate(shootLeadEncoder.getPosition()), -SubsystemConstants.kShootLeadMaxPower, SubsystemConstants.kShootLeadMaxPower);
-    else
-        outputShoot = MathUtil.clamp(shootLeadPIDController.calculate(shootLeadEncoder.getPosition()), -SubsystemConstants.kShootLeadMaxPower, SubsystemConstants.kShootLeadMaxPower) ;
-    
-    shootLead.set(outputShoot);
-   
-   SmartDashboard.putNumber("Shoot Output", outputShoot);
-   SmartDashboard.putNumber("Shoot Setpoint", shootLeadSetpoint);
+ 
+  public void shootLeadMotor(double speed){
+    shootLead.set(speed);
   }
 
   //LIFT BACK METHODS
@@ -212,9 +173,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
   @Override
   public void periodic(){
     filteredCurrent = filter.calculate(intakeMotor.getOutputCurrent());
-
-    // calculateShoot();
-    getShootLeadDistance(); 
 
     // calculateLiftBack();
     getLiftLeadBackDistance();

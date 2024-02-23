@@ -133,10 +133,6 @@ public final class Constants {
 
     public static final int kShootLead = 14; 
     public static final int kShootFollow = 13; 
-    public static final double kShootLeadP = 0.0001; 
-    public static final double kShootLeadI = 0.0; 
-    public static final double kShootLeadD = 0.0001;  
-    public static final double kShootLeadMaxPower = 0; 
 
     public static final int kLiftLeadLeft = 12; 
     public static final int kLiftFollowLeft = 11; 

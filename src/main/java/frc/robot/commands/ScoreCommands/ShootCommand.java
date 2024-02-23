@@ -7,12 +7,11 @@ import frc.robot.subsystems.EndEffectorSubsystem;
 public class ShootCommand extends Command{
 
     private final EndEffectorSubsystem shootSubsystem;
-    private final double setPoint;
-    private final double TOLERANCE = 2; 
+    private final double speed; 
 
-    public ShootCommand(EndEffectorSubsystem shootSubsystem, double setpoint){
+    public ShootCommand(EndEffectorSubsystem shootSubsystem, double speed){
         this.shootSubsystem = shootSubsystem; 
-        this.setPoint = setpoint;
+        this.speed = speed;
         addRequirements(shootSubsystem);
     }
 
@@ -22,12 +21,10 @@ public class ShootCommand extends Command{
 
     @Override 
     public void execute(){
-    //    shootSubsystem.shoot(setPoint);
+       shootSubsystem.shootLeadMotor(speed);
     }
 
-    @Override 
-    public boolean isFinished(){
-       return shootSubsystem.getShootLeadDistance() < setPoint + TOLERANCE && shootSubsystem.getShootLeadDistance() > setPoint - TOLERANCE;
-    }
+    // @Override 
+    // public boolean isFinished(){}
     
 }
