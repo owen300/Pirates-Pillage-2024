@@ -60,9 +60,9 @@ public class RobotContainer {
 
   private void configureBindings() {
      //Driver Controls
-    aDriverButton.onTrue(scoreCommands.testIntake());
-    bDriverButton.onTrue(scoreCommands.testLift());
-    xDriverButton.onTrue(scoreCommands.testShoot());
+    // aDriverButton.onTrue(scoreCommands.testIntake());
+    // bDriverButton.onTrue(scoreCommands.testLift());
+    // xDriverButton.onTrue(scoreCommands.testShoot());
 
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
