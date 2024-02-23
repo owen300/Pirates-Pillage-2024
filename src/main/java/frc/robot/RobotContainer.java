@@ -12,6 +12,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LimelightCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
+import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
@@ -22,18 +23,24 @@ public class RobotContainer {
 
   SendableChooser<Command> AutoChooser = new SendableChooser<>();
 
-  //Subsystem
-  SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem();
+  //SUBSYSTEM
+  EndEffectorSubsystem endEffectorSubsystem = new EndEffectorSubsystem();
   LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+  SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem();
+  
 
-  //Commands
-  ScoreCommandHolder scoreCommands = new ScoreCommandHolder(); 
+  //COMMANDS
+  ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem); 
   LimelightCommand limelightCommand = new LimelightCommand(swerveDriveSubsystem, limelightSubsystem);
 
-  //Triggers 
+  //TRIGGERS 
   Trigger yButton = coDriverController.y(); 
   Trigger xButton = coDriverController.x(); 
-  Trigger aButton = driverController.a(); 
+
+  Trigger aDriverButton = driverController.a(); 
+  Trigger bDriverButton = driverController.b(); 
+  Trigger xDriverButton = driverController.x(); 
+  Trigger yDriverButton = driverController.y(); 
 
 
 
@@ -53,7 +60,9 @@ public class RobotContainer {
 
   private void configureBindings() {
      //Driver Controls
-    aButton.onTrue(limelightCommand);
+    aDriverButton.onTrue(scoreCommands.testIntake());
+    bDriverButton.onTrue(scoreCommands.testLift());
+    xDriverButton.onTrue(scoreCommands.testShoot());
 
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
