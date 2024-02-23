@@ -22,8 +22,8 @@ public class LiftCommand extends Command{
 
     @Override 
     public void execute(){
-    //    liftSubsystem.liftBack(setPoint);
-    //    liftSubsystem.liftFront(setPoint);
+       liftSubsystem.liftBack(setPoint);
+       liftSubsystem.liftFront(setPoint);
        
     }
 

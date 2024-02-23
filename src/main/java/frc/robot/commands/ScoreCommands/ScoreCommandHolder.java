@@ -23,9 +23,16 @@ public class ScoreCommandHolder extends Command {
         return new ShootCommand(endEffectorSubsystem, 0.5); 
     }
 
-    // public Command testLift(){
-    //     return new LiftCommand(endEffectorSubsystem, 0); 
-    // }
+    public Command testLift(){
+        return new LiftCommand(endEffectorSubsystem, 0); 
+    }
+
+
+
+    //intake position -- 
+    //compact position -- 
+    //amp score -- 
+    //speaker -- 
 
     public Command shootMotorZero(){
         return new ShootCommand(endEffectorSubsystem, 0); 

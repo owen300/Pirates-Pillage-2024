@@ -41,6 +41,7 @@ public class RobotContainer {
   Trigger bDriverButton = driverController.b(); 
   Trigger xDriverButton = driverController.x(); 
   Trigger yDriverButton = driverController.y(); 
+  Trigger leftDriverTrigger = driverController.leftTrigger(); 
 
 
 
@@ -64,6 +65,8 @@ public class RobotContainer {
     bDriverButton.onTrue(scoreCommands.testShoot());
     xDriverButton.onTrue(scoreCommands.shootMotorZero());
     yDriverButton.onTrue(scoreCommands.intakeMotorZero());
+    leftDriverTrigger.onTrue(scoreCommands.testLift()); 
+    
 
 
     //Co-Driver Controls

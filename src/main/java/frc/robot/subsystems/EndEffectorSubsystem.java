@@ -115,10 +115,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftLeadLeftSetpoint = 0; 
   }
   
-//   public void liftBack(double pose) { 
-//     liftLeadLeftPIDController.setSetpoint(pose);
-//     liftLeadLeftSetpoint = pose;
-//  }
+  public void liftBack(double pose) { 
+    liftLeadLeftPIDController.setSetpoint(pose);
+    liftLeadLeftSetpoint = pose;
+ }
 
   public void calculateLiftBack(){
     double outputLiftLeft;
@@ -149,10 +149,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftLeadRightSetpoint = 0; 
   }
   
-//   public void liftFront(double pose) { 
-//     liftLeadRightPIDController.setSetpoint(pose);
-//     liftLeadRightSetpoint = pose;
-//  }
+  public void liftFront(double pose) { 
+    liftLeadRightPIDController.setSetpoint(pose);
+    liftLeadRightSetpoint = pose;
+ }
 
   public void calculateLiftFront(){
     double outputLiftRight;
@@ -172,10 +172,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public void periodic(){
     filteredCurrentIntake = filter.calculate(intakeMotor.getOutputCurrent());
 
-    // calculateLiftBack();
+    calculateLiftBack();
     getLiftLeadBackDistance();
 
-    // calculateLiftFront();
+    calculateLiftFront();
     getLiftLeadFrontDistance();
 
    }
