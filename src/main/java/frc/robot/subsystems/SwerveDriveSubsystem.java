@@ -2,10 +2,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,11 +10,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.util.WPIUtilJNI;
-import frc.robot.Constants;
+import edu.wpi.first.util.WPIUtilJNI; 
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDriveSubsystem extends SubsystemBase {
@@ -64,30 +58,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
           m_rearRight.getPosition()
       });
 
-  public SwerveDriveSubsystem() {
-    
-    AutoBuilder.configureHolonomic(
-            this::getPose,
-            this::resetOdometry,
-            this::getRobotRelativeSpeeds,
-            this::driveRobotRelative,
-            new HolonomicPathFollowerConfig( 
-                    new PIDConstants(Constants.ModuleConstants.kDrivingP, Constants.ModuleConstants.kDrivingI, Constants.ModuleConstants.kDrivingD),
-                    new PIDConstants(Constants.ModuleConstants.kTurningP, Constants.ModuleConstants.kTurningI, Constants.ModuleConstants.kTurningD), 
-                    Constants.DriveConstants.kMaxSpeedMetersPerSecond, 
-                    0.45, 
-                    new ReplanningConfig() 
-            ),
-            () -> {
-              var alliance = DriverStation.getAlliance();
-              if (alliance.isPresent()) {
-                return alliance.get() == DriverStation.Alliance.Red;
-              }
-              return false;
-            },
-            this
-    );
-  }
+  public SwerveDriveSubsystem() {}
 
   public StatusSignal<Double> getRoll() {
     return m_gyro.getRoll();
