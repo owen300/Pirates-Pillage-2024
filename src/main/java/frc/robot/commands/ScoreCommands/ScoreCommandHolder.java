@@ -27,6 +27,13 @@ public class ScoreCommandHolder extends Command {
     //     return new LiftCommand(endEffectorSubsystem, 0); 
     // }
 
+    public Command shootMotorZero(){
+        return new ShootCommand(endEffectorSubsystem, 0); 
+    }
+    public Command intakeMotorZero(){
+        return new ShootCommand(endEffectorSubsystem, 0); 
+    }
+
     //REAL METHODS
     public SequentialCommandGroup name() {
          return new SequentialCommandGroup();

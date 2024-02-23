@@ -62,7 +62,8 @@ public class RobotContainer {
      //Driver Controls
     aDriverButton.onTrue(scoreCommands.testIntake());
     bDriverButton.onTrue(scoreCommands.testShoot());
-    // xDriverButton.onTrue(scoreCommands.testLift());
+    xDriverButton.onTrue(scoreCommands.shootMotorZero());
+    yDriverButton.onTrue(scoreCommands.intakeMotorZero());
 
 
     //Co-Driver Controls
