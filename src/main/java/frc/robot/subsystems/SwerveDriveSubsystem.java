@@ -43,7 +43,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
 
-  private final Pigeon2 m_gyro = new Pigeon2(0); //change device ID
+  private final Pigeon2 m_gyro = new Pigeon2(16); //change device ID
 
   private double m_currentRotation = 0.0;
   private double m_currentTranslationDir = 0.0;
