@@ -16,11 +16,11 @@ public class ScoreCommandHolder extends Command {
 
     //TEST METHODS
     public Command testIntake(){
-       return new IntakeCommand(endEffectorSubsystem, 0.1); 
+       return new IntakeCommand(endEffectorSubsystem, 0.5); 
     }
 
     public Command testShoot(){
-        return new ShootCommand(endEffectorSubsystem, 0.1); 
+        return new ShootCommand(endEffectorSubsystem, 0.5); 
     }
 
     // public Command testLift(){
