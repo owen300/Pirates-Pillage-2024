@@ -61,7 +61,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftLeadLeftPIDController = new PIDController(SubsystemConstants.kLiftLeadLeftP, SubsystemConstants.kLiftLeadLeftI, SubsystemConstants.kLiftLeadLeftD);
       liftLeadLeftPIDController.setTolerance(5, 10);
       liftLeadLeftPIDController.setSetpoint(0);
-      liftLeadLeftEncoder = shootLead.getEncoder();
+      liftLeadLeftEncoder = liftLeadLeft.getEncoder();
       liftLeadLeftEncoder.setPosition(0);
       liftLeadLeftSetpoint = 0; 
 
@@ -73,7 +73,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftLeadRightPIDController = new PIDController(SubsystemConstants.kLiftLeadRightP, SubsystemConstants.kLiftLeadRightI, SubsystemConstants.kLiftLeadRightD);
       liftLeadRightPIDController.setTolerance(5, 10);
       liftLeadRightPIDController.setSetpoint(0);
-      liftLeadRightEncoder = shootLead.getEncoder();
+      liftLeadRightEncoder = liftLeadRight.getEncoder();
       liftLeadRightEncoder.setPosition(0);
       liftLeadRightSetpoint = 0; 
 
