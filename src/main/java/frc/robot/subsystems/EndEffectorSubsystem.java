@@ -126,10 +126,13 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
   public void liftLeadLeftMotorZero(){
     liftLeadLeft.set(0); 
+    liftLeadLeftSetpoint = 0;
   }
 
   public void liftLeadRightMotorZero(){
   liftLeadRight.set(0); 
+  liftLeadRightSetpoint = 0;
+  
   }
 
   public void liftBack(double pose) { 
