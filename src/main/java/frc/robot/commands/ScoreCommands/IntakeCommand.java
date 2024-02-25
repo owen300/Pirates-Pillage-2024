@@ -24,21 +24,21 @@ public class IntakeCommand extends Command{
       intakeSubsystem.setIntakeSpeedDirection(speed, inverted);
     }
 
-    @Override 
-    public boolean isFinished(){ 
-        if(SubsystemConstants.kDebounce) {
-            return filter_debouncer.calculate(EndEffectorSubsystem.filteredCurrentIntake>SubsystemConstants.kCurrentThreshold);
-        } else {
-            return EndEffectorSubsystem.filteredCurrentIntake > SubsystemConstants.kCurrentThreshold;
-        }
-    }
-    @Override
-    public void end(boolean interrupted){
-        if(interrupted) {
-            intakeSubsystem.setIntakeSpeedDirection(0.05, false); 
-        }
-        else {
-            intakeSubsystem.setIntakeSpeedDirection(0.05, false);
-        }
-    }
+    // @Override 
+    // public boolean isFinished(){ 
+    //     if(SubsystemConstants.kDebounce) {
+    //         return filter_debouncer.calculate(EndEffectorSubsystem.filteredCurrentIntake>SubsystemConstants.kCurrentThreshold);
+    //     } else {
+    //         return EndEffectorSubsystem.filteredCurrentIntake > SubsystemConstants.kCurrentThreshold;
+    //     }
+    // }
+    // @Override
+    // public void end(boolean interrupted){
+    //     if(interrupted) {
+    //         intakeSubsystem.setIntakeSpeedDirection(0.05, false); 
+    //     }
+    //     else {
+    //         intakeSubsystem.setIntakeSpeedDirection(0.05, false);
+    //     }
+    // }
 }
