@@ -144,7 +144,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     else
         outputLiftLeft = MathUtil.clamp(liftLeadLeftPIDController.calculate(liftLeadLeftEncoder.getPosition()), -SubsystemConstants.kLiftLeadLeftMaxPower, SubsystemConstants.kLiftLeadLeftMaxPower) ;
     
-    shootLead.set(outputLiftLeft);
+    liftLeadLeft.set(outputLiftLeft);
    
    SmartDashboard.putNumber("Lift Back Output", outputLiftLeft);
    SmartDashboard.putNumber("Lift Back Setpoint", liftLeadLeftSetpoint);
@@ -173,7 +173,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     else
         outputLiftRight = MathUtil.clamp(liftLeadRightPIDController.calculate(liftLeadRightEncoder.getPosition()), -SubsystemConstants.kLiftLeadRightMaxPower, SubsystemConstants.kLiftLeadRightMaxPower) ;
     
-    shootLead.set(outputLiftRight);
+    liftLeadRight.set(outputLiftRight);
    
    SmartDashboard.putNumber("Lift Front Output", outputLiftRight);
    SmartDashboard.putNumber("Lift Front Setpoint", liftLeadRightSetpoint);
