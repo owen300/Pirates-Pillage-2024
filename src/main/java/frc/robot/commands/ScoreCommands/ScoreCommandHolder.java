@@ -24,7 +24,7 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command testLift(){
-        return new LiftCommand(endEffectorSubsystem, 0.857); 
+        return new LiftCommand(endEffectorSubsystem, 4); 
     }
 
 
