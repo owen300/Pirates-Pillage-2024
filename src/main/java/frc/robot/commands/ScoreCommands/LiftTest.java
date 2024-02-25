@@ -4,15 +4,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
-public class LiftCommand extends Command{
+public class LiftTest extends Command{
 
     private final EndEffectorSubsystem liftSubsystem;
-    private final double setPoint;
-    private final double TOLERANCE = 2; 
 
-    public LiftCommand(EndEffectorSubsystem liftSubsystem, double setpoint){
+    public LiftTest(EndEffectorSubsystem liftSubsystem){
         this.liftSubsystem = liftSubsystem; 
-        this.setPoint = setpoint;
         addRequirements(liftSubsystem);
     }
 
@@ -22,8 +19,6 @@ public class LiftCommand extends Command{
 
     @Override 
     public void execute(){
-    //    liftSubsystem.liftBack(setPoint);
-    //    liftSubsystem.liftFront(setPoint);
         liftSubsystem.liftLeadLeftMotorTest();
         liftSubsystem.liftLeadRightMotorTest();
        
