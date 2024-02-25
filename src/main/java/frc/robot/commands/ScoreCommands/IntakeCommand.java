@@ -37,7 +37,7 @@ public class IntakeCommand extends Command{
     //         noteIn = true; 
     //         SmartDashboard.putBoolean("NoteIn", noteIn); 
     //         return EndEffectorSubsystem.filteredCurrentIntake > SubsystemConstants.kIntakeCurrentThreshold;
-    //     }
+    //     } 
     // }
     // @Override
     // public void end(boolean interrupted){

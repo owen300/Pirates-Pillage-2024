@@ -16,7 +16,7 @@ public class ScoreCommandHolder extends Command {
 
     //TEST METHODS
     public Command testIntake(){
-       return new IntakeCommand(endEffectorSubsystem, 0.5, false); 
+       return new IntakeCommand(endEffectorSubsystem, 0.7, false); 
     }
 
     public Command testShoot(){
