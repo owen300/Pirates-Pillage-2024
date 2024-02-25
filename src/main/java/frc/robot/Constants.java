@@ -126,13 +126,17 @@ public final class Constants {
 
   public static final class SubsystemConstants {
     public static final int kIntakeMotorCANID = 15; 
-    public static final int kSampleSize = 5; 
-    public static final int kCurrentThreshold = 0; 
-    public static final boolean kDebounce = false; 
-    public static final double kDebounceTime = 0.05; 
+    public static final int kIntakeSampleSize = 5; 
+    public static final int kIntakeCurrentThreshold = 0; 
+    public static final boolean kIntakeDebounce = false; 
+    public static final double kIntakeDebounceTime = 0.05; 
 
     public static final int kShootLead = 14; 
     public static final int kShootFollow = 13; 
+    public static final int kShootSampleSize = 5; 
+    public static final int kShootCurrentThreshold = 0; 
+    public static final boolean kShootDebounce = false; 
+    public static final double kShootDebounceTime = 0.05; 
 
     public static final int kLiftLeadLeft = 12; 
     public static final int kLiftFollowLeft = 11; 

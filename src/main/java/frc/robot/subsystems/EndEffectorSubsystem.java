@@ -18,11 +18,13 @@ public class EndEffectorSubsystem extends SubsystemBase {
     public boolean intakeMotorInverted; 
     public double intakeMotorSpeed; 
     public static double filteredCurrentIntake;
-    public LinearFilter filter;
+     public LinearFilter filterIntake;
 
     private final CANSparkMax shootLead;
     private final CANSparkMax shootFollow;
-
+     public static double filteredCurrentShoot;
+    public LinearFilter filterShoot;
+    
     private final CANSparkMax liftLeadLeft;
     private final CANSparkMax liftFollowLeft;
 
@@ -45,13 +47,14 @@ public class EndEffectorSubsystem extends SubsystemBase {
       intakeMotorSpeed = 0; 
       intakeMotorInverted = false; 
       filteredCurrentIntake = 0; 
-      filter= LinearFilter.movingAverage(SubsystemConstants.kSampleSize); 
+      filterIntake = LinearFilter.movingAverage(SubsystemConstants.kIntakeSampleSize); 
 
       shootLead = new CANSparkMax(SubsystemConstants.kShootLead, MotorType.kBrushless);
       shootFollow =  new CANSparkMax(SubsystemConstants.kShootFollow, MotorType.kBrushless);
       shootFollow.follow(shootLead, false);
       shootLead.setIdleMode(IdleMode.kCoast);
       shootFollow.setIdleMode(IdleMode.kCoast); 
+      filterShoot = LinearFilter.movingAverage(SubsystemConstants.kShootSampleSize); 
 
       liftLeadLeft = new CANSparkMax(SubsystemConstants.kLiftLeadLeft, MotorType.kBrushless);
       liftLeadLeft.setInverted(false);
@@ -128,10 +131,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public void liftLeadRightMotorZero(){
   liftLeadRight.set(0); 
   }
-  
-
-
-
 
   public void liftBack(double pose) { 
     liftLeadLeftPIDController.setSetpoint(pose);
@@ -183,7 +182,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic(){
-    filteredCurrentIntake = filter.calculate(intakeMotor.getOutputCurrent());
+    filteredCurrentIntake = filterIntake.calculate(intakeMotor.getOutputCurrent());
+    filteredCurrentShoot = filterShoot.calculate(shootLead.getOutputCurrent());
 
     calculateLiftBack();
     getLiftLeadBackDistance();

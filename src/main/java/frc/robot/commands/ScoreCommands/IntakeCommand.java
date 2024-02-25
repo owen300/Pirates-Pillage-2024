@@ -12,7 +12,7 @@ public class IntakeCommand extends Command{
     private final double speed;
     private final boolean inverted; 
      boolean noteIn = false; 
-    private Debouncer filter_debouncer = new Debouncer(SubsystemConstants.kDebounceTime, Debouncer.DebounceType.kBoth);
+    private Debouncer filter_debouncer = new Debouncer(SubsystemConstants.kIntakeDebounceTime, Debouncer.DebounceType.kBoth);
 
     public IntakeCommand(EndEffectorSubsystem intakeSubsystem, double speed, boolean inverted){
         this.intakeSubsystem = intakeSubsystem; 
@@ -27,27 +27,27 @@ public class IntakeCommand extends Command{
       intakeSubsystem.setIntakeSpeedDirection(speed, inverted);
     }
 
-    @Override 
-    public boolean isFinished(){ 
-        if(SubsystemConstants.kDebounce) {
-            noteIn = true; 
-            SmartDashboard.putBoolean("NoteIn", noteIn); 
-            return filter_debouncer.calculate(EndEffectorSubsystem.filteredCurrentIntake>SubsystemConstants.kCurrentThreshold);
-        } else {
-            noteIn = true; 
-            SmartDashboard.putBoolean("NoteIn", noteIn); 
-            return EndEffectorSubsystem.filteredCurrentIntake > SubsystemConstants.kCurrentThreshold;
-        }
-    }
-    @Override
-    public void end(boolean interrupted){
-      if(interrupted){
-        if((EndEffectorSubsystem.filteredCurrentIntake < SubsystemConstants.kCurrentThreshold) && noteIn) {
-            intakeSubsystem.setIntakeSpeedDirection(0, inverted); 
-        }
-        else {
-            intakeSubsystem.setIntakeSpeedDirection(0, inverted);
-        }
-      }
-    }
+    // @Override 
+    // public boolean isFinished(){ 
+    //     if(SubsystemConstants.kIntakeDebounce) {
+    //         noteIn = true; 
+    //         SmartDashboard.putBoolean("NoteIn", noteIn); 
+    //         return filter_debouncer.calculate(EndEffectorSubsystem.filteredCurrentIntake>SubsystemConstants.kIntakeCurrentThreshold);
+    //     } else {
+    //         noteIn = true; 
+    //         SmartDashboard.putBoolean("NoteIn", noteIn); 
+    //         return EndEffectorSubsystem.filteredCurrentIntake > SubsystemConstants.kIntakeCurrentThreshold;
+    //     }
+    // }
+    // @Override
+    // public void end(boolean interrupted){
+    //   if(interrupted){
+    //     if((EndEffectorSubsystem.filteredCurrentIntake < SubsystemConstants.kIntakeCurrentThreshold) && noteIn) {
+    //         intakeSubsystem.setIntakeSpeedDirection(0, inverted); 
+    //     }
+    //     else {
+    //         intakeSubsystem.setIntakeSpeedDirection(0, inverted);
+    //     }
+    //   }
+    // }
 }
