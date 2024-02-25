@@ -67,7 +67,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
       liftLeadRight = new CANSparkMax(SubsystemConstants.kLiftLeadRight, MotorType.kBrushless);
       liftFollowRight=  new CANSparkMax(SubsystemConstants.kLiftFollowRight, MotorType.kBrushless);
-      liftFollowRight.follow(liftLeadRight, false);
+      liftFollowRight.follow(liftLeadRight, true);
       liftLeadRight.setIdleMode(IdleMode.kCoast);
       liftFollowRight.setIdleMode(IdleMode.kCoast);
       liftLeadRightPIDController = new PIDController(SubsystemConstants.kLiftLeadRightP, SubsystemConstants.kLiftLeadRightI, SubsystemConstants.kLiftLeadRightD);

@@ -12,6 +12,7 @@ import frc.robot.Constants.OIConstants;
 // import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LimelightCommand;
 import frc.robot.commands.ScoreCommands.LiftTest;
+import frc.robot.commands.ScoreCommands.LiftTestZero;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -32,6 +33,7 @@ public class RobotContainer {
 
   //COMMANDS
   LiftTest liftTest = new LiftTest(endEffectorSubsystem);
+  LiftTestZero liftTestZero = new LiftTestZero(endEffectorSubsystem);
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem); 
   LimelightCommand limelightCommand = new LimelightCommand(swerveDriveSubsystem, limelightSubsystem);
 
@@ -44,6 +46,7 @@ public class RobotContainer {
   Trigger xDriverButton = driverController.x(); 
   Trigger yDriverButton = driverController.y(); 
   Trigger leftDriverTrigger = driverController.leftTrigger(); 
+  Trigger leftDriverBumper = driverController.leftBumper(); 
 
 
 
@@ -68,6 +71,10 @@ public class RobotContainer {
     xDriverButton.onTrue(scoreCommands.shootMotorZero());
     yDriverButton.onTrue(scoreCommands.intakeMotorZero());
     leftDriverTrigger.onTrue(liftTest); 
+    leftDriverBumper.onTrue(liftTestZero);
+ 
+
+    
     
 
 
