@@ -54,6 +54,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       shootFollow.setIdleMode(IdleMode.kCoast); 
 
       liftLeadLeft = new CANSparkMax(SubsystemConstants.kLiftLeadLeft, MotorType.kBrushless);
+      liftLeadLeft.setInverted(false);
       liftFollowLeft =  new CANSparkMax(SubsystemConstants.kLiftFollowLeft, MotorType.kBrushless);
       liftFollowLeft.follow(liftLeadLeft, false);
       liftLeadLeft.setIdleMode(IdleMode.kCoast);
@@ -66,6 +67,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftLeadLeftSetpoint = 0; 
 
       liftLeadRight = new CANSparkMax(SubsystemConstants.kLiftLeadRight, MotorType.kBrushless);
+      liftLeadRight.setInverted(true);
       liftFollowRight=  new CANSparkMax(SubsystemConstants.kLiftFollowRight, MotorType.kBrushless);
       liftFollowRight.follow(liftLeadRight, true);
       liftLeadRight.setIdleMode(IdleMode.kCoast);
