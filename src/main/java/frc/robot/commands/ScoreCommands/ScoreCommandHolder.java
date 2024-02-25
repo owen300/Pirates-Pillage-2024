@@ -20,7 +20,7 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command testShoot(){
-        return new ShootCommand(endEffectorSubsystem, 0.5); 
+        return new ShootCommand(endEffectorSubsystem, 0.3); 
     }
 
     public Command testLift(){
