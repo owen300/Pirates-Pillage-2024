@@ -76,7 +76,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftLeadRightPIDController.setSetpoint(0);
      
       liftEncoder = new DutyCycleEncoder(SubsystemConstants.kLiftEncoderChannel); 
-      liftEncoderPosition = liftEncoder.getDistance();
+      liftEncoderPosition = liftEncoder.getAbsolutePosition();
 
       shootLead.burnFlash(); 
       shootFollow.burnFlash(); 
