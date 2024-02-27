@@ -56,9 +56,9 @@ public class EndEffectorSubsystem extends SubsystemBase {
       filterShoot = LinearFilter.movingAverage(SubsystemConstants.kShootSampleSize); 
 
       liftLeadLeft = new CANSparkMax(SubsystemConstants.kLiftLeadLeft, MotorType.kBrushless);
-      liftLeadLeft.setInverted(false);
+      liftLeadLeft.setInverted(true);
       liftFollowLeft =  new CANSparkMax(SubsystemConstants.kLiftFollowLeft, MotorType.kBrushless);
-      liftFollowLeft.follow(liftLeadLeft, false);
+      liftFollowLeft.follow(liftLeadLeft, true);
       liftLeadLeft.setIdleMode(IdleMode.kCoast);
       liftFollowLeft.setIdleMode(IdleMode.kCoast);
       liftLeadLeftPIDController = new PIDController(SubsystemConstants.kLiftLeadLeftP, SubsystemConstants.kLiftLeadLeftI, SubsystemConstants.kLiftLeadLeftD);
@@ -66,9 +66,9 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftLeadLeftPIDController.setSetpoint(0);
 
       liftLeadRight = new CANSparkMax(SubsystemConstants.kLiftLeadRight, MotorType.kBrushless);
-      liftLeadRight.setInverted(true);
+      liftLeadRight.setInverted(false);
       liftFollowRight=  new CANSparkMax(SubsystemConstants.kLiftFollowRight, MotorType.kBrushless);
-      liftFollowRight.follow(liftLeadRight, true);
+      liftFollowRight.follow(liftLeadRight, false);
       liftLeadRight.setIdleMode(IdleMode.kCoast);
       liftFollowRight.setIdleMode(IdleMode.kCoast);
       liftLeadRightPIDController = new PIDController(SubsystemConstants.kLiftLeadRightP, SubsystemConstants.kLiftLeadRightI, SubsystemConstants.kLiftLeadRightD);
