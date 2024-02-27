@@ -28,11 +28,15 @@ public class ScoreCommandHolder extends Command {
         return new LiftCommand(endEffectorSubsystem, 28); 
     }
 
+    public Command liftScoreSpeaker(){
+        return new LiftCommand(endEffectorSubsystem, 3.5); 
+    }
+
 
 
     //intake position -- 
     //compact position -- 
-    //speaker -- 
+
 
 
      

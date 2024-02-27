@@ -43,6 +43,7 @@ public class RobotContainer {
   Trigger yDriverButton = driverController.y(); 
   Trigger leftDriverTrigger = driverController.leftTrigger(); 
   Trigger leftDriverBumper = driverController.leftBumper(); 
+  Trigger rightDriverTrigger = driverController.rightTrigger();
 
 
 
@@ -67,6 +68,7 @@ public class RobotContainer {
     xDriverButton.onTrue(scoreCommands.shootMotorZero());
     yDriverButton.onTrue(scoreCommands.intakeMotorZero());
     leftDriverTrigger.onTrue(scoreCommands.liftScoreAmp()); 
+    rightDriverTrigger.onTrue(scoreCommands.liftScoreSpeaker());
 
 
     
