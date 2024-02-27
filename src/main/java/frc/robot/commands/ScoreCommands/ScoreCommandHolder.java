@@ -28,8 +28,11 @@ public class ScoreCommandHolder extends Command {
         return new LiftCommand(endEffectorSubsystem, 28); 
     }
 
-    public Command liftScoreSpeaker(){
-        return new LiftCommand(endEffectorSubsystem, 3.5); 
+    public SequentialCommandGroup liftScoreSpeaker(){
+        return new SequentialCommandGroup(
+            new LiftCommand(endEffectorSubsystem, 10), 
+            new LiftCommand (endEffectorSubsystem, 3.5)
+        ); 
     }
 
 
