@@ -115,26 +115,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftLeadLeftEncoder.setPosition(0);
   }
 
-  //TEST LIFT CODE TO BE DELETED
-  public void liftLeadLeftMotorTest(){
-    liftLeadLeft.set(0.3);
-  }
-
-  public void liftLeadRightMotorTest(){
-    liftLeadRight.set(0.3);
-  }
-
-  public void liftLeadLeftMotorZero(){
-    liftLeadLeft.set(0); 
-    liftLeadLeftSetpoint = 0;
-  }
-
-  public void liftLeadRightMotorZero(){
-  liftLeadRight.set(0); 
-  liftLeadRightSetpoint = 0;
-  
-  }
-
   public void liftBack(double pose) { 
     liftLeadLeftPIDController.setSetpoint(pose);
     liftLeadLeftSetpoint = pose;
