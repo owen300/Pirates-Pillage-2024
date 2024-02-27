@@ -61,11 +61,11 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command liftScoreAmp(){
-        return new LiftCommand(endEffectorSubsystem, 0.08401); 
+        return new LiftCommand(endEffectorSubsystem, -0.19); 
     }
 
     public Command liftScoreSpeaker(){
-        return new LiftCommand(endEffectorSubsystem, 0.09861); 
+        return new LiftCommand(endEffectorSubsystem, -0.04); 
     }
 
 
