@@ -123,6 +123,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
         outputLift = MathUtil.clamp(liftLeadLeftPIDController.calculate(liftEncoder.getDistance()), -SubsystemConstants.kLiftLeadLeftMaxPower, SubsystemConstants.kLiftLeadLeftMaxPower) ;
     
     liftLeadLeft.set(outputLift);
+    liftLeadRight.set(outputLift);
    
    SmartDashboard.putNumber("Lift Back Output", outputLift);
    SmartDashboard.putNumber("Lift Back Setpoint", liftEncoderSetpoint);
