@@ -29,7 +29,7 @@ public class LiftCommand extends Command{
 
     @Override 
     public boolean isFinished(){
-       return liftSubsystem.getLiftLeadBackDistance() < setPoint + TOLERANCE && liftSubsystem.getLiftLeadFrontDistance() > setPoint - TOLERANCE;
+       return liftSubsystem.getLiftLeadBackDistance() < setPoint + TOLERANCE && liftSubsystem.getLiftLeadBackDistance() > setPoint - TOLERANCE;
     }
     
 }
