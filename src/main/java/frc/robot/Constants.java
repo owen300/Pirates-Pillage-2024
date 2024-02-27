@@ -129,7 +129,7 @@ public final class Constants {
     public static final int kIntakeSampleSize = 5; 
     public static final double kIntakeCurrentThreshold = 7; 
     public static final boolean kIntakeDebounce = false; 
-    public static final double kIntakeDebounceTime = 1; 
+    public static final double kIntakeDebounceTime = 2; 
 
     public static final int kShootLead = 14; 
     public static final int kShootFollow = 13; 
