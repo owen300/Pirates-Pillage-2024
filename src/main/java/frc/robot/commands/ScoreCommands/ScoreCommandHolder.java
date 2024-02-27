@@ -25,7 +25,7 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command liftScoreAmp(){
-        return new LiftCommand(endEffectorSubsystem, 33.5); 
+        return new LiftCommand(endEffectorSubsystem, 28); 
     }
 
 
