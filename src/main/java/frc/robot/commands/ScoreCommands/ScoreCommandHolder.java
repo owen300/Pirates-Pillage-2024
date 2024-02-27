@@ -61,15 +61,14 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command liftScoreAmp(){
-        return new LiftCommand(endEffectorSubsystem, 28); 
+        return new LiftCommand(endEffectorSubsystem, 21); 
     }
 
-    public SequentialCommandGroup liftScoreSpeaker(){
-        return new SequentialCommandGroup(
-            new LiftCommand(endEffectorSubsystem, 10), 
-            new LiftCommand (endEffectorSubsystem, 3.5)
-        ); 
+    public Command liftScoreSpeaker(){
+        return new LiftCommand(endEffectorSubsystem, 1.5); 
     }
+
+
 
     public Command shootMotorZero(){
         return new ShootCommand(endEffectorSubsystem, 0); 
