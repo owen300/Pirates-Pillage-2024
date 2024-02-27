@@ -24,15 +24,14 @@ public class ScoreCommandHolder extends Command {
         return new ShootCommand(endEffectorSubsystem, 0.5); 
     }
 
-    public Command testLift(){
-        return new LiftCommand(endEffectorSubsystem, 18.7); 
+    public Command liftScoreAmp(){
+        return new LiftCommand(endEffectorSubsystem, 33.5); 
     }
 
 
 
     //intake position -- 
     //compact position -- 
-    //amp score -- 
     //speaker -- 
 
 
