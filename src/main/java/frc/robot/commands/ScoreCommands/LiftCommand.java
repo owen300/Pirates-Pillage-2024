@@ -22,14 +22,12 @@ public class LiftCommand extends Command{
 
     @Override 
     public void execute(){
-       liftSubsystem.liftBack(setPoint);
-       liftSubsystem.liftFront(setPoint);
-       
+       liftSubsystem.lift(setPoint);       
     }
 
     @Override 
     public boolean isFinished(){
-       return liftSubsystem.getLiftLeadBackDistance() < setPoint + TOLERANCE && liftSubsystem.getLiftLeadBackDistance() > setPoint - TOLERANCE;
+       return liftSubsystem.getLiftDistance() < setPoint + TOLERANCE && liftSubsystem.getLiftDistance() > setPoint - TOLERANCE;
     }
     
 }
