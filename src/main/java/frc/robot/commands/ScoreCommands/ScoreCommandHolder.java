@@ -20,14 +20,14 @@ public class ScoreCommandHolder extends Command {
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeFirstSetpoint),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSecondSetpoint),
             new IntakeCommand(endEffectorSubsystem, 0.8, false), 
-            new IntakeTimeCommand(endEffectorSubsystem, 0.1, true),
+            new IntakeTimeCommand(endEffectorSubsystem, 0.1, true, 0.5),
             new LiftCommand (endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint)
         ); 
     }
 
       public SequentialCommandGroup shootNote(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false),
+            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
             new ShootCommand(endEffectorSubsystem, 0),
             compactPosition()
         ); 

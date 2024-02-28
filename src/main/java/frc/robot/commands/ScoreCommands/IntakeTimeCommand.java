@@ -7,13 +7,15 @@ public class IntakeTimeCommand extends Command{
 
     private final EndEffectorSubsystem intakeSubsystem;
     private final double speed;
+    private final double time; 
     private final boolean inverted; 
     double startTime;
 
-    public IntakeTimeCommand(EndEffectorSubsystem intakeSubsystem, double speed, boolean inverted){
+    public IntakeTimeCommand(EndEffectorSubsystem intakeSubsystem, double speed, boolean inverted, double time){
         this.intakeSubsystem = intakeSubsystem; 
         this.speed = speed;
         this.inverted = inverted; 
+        this.time = time; 
         addRequirements(intakeSubsystem);
     }
 
@@ -25,7 +27,7 @@ public class IntakeTimeCommand extends Command{
 
     @Override 
     public boolean isFinished(){ 
-        return Timer.getFPGATimestamp() - startTime > 0.5;
+        return Timer.getFPGATimestamp() - startTime > time;
     }
 
     @Override
