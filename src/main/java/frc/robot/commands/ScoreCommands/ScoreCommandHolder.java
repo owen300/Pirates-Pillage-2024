@@ -64,8 +64,10 @@ public class ScoreCommandHolder extends Command {
         return new LiftCommand(endEffectorSubsystem, -0.19); 
     }
 
-    public Command liftScoreSpeaker(){
-        return new LiftCommand(endEffectorSubsystem, -0.04); 
+    public SequentialCommandGroup liftScoreSpeaker(){
+        return new SequentialCommandGroup(
+        new LiftCommand(endEffectorSubsystem, -0.1), 
+        new LiftCommand(endEffectorSubsystem, -0.04));
     }
 
 
