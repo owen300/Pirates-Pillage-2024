@@ -128,7 +128,7 @@ public final class Constants {
     public static final int kIntakeMotorCANID = 15; 
     public static final int kIntakeSampleSize = 5; 
     public static final double kIntakeCurrentThreshold = 10.5; 
-    public static final boolean kIntakeDebounce = false; 
+    public static final boolean kIntakeDebounce = true; 
     public static final double kIntakeDebounceTime = 3; 
 
     public static final int kShootLead = 14; 
