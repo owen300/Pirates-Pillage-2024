@@ -140,14 +140,14 @@ public final class Constants {
 
     public static final int kLiftLeadLeft = 12; 
     public static final int kLiftFollowLeft = 11; 
-    public static final double kLiftLeadLeftP = 7; 
+    public static final double kLiftLeadLeftP = 7.4; 
     public static final double kLiftLeadLeftI = 0.0; 
     public static final double kLiftLeadLeftD = 0;  
     public static final double kLiftLeadLeftMaxPower = 1; 
 
     public static final int kLiftLeadRight = 9; 
     public static final int kLiftFollowRight = 10; 
-    public static final double kLiftLeadRightP = 7; 
+    public static final double kLiftLeadRightP = 7.4; 
     public static final double kLiftLeadRightI = 0.0; 
     public static final double kLiftLeadRightD = 0;  
     public static final double kLiftLeadRightMaxPower = 1; 
