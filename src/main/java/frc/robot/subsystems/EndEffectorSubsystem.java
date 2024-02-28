@@ -133,7 +133,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
   @Override
   public void periodic(){
     filteredCurrentIntake = filterIntake.calculate(intakeMotor.getOutputCurrent());
-    System.out.println("Filtered Current: " + filteredCurrentIntake);
     filteredCurrentShoot = filterShoot.calculate(shootLead.getOutputCurrent());
 
     calculateLift();
