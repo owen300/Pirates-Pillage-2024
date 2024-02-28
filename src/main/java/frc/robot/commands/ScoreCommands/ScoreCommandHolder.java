@@ -20,6 +20,7 @@ public class ScoreCommandHolder extends Command {
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeFirstSetpoint),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSecondSetpoint),
             new IntakeCommand(endEffectorSubsystem, 0.8, false), 
+            new IntakeTimeCommand(endEffectorSubsystem, 0.1, true),
             new LiftCommand (endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint)
         ); 
     }

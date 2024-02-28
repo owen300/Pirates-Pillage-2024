@@ -25,16 +25,16 @@ public class IntakeTimeCommand extends Command{
 
     @Override 
     public boolean isFinished(){ 
-        return Timer.getFPGATimestamp() - startTime > 2;
+        return Timer.getFPGATimestamp() - startTime > 0.5;
     }
 
     @Override
     public void end(boolean interrupted){
       if(interrupted){
-            intakeSubsystem.setIntakeSpeedDirection(0, inverted); 
+            intakeSubsystem.setIntakeSpeedDirection(0, false); 
         }
         else {
-            intakeSubsystem.setIntakeSpeedDirection(0, inverted);
+            intakeSubsystem.setIntakeSpeedDirection(0, false);
         }
     }
 }
