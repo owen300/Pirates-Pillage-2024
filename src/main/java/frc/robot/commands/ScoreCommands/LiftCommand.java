@@ -30,7 +30,7 @@ public class LiftCommand extends Command{
 
     @Override 
     public boolean isFinished(){
-       return (liftSubsystem.getLiftDistance() < setPoint + TOLERANCE && liftSubsystem.getLiftDistance() > setPoint - TOLERANCE) && (Timer.getFPGATimestamp() - startTime > 2);
+       return (liftSubsystem.getLiftDistance() < setPoint + TOLERANCE && liftSubsystem.getLiftDistance() > setPoint - TOLERANCE) && (Timer.getFPGATimestamp() - startTime > 1);
     }
     
 }
