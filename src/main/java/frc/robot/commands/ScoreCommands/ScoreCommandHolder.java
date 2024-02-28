@@ -34,7 +34,7 @@ public class ScoreCommandHolder extends Command {
 
     public SequentialCommandGroup scoreAmp(){
         return new SequentialCommandGroup(
-            new ShootCommand(endEffectorSubsystem, 0.3),
+            new ShootCommand(endEffectorSubsystem, 0.1),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kAmpSetpoint)
         ); 
     }
