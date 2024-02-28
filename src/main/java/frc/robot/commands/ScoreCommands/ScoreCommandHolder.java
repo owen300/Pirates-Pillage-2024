@@ -24,7 +24,7 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-      public SequentialCommandGroup shootSpeaker(){
+      public SequentialCommandGroup shootNote(){
         return new SequentialCommandGroup(
             new IntakeTimeCommand(endEffectorSubsystem, 0.7, false),
             new ShootCommand(endEffectorSubsystem, 0),
@@ -32,17 +32,9 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-    public SequentialCommandGroup shootAmp(){
-        return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 0.3, false),
-            new ShootCommand(endEffectorSubsystem, 0),
-            compactPosition()
-        ); 
-    }
-
     public SequentialCommandGroup scoreAmp(){
         return new SequentialCommandGroup(
-            new ShootCommand(endEffectorSubsystem, 0.8),
+            new ShootCommand(endEffectorSubsystem, 0.3),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kAmpSetpoint)
         ); 
     }

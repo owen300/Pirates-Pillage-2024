@@ -66,8 +66,7 @@ public class RobotContainer {
     aDriverButton.onTrue(scoreCommands.intakeNote());
     leftDriverTrigger.onTrue(scoreCommands.scoreAmp()); 
     rightDriverTrigger.onTrue(scoreCommands.scoreSpeaker());
-    bDriverButton.onTrue(scoreCommands.shootSpeaker());
-    yDriverButton.onTrue(scoreCommands.shootAmp());
+    bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
 
 
