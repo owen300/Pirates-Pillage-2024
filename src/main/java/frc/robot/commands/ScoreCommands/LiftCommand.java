@@ -8,7 +8,7 @@ public class LiftCommand extends Command{
 
     private final EndEffectorSubsystem liftSubsystem;
     private final double setPoint;
-    private final double TOLERANCE = 0.01; 
+    private final double TOLERANCE = 0.5; 
 
     public LiftCommand(EndEffectorSubsystem liftSubsystem, double setpoint){
         this.liftSubsystem = liftSubsystem; 
