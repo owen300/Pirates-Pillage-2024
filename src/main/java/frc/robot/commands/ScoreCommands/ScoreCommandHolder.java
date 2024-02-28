@@ -18,6 +18,7 @@ public class ScoreCommandHolder extends Command {
 
      public SequentialCommandGroup intakeNote(){
         return new SequentialCommandGroup(
+            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeFirstSetpoint),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSetpoint), 
             new IntakeCommand(endEffectorSubsystem, 0.5, isFinished()), 
             new LiftCommand (endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint)
