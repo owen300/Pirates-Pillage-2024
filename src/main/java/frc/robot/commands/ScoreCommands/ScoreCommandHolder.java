@@ -18,7 +18,7 @@ public class ScoreCommandHolder extends Command {
      public SequentialCommandGroup intakeNote(){
         return new SequentialCommandGroup(
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeFirstSetpoint),
-            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSecondSetpoint),
+            // new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSecondSetpoint),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSetpoint), 
             new IntakeCommand(endEffectorSubsystem, 0.5, false), 
             new LiftCommand (endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint)
@@ -29,7 +29,7 @@ public class ScoreCommandHolder extends Command {
         return new SequentialCommandGroup(
             new IntakeTimeCommand(endEffectorSubsystem, 0.7, false),
             new ShootCommand(endEffectorSubsystem, 0),
-            intakeNote()
+            compactPosition()
         ); 
     }
 
@@ -50,7 +50,7 @@ public class ScoreCommandHolder extends Command {
     public SequentialCommandGroup compactPosition(){
         return new SequentialCommandGroup(
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint),
-            new IntakeCommand(endEffectorSubsystem, 0, isFinished()) 
+            new IntakeCommand(endEffectorSubsystem, 0, false ) 
         ); 
     }
 
