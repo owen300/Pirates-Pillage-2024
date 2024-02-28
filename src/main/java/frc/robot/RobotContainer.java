@@ -62,13 +62,13 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-     //Driver Controls
+    //Driver Controls
     aDriverButton.onTrue(scoreCommands.intakeNote());
-    bDriverButton.onTrue(scoreCommands.testShoot());
-    xDriverButton.onTrue(scoreCommands.shootMotorZero());
-    yDriverButton.onTrue(scoreCommands.intakeMotorZero());
-    leftDriverTrigger.onTrue(scoreCommands.liftScoreAmp()); 
-    rightDriverTrigger.onTrue(scoreCommands.liftScoreSpeaker());
+    leftDriverTrigger.onTrue(scoreCommands.scoreAmp()); 
+    rightDriverTrigger.onTrue(scoreCommands.scoreSpeaker());
+    bDriverButton.onTrue(scoreCommands.shootNote());
+    yDriverButton.onTrue(scoreCommands.compactPosition());
+
 
 
     

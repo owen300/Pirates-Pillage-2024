@@ -2,7 +2,6 @@ package frc.robot.commands.ScoreCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
 import frc.robot.Constants.ScoreCommandHolderConstants;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
@@ -19,9 +18,18 @@ public class ScoreCommandHolder extends Command {
      public SequentialCommandGroup intakeNote(){
         return new SequentialCommandGroup(
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeFirstSetpoint),
+            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSecondSetpoint),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSetpoint), 
-            new IntakeCommand(endEffectorSubsystem, 0.5, isFinished()), 
+            new IntakeCommand(endEffectorSubsystem, 0.5, false), 
             new LiftCommand (endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint)
+        ); 
+    }
+
+      public SequentialCommandGroup shootNote(){
+        return new SequentialCommandGroup(
+            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false),
+            new ShootCommand(endEffectorSubsystem, 0),
+            intakeNote()
         ); 
     }
 
@@ -39,11 +47,10 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-     public SequentialCommandGroup shootNote(){
+    public SequentialCommandGroup compactPosition(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false),
-            new ShootCommand(endEffectorSubsystem, 0),
-            new LiftCommand (endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint)
+            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint),
+            new IntakeCommand(endEffectorSubsystem, 0, isFinished()) 
         ); 
     }
 
@@ -52,7 +59,9 @@ public class ScoreCommandHolder extends Command {
 
 
 
+
     //TEST METHODS
+
     public Command testIntake(){
        return new IntakeCommand(endEffectorSubsystem, 0.5, false); 
     }
