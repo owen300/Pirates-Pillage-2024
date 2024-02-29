@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -9,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.AutoCommands.AutoCommandHolder;
 // import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LimelightCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
@@ -69,12 +72,6 @@ public class RobotContainer {
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
 
-
-
-    
-    
-
-
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
@@ -82,8 +79,9 @@ public class RobotContainer {
   }
 
   public void setAutoCommands(){
-    //AutoCommandHolder autos = new AutoCommandHolder(); 
-    //AutoChooser.addOption();
+   AutoBuilder autoBuilder = new AutoBuilder();
+    AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands); 
+    AutoChooser.addOption("DriveBack", autos.driveBack(autoBuilder));
   }
 
   public Command getAutonomousCommand() {
