@@ -59,8 +59,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftLeadLeft.setInverted(true);
       liftFollowLeft =  new CANSparkMax(SubsystemConstants.kLiftFollowLeft, MotorType.kBrushless);
       liftFollowLeft.follow(liftLeadLeft, true);
-      liftLeadLeft.setIdleMode(IdleMode.kCoast);
-      liftFollowLeft.setIdleMode(IdleMode.kCoast);
+      liftLeadLeft.setIdleMode(IdleMode.kBrake);
+      liftFollowLeft.setIdleMode(IdleMode.kBrake);
       liftLeadLeftPIDController = new PIDController(SubsystemConstants.kLiftLeadLeftP, SubsystemConstants.kLiftLeadLeftI, SubsystemConstants.kLiftLeadLeftD);
       liftLeadLeftPIDController.setTolerance(5, 10);
       liftLeadLeftPIDController.setSetpoint(0);
@@ -69,8 +69,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftLeadRight.setInverted(false);
       liftFollowRight=  new CANSparkMax(SubsystemConstants.kLiftFollowRight, MotorType.kBrushless);
       liftFollowRight.follow(liftLeadRight, false);
-      liftLeadRight.setIdleMode(IdleMode.kCoast);
-      liftFollowRight.setIdleMode(IdleMode.kCoast);
+      liftLeadRight.setIdleMode(IdleMode.kBrake);
+      liftFollowRight.setIdleMode(IdleMode.kBrake);
       liftLeadRightPIDController = new PIDController(SubsystemConstants.kLiftLeadRightP, SubsystemConstants.kLiftLeadRightI, SubsystemConstants.kLiftLeadRightD);
       liftLeadRightPIDController.setTolerance(5, 10);
       liftLeadRightPIDController.setSetpoint(0);

@@ -78,7 +78,7 @@ public class RobotContainer {
   }
 
   public void setAutoCommands(){
-    AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands); 
+    AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands, swerveDriveSubsystem); 
     AutoChooser.addOption("DriveBack", autos.driveBack());
   }
 
