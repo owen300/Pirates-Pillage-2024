@@ -66,26 +66,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       });
 
   public SwerveDriveSubsystem() {
-    AutoBuilder.configureHolonomic(
-            this::getPose, 
-            this::resetOdometry, 
-            this::getRobotRelativeSpeeds, 
-            this::driveRobotRelative, 
-            new HolonomicPathFollowerConfig( 
-                    new PIDConstants(Constants.ModuleConstants.kDrivingP, Constants.ModuleConstants.kDrivingI, Constants.ModuleConstants.kDrivingD),
-                    new PIDConstants(Constants.ModuleConstants.kTurningP, Constants.ModuleConstants.kTurningI, Constants.ModuleConstants.kTurningD), 
-                    Constants.DriveConstants.kMaxSpeedMetersPerSecond, 
-                    0.45, 
-                    new ReplanningConfig() 
-            ),
-            () -> {
-              var alliance = DriverStation.getAlliance();
-              if (alliance.isPresent()) {
-                return alliance.get() == DriverStation.Alliance.Red;
-              }
-              return false;
-            },
-            this);
+    
   }
 
 
