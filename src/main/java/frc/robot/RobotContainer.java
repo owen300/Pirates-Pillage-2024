@@ -70,6 +70,8 @@ public class RobotContainer {
     rightDriverTrigger.onTrue(scoreCommands.scoreSpeaker());
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
+    xDriverButton.onTrue(scoreCommands.hang());
+
 
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));

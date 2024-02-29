@@ -56,7 +56,9 @@ public class ScoreCommandHolder extends Command {
 
 
 
-
+    public Command hang(){
+        return new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSetpoint); 
+    }
 
 
 
