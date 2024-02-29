@@ -18,7 +18,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     
-    //m_robotContainer.endEffectorSubsystem.resetliftEncoder();
+    m_robotContainer.endEffectorSubsystem.resetliftEncoder();
   }
 
   @Override
