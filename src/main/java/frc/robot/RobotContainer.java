@@ -79,9 +79,8 @@ public class RobotContainer {
   }
 
   public void setAutoCommands(){
-   AutoBuilder autoBuilder = new AutoBuilder();
     AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands); 
-    AutoChooser.addOption("DriveBack", autos.driveBack(autoBuilder));
+    AutoChooser.addOption("DriveBack", autos.driveBack());
   }
 
   public Command getAutonomousCommand() {
