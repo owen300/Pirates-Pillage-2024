@@ -9,6 +9,7 @@ import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.SubsystemConstants;
 
 
@@ -125,6 +126,32 @@ public class EndEffectorSubsystem extends SubsystemBase {
    SmartDashboard.putNumber("Lift Output", outputLift);
    SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
   }
+
+  public void limelightLift(double speed){
+
+    if((getPose() < Constants.LimelightConstants.kLiftLimitUp) && (getPose() > Constants.LimelightConstants.kLiftLimitDown))
+      liftLeadLeft.set(speed);
+      liftLeadRight.set(speed);
+    if (getPose() > Constants.LimelightConstants.kLiftLimitUp){
+      if(speed > 0){
+        speed = 0; 
+      liftLeadLeft.set(speed);
+      liftLeadRight.set(speed);
+      }
+    }
+    else{
+      if (speed < 0)
+      speed = 0; 
+      liftLeadLeft.set(speed);
+      liftLeadRight.set(speed);
+    }
+
+  }
+
+  public double getPose(){
+    return liftEncoder.getDistance();
+  }
+
 
   @Override
   public void periodic(){

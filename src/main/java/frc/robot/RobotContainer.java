@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 // import frc.robot.commands.AutoCommands.AutoCommandHolder;
-import frc.robot.commands.LimelightCommands.LimelightCommand;
+import frc.robot.commands.LimelightCommands.LiftAimCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -33,12 +33,17 @@ public class RobotContainer {
 
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem); 
-  LimelightCommand limelightCommand = new LimelightCommand(swerveDriveSubsystem, limelightSubsystem);
-
+  LiftAimCommand liftAimCommandUp = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0.5);
+  LiftAimCommand liftAimCommandDown = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, -0.5);
+  LiftAimCommand liftAimCommandStop = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0);
+  
   //TRIGGERS 
   Trigger yButton = coDriverController.y(); 
   Trigger xButton = coDriverController.x(); 
   Trigger aButton = coDriverController.a();
+  Trigger bButton = coDriverController.b();
+  Trigger dpadUpCoDriver = coDriverController.povUp();
+  Trigger dpadDownCoDriver = coDriverController.povDown();
 
   Trigger aDriverButton = driverController.a(); 
   Trigger bDriverButton = driverController.b(); 
@@ -84,6 +89,11 @@ public class RobotContainer {
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     aButton.onTrue(scoreCommands.outtake());
+   
+    dpadUpCoDriver.onTrue(liftAimCommandUp);
+    dpadDownCoDriver.onTrue(liftAimCommandDown);
+    bButton.onTrue(liftAimCommandStop);
+    
 
   }
 

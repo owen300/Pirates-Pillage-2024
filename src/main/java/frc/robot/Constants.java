@@ -178,4 +178,28 @@ public final class Constants {
     public static final int kJoystick2Port = 1;
   }
 
+  public static final class LimelightConstants {
+    public static final double kIdealStrafeValue = 0.4;
+    public static final double kIdealForwardValue = 0.2;
+    public static final double kIdealRotateValue = 0.15;
+
+    public static final double kIdealAreaValue = 2.5;
+    public static final double kAreaRangeValue = 0.3;
+
+    public static final double kP = 0.005;
+
+    public final static double STEER_K = 0.05; // how hard to turn turret
+    public final static double SHOOTER_K = 1.6; // change power of shooter to reach target //1.75
+    public final static double SHOOTER_F = 0;
+    public final static double DESIRED_TARGET_AREA = 0.75; // Area of the target when the robot reaches the wall
+    public final static double MAX_DRIVE = 0.6; // Simple speed limit so we don't drive too fast
+
+
+    public final static double kLiftLimitUp =  -0.083;
+    public final static double kLiftLimitDown =  -0.005;
+
+  }
+
+
+
 }
