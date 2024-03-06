@@ -162,8 +162,7 @@ public final class Constants {
     public static final double kIntakeSecondSetpoint = -0.01; 
     public static final double kCompactSetpoint = -0.083; 
     public static final double kAmpSetpoint = -0.32; 
-    public static final double kSpeakerSetpoint = -0.05;
-    public static final double kSpeakerDistanceSetpoint = -0.07; 
+    public static final double kSpeakerSetpoint = -0.04; 
   }
 
 
