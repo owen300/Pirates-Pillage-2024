@@ -8,7 +8,7 @@ public class LiftSetpointAdjuster extends Command{
     private final EndEffectorSubsystem endEffectorSubsystem; 
     private double setpoint; 
     private boolean up; 
-
+//test
     public LiftSetpointAdjuster(EndEffectorSubsystem endEffectorSubsystem, boolean up){
         this.up = up; 
         this.endEffectorSubsystem = endEffectorSubsystem;
