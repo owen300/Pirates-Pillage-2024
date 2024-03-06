@@ -63,7 +63,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftFollowLeft.setIdleMode(IdleMode.kBrake);
       liftLeadLeftPIDController = new PIDController(SubsystemConstants.kLiftLeadLeftP, SubsystemConstants.kLiftLeadLeftI, SubsystemConstants.kLiftLeadLeftD);
       liftLeadLeftPIDController.setTolerance(5, 10);
-      liftLeadLeftPIDController.setSetpoint(0);
 
       liftLeadRight = new CANSparkMax(SubsystemConstants.kLiftLeadRight, MotorType.kBrushless);
       liftLeadRight.setInverted(false);
@@ -73,8 +72,9 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftFollowRight.setIdleMode(IdleMode.kBrake);
       liftLeadRightPIDController = new PIDController(SubsystemConstants.kLiftLeadRightP, SubsystemConstants.kLiftLeadRightI, SubsystemConstants.kLiftLeadRightD);
       liftLeadRightPIDController.setTolerance(5, 10);
-      liftLeadRightPIDController.setSetpoint(0);
-     
+      lift(-0.245);
+
+
       liftEncoder = new DutyCycleEncoder(SubsystemConstants.kLiftEncoderChannel); 
       liftEncoderPosition = liftEncoder.getAbsolutePosition();
 
@@ -129,12 +129,11 @@ public class EndEffectorSubsystem extends SubsystemBase {
    SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
   }
 
-
   @Override
   public void periodic(){
     filteredCurrentIntake = filterIntake.calculate(intakeMotor.getOutputCurrent());
     filteredCurrentShoot = filterShoot.calculate(shootLead.getOutputCurrent());
-
+    
     calculateLift();
     getLiftDistance();
 

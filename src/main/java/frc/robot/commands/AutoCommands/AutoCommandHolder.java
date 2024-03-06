@@ -9,7 +9,7 @@ public class AutoCommandHolder extends Command{
     
     EndEffectorSubsystem endEffectorSubsystem;
     ScoreCommandHolder scoreCommandHolder;
-    SwerveDriveSubsystem swerveDriveSubsystem; 
+    static SwerveDriveSubsystem swerveDriveSubsystem; 
 
     public AutoCommandHolder(EndEffectorSubsystem endEffectorSubsystem, ScoreCommandHolder scoreCommandHolder, SwerveDriveSubsystem swerveDriveSubsystem){
         this.endEffectorSubsystem = endEffectorSubsystem; 
@@ -19,9 +19,10 @@ public class AutoCommandHolder extends Command{
     
 
     public Command driveBack(){
-       return new DriveCommand(swerveDriveSubsystem);
+       return new DriveCommand(swerveDriveSubsystem, 0.5, 0, 0);
     }
 
+    public void doNothing(){}
 
 
 

@@ -38,6 +38,7 @@ public class RobotContainer {
   //TRIGGERS 
   Trigger yButton = coDriverController.y(); 
   Trigger xButton = coDriverController.x(); 
+  Trigger aButton = coDriverController.a();
 
   Trigger aDriverButton = driverController.a(); 
   Trigger bDriverButton = driverController.b(); 
@@ -46,6 +47,9 @@ public class RobotContainer {
   Trigger leftDriverTrigger = driverController.leftTrigger(); 
   Trigger leftDriverBumper = driverController.leftBumper(); 
   Trigger rightDriverTrigger = driverController.rightTrigger();
+  Trigger rightDriverBumper = driverController.rightBumper();
+  Trigger dpadUpDriver = driverController.povUp();
+  Trigger dpadDownDriver = driverController.povDown();
 
 
 
@@ -71,17 +75,22 @@ public class RobotContainer {
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.hang());
+    rightDriverBumper.onTrue(scoreCommands.scoreSpeakerDistance());
+    dpadDownDriver.onTrue(scoreCommands.liftDown());
+    dpadUpDriver.onTrue(scoreCommands.liftUp());
 
 
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
+    aButton.onTrue(scoreCommands.outtake());
 
   }
 
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands, swerveDriveSubsystem); 
     AutoChooser.addOption("DriveBack", autos.driveBack());
+    AutoChooser.addOption("SpeakerShoot", scoreCommands.autoSpeaker());
   }
 
   public Command getAutonomousCommand() {
