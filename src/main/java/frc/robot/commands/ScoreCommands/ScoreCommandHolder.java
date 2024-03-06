@@ -3,7 +3,7 @@ package frc.robot.commands.ScoreCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
-import frc.robot.commands.AutoCommands.AutoCommandHolder;
+
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
@@ -72,7 +72,7 @@ public class ScoreCommandHolder extends Command {
     }
 
     public SequentialCommandGroup outtake(){
-        return new SequentialCommandGroup( new Outtake(endEffectorSubsystem, 0.5, true), new WaitLittleCommand(), new Outtake(endEffectorSubsystem, 0, true)); 
+        return new SequentialCommandGroup( new Outtake(endEffectorSubsystem, 0.5, true), new WaitCommand(0.05), new Outtake(endEffectorSubsystem, 0, true)); 
     }
 
     public Command hang(){
@@ -80,40 +80,16 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command liftDown(){
-        return new LiftUp(endEffectorSubsystem);
+        return new LiftSetpointAdjuster(endEffectorSubsystem, false);
     }
 
     public Command liftUp(){
-        return new LiftDown(endEffectorSubsystem);
+        return new LiftSetpointAdjuster(endEffectorSubsystem, true);
     }
 
-    
     public SequentialCommandGroup autoSpeaker(){
-        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(), shootNote());
+        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(3), shootNote());
     }
-
-
-    //TEST METHODS
-
-    public Command testIntake(){
-       return new IntakeCommand(endEffectorSubsystem, 0.5, false); 
-    }
-
-    public Command testShoot(){
-        return new ShootCommand(endEffectorSubsystem, 0.8); 
-    }
-
-    public Command liftScoreAmp(){
-        return new LiftCommand(endEffectorSubsystem, -0.19); 
-    }
-
-    public SequentialCommandGroup liftScoreSpeaker(){
-        return new SequentialCommandGroup(
-        new LiftCommand(endEffectorSubsystem, -0.1), 
-        new LiftCommand(endEffectorSubsystem, -0.04));
-    }
-
-
 
     public Command shootMotorZero(){
         return new ShootCommand(endEffectorSubsystem, 0); 

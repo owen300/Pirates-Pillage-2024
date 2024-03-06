@@ -3,12 +3,14 @@ package frc.robot.commands.ScoreCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
-public class LiftUp extends Command{
+public class LiftSetpointAdjuster extends Command{
 
     private final EndEffectorSubsystem endEffectorSubsystem; 
     private double setpoint; 
+    private boolean up; 
 
-    public LiftUp(EndEffectorSubsystem endEffectorSubsystem){
+    public LiftSetpointAdjuster(EndEffectorSubsystem endEffectorSubsystem, boolean up){
+        this.up = up; 
         this.endEffectorSubsystem = endEffectorSubsystem;
     }    
 
@@ -19,7 +21,10 @@ public class LiftUp extends Command{
 
     @Override
     public void execute(){
-        setpoint+= 0.01;
+        if(up = true){
+        setpoint-= 0.05;
+        }
+        else setpoint += 0.01;
     }
 
     @Override 

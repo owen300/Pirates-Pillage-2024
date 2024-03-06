@@ -163,11 +163,8 @@ public final class Constants {
     public static final double kCompactSetpoint = -0.083; 
     public static final double kAmpSetpoint = -0.32; 
     public static final double kSpeakerSetpoint = -0.04; 
+    public static final double kSpeakerDistanceSetpoint = -0.05; 
   }
-
-
-
-
 
   public static final class JoystickConstants {
     public static final int kXStick1 = 0;

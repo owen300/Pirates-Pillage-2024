@@ -69,7 +69,6 @@ public class SwerveSubsystem {
     m_drivingSparkMax.setSmartCurrentLimit(ModuleConstants.kDrivingMotorCurrentLimit);
     m_turningSparkMax.setSmartCurrentLimit(ModuleConstants.kTurningMotorCurrentLimit);
 
-    // save wtvr
     m_drivingSparkMax.burnFlash();
     m_turningSparkMax.burnFlash();
 

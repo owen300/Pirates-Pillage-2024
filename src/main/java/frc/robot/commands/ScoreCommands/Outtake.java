@@ -1,10 +1,7 @@
 package frc.robot.commands.ScoreCommands;
 
-import edu.wpi.first.math.filter.Debouncer;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.EndEffectorSubsystem;
-import static frc.robot.Constants.SubsystemConstants;
 
 public class Outtake extends Command{
 

@@ -86,7 +86,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftFollowRight.burnFlash();
   }
 
-  //INTAKE METHODS
   public void setIntakeSpeedDirection(double intakeMotorSpeed, boolean intakeMotorInverted){
     this.intakeMotorSpeed = intakeMotorSpeed; 
     this.intakeMotorInverted = intakeMotorInverted;
@@ -94,12 +93,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     intakeMotor.setInverted(intakeMotorInverted);
   }
 
-  //SHOOT METHODS
   public void shootLeadMotor(double speed){
     shootLead.set(speed);
   }
 
-  //LIFT METHODS
   public double getLiftDistance(){
     liftEncoderPosition = liftEncoder.getDistance();
     SmartDashboard.putNumber("LiftCurDist", liftEncoderPosition);
