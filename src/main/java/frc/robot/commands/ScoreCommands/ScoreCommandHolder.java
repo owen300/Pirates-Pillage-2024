@@ -3,6 +3,7 @@ package frc.robot.commands.ScoreCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
+import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
@@ -42,7 +43,15 @@ public class ScoreCommandHolder extends Command {
 
     public SequentialCommandGroup scoreSpeaker(){
         return new SequentialCommandGroup(
-            new ShootCommand(endEffectorSubsystem, 0.8),
+            new ShootCommand(endEffectorSubsystem, 0.85),
+            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kSpeakerSetpoint)
+        ); 
+    }
+
+     public SequentialCommandGroup scoreSpeakerAuto(){
+        return new SequentialCommandGroup(
+            new ShootCommand(endEffectorSubsystem, 0.85),
+            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kSpeakerDistanceSetpoint),
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kSpeakerSetpoint)
         ); 
     }
@@ -50,16 +59,38 @@ public class ScoreCommandHolder extends Command {
     public SequentialCommandGroup compactPosition(){
         return new SequentialCommandGroup(
             new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kCompactSetpoint),
-            new IntakeCommand(endEffectorSubsystem, 0, false ) 
+            new IntakeCommand(endEffectorSubsystem, 0, false ),
+            new ShootCommand(endEffectorSubsystem, 0) 
         ); 
     }
 
+     public SequentialCommandGroup scoreSpeakerDistance(){
+        return new SequentialCommandGroup(
+            new ShootCommand(endEffectorSubsystem, 1),
+            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kSpeakerDistanceSetpoint)
+        ); 
+    }
 
+    public SequentialCommandGroup outtake(){
+        return new SequentialCommandGroup( new Outtake(endEffectorSubsystem, 0.5, true), new WaitLittleCommand(), new Outtake(endEffectorSubsystem, 0, true)); 
+    }
 
     public Command hang(){
         return new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSetpoint); 
     }
 
+    public Command liftDown(){
+        return new LiftUp(endEffectorSubsystem);
+    }
+
+    public Command liftUp(){
+        return new LiftDown(endEffectorSubsystem);
+    }
+
+    
+    public SequentialCommandGroup autoSpeaker(){
+        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(), shootNote());
+    }
 
 
     //TEST METHODS
