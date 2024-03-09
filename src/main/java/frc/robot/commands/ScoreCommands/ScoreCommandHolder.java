@@ -3,7 +3,6 @@ package frc.robot.commands.ScoreCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
-
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
@@ -48,13 +47,6 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-     public SequentialCommandGroup scoreSpeakerAuto(){
-        return new SequentialCommandGroup(
-            new ShootCommand(endEffectorSubsystem, 0.85),
-            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kSpeakerDistanceSetpoint),
-            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kSpeakerSetpoint)
-        ); 
-    }
 
     public SequentialCommandGroup compactPosition(){
         return new SequentialCommandGroup(
@@ -64,22 +56,11 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-     public SequentialCommandGroup scoreSpeakerDistance(){
-        return new SequentialCommandGroup(
-            new ShootCommand(endEffectorSubsystem, 1),
-            new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kSpeakerDistanceSetpoint)
-        ); 
-    }
-
     public SequentialCommandGroup outtake(){
         return new SequentialCommandGroup( new Outtake(endEffectorSubsystem, 0.5, true), new WaitCommand(0.05), new Outtake(endEffectorSubsystem, 0, true)); 
     }
 
-    public Command hang(){
-        return new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangSetpoint); 
-    }
-
-    public Command liftDown(){
+     public Command liftDown(){
         return new LiftSetpointAdjuster(endEffectorSubsystem, false);
     }
 
@@ -87,15 +68,16 @@ public class ScoreCommandHolder extends Command {
         return new LiftSetpointAdjuster(endEffectorSubsystem, true);
     }
 
-    public SequentialCommandGroup autoSpeaker(){
-        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(3), shootNote());
-    }
-
     public Command shootMotorZero(){
         return new ShootCommand(endEffectorSubsystem, 0); 
     }
+
     public Command intakeMotorZero(){
         return new IntakeCommand(endEffectorSubsystem, 0, false); 
     }
-   
+
+    public Command hang(){
+        return new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangSetpoint); 
+    }
+ 
 }

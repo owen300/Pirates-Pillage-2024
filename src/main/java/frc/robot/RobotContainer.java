@@ -81,7 +81,7 @@ public class RobotContainer {
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.hang());
-    rightDriverBumper.onTrue(scoreCommands.scoreSpeakerDistance());
+  
     dpadDownDriver.onTrue(scoreCommands.liftDown());
     dpadUpDriver.onTrue(scoreCommands.liftUp());
 
@@ -101,8 +101,8 @@ public class RobotContainer {
 
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands, swerveDriveSubsystem); 
-    AutoChooser.addOption("DriveBack", autos.driveBack());
-    AutoChooser.addOption("SpeakerShoot", scoreCommands.autoSpeaker());
+    AutoChooser.addOption("DriveBack", autos.driveBack(3));
+    AutoChooser.addOption("SpeakerShoot", autos.autoSpeaker());
   }
 
   public Command getAutonomousCommand() {
