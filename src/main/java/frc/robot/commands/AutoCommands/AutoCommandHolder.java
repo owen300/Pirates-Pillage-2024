@@ -37,7 +37,7 @@ public class AutoCommandHolder extends Command{
     }
 
     public SequentialCommandGroup autoCenterSpeakerTaxiIntakeSpeaker(){
-        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(3), shootNoteAuto(), driveBack(3), intakeNoteAuto(), autoSpeaker() );
+        return new SequentialCommandGroup(autoSpeakerTaxi(), intakeNoteAuto(), autoSpeaker() );
     }
 
 
