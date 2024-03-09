@@ -146,15 +146,6 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     double ySpeedDelivered = ySpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
     double rotDelivered = m_currentRotation * DriveConstants.kMaxAngularSpeed;
 
-    if(RobotContainer.coDriverController.a().getAsBoolean()){
-        final var rot_limelight = LimelightSubsystem.limelightAimProportional();
-        rot = rot_limelight;
-
-        final var forward_limelight = LimelightSubsystem.limelightRangeProportional();
-        xSpeed = forward_limelight;
-        fieldRelative = false;
-    }
-
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
@@ -167,6 +158,13 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     m_rearLeft.setDesiredState(swerveModuleStates[2]);
     m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
+
+  public void limelightDrive(){
+    if(RobotContainer.coDriverController.a().getAsBoolean()){
+         drive(LimelightSubsystem.limelightAimProportional(), 0,  LimelightSubsystem.limelightRangeProportional(), false, false);
+    }
+  }
+   
 
   public void setX() {
     m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
