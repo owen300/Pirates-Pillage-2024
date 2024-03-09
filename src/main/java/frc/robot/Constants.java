@@ -157,9 +157,10 @@ public final class Constants {
   }
 
   public static final class ScoreCommandHolderConstants {
-    public static final double kIntakeSetpoint = -0.005; 
+    public static final double kHangSetpoint = -0.01; 
     public static final double kIntakeFirstSetpoint = -0.03; 
     public static final double kIntakeSecondSetpoint = -0.01; 
+    public static final double kIntakeSetpoint = -0.01; 
     public static final double kCompactSetpoint = -0.083; 
     public static final double kAmpSetpoint = -0.32; 
     public static final double kSpeakerSetpoint = -0.04; 

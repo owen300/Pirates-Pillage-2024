@@ -76,7 +76,7 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command hang(){
-        return new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kIntakeSetpoint); 
+        return new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangSetpoint); 
     }
 
     public Command liftDown(){

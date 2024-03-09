@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,7 +38,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
 
-  private final Pigeon2 m_gyro = new Pigeon2(16); //change device ID
+  private final Pigeon2 m_gyro = new Pigeon2(16);
 
   private double m_currentRotation = 0.0;
   private double m_currentTranslationDir = 0.0;
@@ -144,6 +145,15 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     double xSpeedDelivered = xSpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedDelivered = ySpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
     double rotDelivered = m_currentRotation * DriveConstants.kMaxAngularSpeed;
+
+    if(RobotContainer.coDriverController.a().getAsBoolean()){
+        final var rot_limelight = LimelightSubsystem.limelightAimProportional();
+        rot = rot_limelight;
+
+        final var forward_limelight = LimelightSubsystem.limelightRangeProportional();
+        xSpeed = forward_limelight;
+        fieldRelative = false;
+    }
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative

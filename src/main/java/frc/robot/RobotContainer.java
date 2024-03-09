@@ -20,8 +20,8 @@ import frc.robot.subsystems.SwerveDriveSubsystem;
 
 public class RobotContainer {
 
-  CommandXboxController driverController= new CommandXboxController(0); 
-  CommandXboxController coDriverController= new CommandXboxController(1); 
+  public static CommandXboxController driverController= new CommandXboxController(0); 
+  public static CommandXboxController coDriverController= new CommandXboxController(1); 
 
   SendableChooser<Command> AutoChooser = new SendableChooser<>();
 
@@ -44,6 +44,7 @@ public class RobotContainer {
   Trigger bButton = coDriverController.b();
   Trigger dpadUpCoDriver = coDriverController.povUp();
   Trigger dpadDownCoDriver = coDriverController.povDown();
+  // Trigger leftBumperCoDriver = coDriverController.leftBumper(); 
 
   Trigger aDriverButton = driverController.a(); 
   Trigger bDriverButton = driverController.b(); 
@@ -88,11 +89,12 @@ public class RobotContainer {
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
-    aButton.onTrue(scoreCommands.outtake());
+    bButton.onTrue(scoreCommands.outtake());
    
     dpadUpCoDriver.onTrue(liftAimCommandUp);
     dpadDownCoDriver.onTrue(liftAimCommandDown);
-    bButton.onTrue(liftAimCommandStop);
+    // bButton.onTrue(liftAimCommandStop);
+    // leftBumperCoDriver.onTrue(limelightDriveCommand);
     
 
   }

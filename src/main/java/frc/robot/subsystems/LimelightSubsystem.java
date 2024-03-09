@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.LimelightConstants;
 import frc.utils.LimelightUtils;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -10,8 +11,8 @@ public class LimelightSubsystem extends SubsystemBase {
 
     SwerveDriveSubsystem swerveDriveSubsystem; 
     
-    double tx;
-    double ty;
+    static double tx;
+    static double ty;
     double ta;
 
 
@@ -25,12 +26,12 @@ public class LimelightSubsystem extends SubsystemBase {
       ta = LimelightUtils.getTA("");
     }
 
-      public double getTx() {
+      public static double getTx() {
       tx = LimelightUtils.getTX("");
       return tx; 
     }
 
-    public double getTy() {
+    public static double getTy() {
       ty = LimelightUtils.getTY("");
       return ty;  
     }
@@ -142,6 +143,36 @@ public class LimelightSubsystem extends SubsystemBase {
     public boolean alignedToGoal(){
       return ((getTX() <= 1) && (getTX() >= -1));
     }
+
+
+    public static double limelightAimProportional()
+    {    
+      double kP = 0.035;
+  
+      // tx ranges from (-hfov/2) to (hfov/2) in degrees. If your target is on the rightmost edge of 
+      // your limelight 3 feed, tx should return roughly 31 degrees.
+      double targetingAngularVelocity = getTx() * kP;
+      targetingAngularVelocity *= Constants.DriveConstants.kMaxAngularSpeed;
+      targetingAngularVelocity *= -1.0;
+
+      SmartDashboard.putNumber("targetingAngularVelocity", targetingAngularVelocity); 
+      return targetingAngularVelocity;
+    }
+
+
+  public static double limelightRangeProportional()
+  {    
+    double kP = 0.1;
+    double targetingForwardSpeed = getTy() * kP;
+    targetingForwardSpeed *= Constants.DriveConstants.kMaxSpeedMetersPerSecond;
+    targetingForwardSpeed *= -1.0;
+
+    SmartDashboard.putNumber("targetingForwardSpeed", targetingForwardSpeed); 
+    return targetingForwardSpeed;
+  }
+
+
+
 
     @Override
     public void periodic(){

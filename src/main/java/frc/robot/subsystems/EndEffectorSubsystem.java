@@ -123,8 +123,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftLeadLeft.set(outputLift);
     liftLeadRight.set(outputLift);
    
-   SmartDashboard.putNumber("Lift Output", outputLift);
-   SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
+  //  SmartDashboard.putNumber("Lift Output", outputLift);
+  //  SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
   }
 
   public void limelightLift(double speed){

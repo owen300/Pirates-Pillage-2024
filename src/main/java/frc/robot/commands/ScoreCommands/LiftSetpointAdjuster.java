@@ -7,7 +7,7 @@ public class LiftSetpointAdjuster extends Command{
 
     private final EndEffectorSubsystem endEffectorSubsystem; 
     private double setpoint; 
-    private boolean up; 
+    boolean up; 
     
     public LiftSetpointAdjuster(EndEffectorSubsystem endEffectorSubsystem, boolean up){
         this.up = up; 
@@ -21,8 +21,8 @@ public class LiftSetpointAdjuster extends Command{
 
     @Override
     public void execute(){
-        if(up = true){
-        setpoint-= 0.05;
+        if(up == true){
+        setpoint-= 0.03;
         }
         else setpoint += 0.01;
     }
