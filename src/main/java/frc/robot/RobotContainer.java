@@ -101,8 +101,10 @@ public class RobotContainer {
 
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands, swerveDriveSubsystem); 
-    AutoChooser.addOption("DriveBack", autos.driveBack(3));
-    AutoChooser.addOption("SpeakerShoot", autos.autoSpeaker());
+    AutoChooser.addOption("DriveBack", autos.driveBack(3)); //anywhere
+    AutoChooser.addOption("Speaker", autos.autoSpeaker()); //anywhere
+    AutoChooser.addOption("SpeakerTaxi", autos.autoSpeakerTaxi()); //anywhere with caution--prefferably center
+    AutoChooser.addOption("2-SpeakerTaxi", autos.autoCenterSpeakerTaxiIntakeSpeaker()); //center only
   }
 
   public Command getAutonomousCommand() {
