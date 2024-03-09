@@ -154,6 +154,8 @@ public final class Constants {
 
     public static final int kLiftEncoderChannel = 0; 
 
+    public static final int kHangMotorCANID = 17; 
+
   }
 
   public static final class ScoreCommandHolderConstants {
