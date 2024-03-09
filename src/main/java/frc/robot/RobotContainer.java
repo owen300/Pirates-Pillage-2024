@@ -61,14 +61,14 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
-     swerveDriveSubsystem.setDefaultCommand(
-        new RunCommand(
-            () -> swerveDriveSubsystem.drive(
-                -MathUtil.applyDeadband(driverController.getLeftY(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(driverController.getLeftX(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(driverController.getRightX(), OIConstants.kDriveDeadband),
-                true, true),
-            swerveDriveSubsystem));
+    //  swerveDriveSubsystem.setDefaultCommand(
+    //     new RunCommand(
+    //         () -> swerveDriveSubsystem.drive(
+    //             -MathUtil.applyDeadband(driverController.getLeftY(), OIConstants.kDriveDeadband),
+    //             -MathUtil.applyDeadband(driverController.getLeftX(), OIConstants.kDriveDeadband),
+    //             -MathUtil.applyDeadband(driverController.getRightX(), OIConstants.kDriveDeadband),
+    //             true, true),
+    //         swerveDriveSubsystem));
     setAutoCommands();
     SmartDashboard.putData("Autos", AutoChooser);
   }

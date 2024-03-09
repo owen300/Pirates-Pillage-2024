@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.Pigeon2;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -11,6 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
@@ -159,11 +162,43 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
 
-  public void limelightDrive(){
-    if(RobotContainer.coDriverController.a().getAsBoolean()){
-         drive(LimelightSubsystem.limelightAimProportional(), 0,  LimelightSubsystem.limelightRangeProportional(), false, false);
+  //TEST Second
+  // public void limelightDrive(){
+  //   if(RobotContainer.coDriverController.a().getAsBoolean()){
+  //        drive(LimelightSubsystem.limelightAimProportional(), 0,  LimelightSubsystem.limelightRangeProportional(), false, false);
+  //   }
+  // }
+
+  //TEST and fix FIRST
+  public void driveLimelight(boolean fieldRelative) {
+   
+    double xSpeed =
+        -m_magLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getLeftY(), 0.02))
+            * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
+
+    double ySpeed =
+        -m_magLimiter.calculate(-MathUtil.applyDeadband(RobotContainer.driverController.getLeftX(), 0.02))
+            * Constants.DriveConstants.kMaxSpeedMetersPerSecond;
+
+    double rot =
+        -m_rotLimiter.calculate(MathUtil.applyDeadband(RobotContainer.driverController.getRightX(), 0.02))
+            * Constants.DriveConstants.kMaxAngularSpeed;
+
+    if(RobotContainer.coDriverController.a().getAsBoolean())
+    {
+        final double rot_limelight = LimelightSubsystem.limelightAimProportional();
+        rot = rot_limelight;
+
+        final double forward_limelight = LimelightSubsystem.limelightRangeProportional();
+        xSpeed = forward_limelight;
+
+        fieldRelative = false;
     }
+
+   drive(xSpeed, ySpeed, rot, fieldRelative, true);
   }
+
+
    
 
   public void setX() {
