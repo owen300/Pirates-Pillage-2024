@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
+import frc.robot.commands.HangCommands.HangCommandHolder;
 import frc.robot.commands.LimelightCommands.LiftAimCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
@@ -33,7 +34,8 @@ public class RobotContainer {
   
 
   //COMMANDS
-  ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem, hangSubsystem); 
+  ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem); 
+  HangCommandHolder hangCommandHolder = new HangCommandHolder(hangSubsystem); 
   LiftAimCommand liftAimCommandUp = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0.5);
   LiftAimCommand liftAimCommandDown = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, -0.5);
   LiftAimCommand liftAimCommandStop = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0);
@@ -91,8 +93,8 @@ public class RobotContainer {
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
-    aButton.onTrue(scoreCommands.hang());
- 
+    aButton.onTrue(hangCommandHolder.hang(0.1)); aButton.onFalse(hangCommandHolder.hang(-0.1));
+    
     
 
   }

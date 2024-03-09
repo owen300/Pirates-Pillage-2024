@@ -18,8 +18,8 @@ public class HangSubsystem extends SubsystemBase {
         hangMotor.burnFlash(); 
     }
 
-    public void hang(){
-        hangMotor.set(0.5);
+    public void hang(double speed){
+        hangMotor.set(speed);
     }
 
 }

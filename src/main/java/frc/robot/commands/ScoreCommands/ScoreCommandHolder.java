@@ -4,18 +4,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
 import frc.robot.subsystems.EndEffectorSubsystem;
-import frc.robot.subsystems.HangSubsystem;
 
 
 public class ScoreCommandHolder extends Command {
 
     private final EndEffectorSubsystem endEffectorSubsystem;
-    private final HangSubsystem hangSubsystem; 
     
 
-    public ScoreCommandHolder(EndEffectorSubsystem endEffectorSubsystem, HangSubsystem hangSubsystem){
+    public ScoreCommandHolder(EndEffectorSubsystem endEffectorSubsystem){
         this.endEffectorSubsystem = endEffectorSubsystem; 
-        this.hangSubsystem = hangSubsystem; 
     }
 
      public SequentialCommandGroup intakeNote(){
@@ -56,10 +53,6 @@ public class ScoreCommandHolder extends Command {
             new IntakeCommand(endEffectorSubsystem, 0, false ),
             new ShootCommand(endEffectorSubsystem, 0) 
         ); 
-    }
-
-    public Command hang(){
-        return new HangCommand(hangSubsystem); 
     }
 
     public SequentialCommandGroup outtake(){
