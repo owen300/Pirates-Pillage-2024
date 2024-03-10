@@ -11,11 +11,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
-import frc.robot.commands.HangCommands.HangCommandHolder;
 import frc.robot.commands.LimelightCommands.LiftAimCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
-import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
@@ -28,17 +26,14 @@ public class RobotContainer {
 
   //SUBSYSTEM
   EndEffectorSubsystem endEffectorSubsystem = new EndEffectorSubsystem();
-  HangSubsystem hangSubsystem = new HangSubsystem(); 
   LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem();
   
 
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
-  HangCommandHolder hangCommandHolder = new HangCommandHolder(hangSubsystem, endEffectorSubsystem); 
-  LiftAimCommand liftAimCommandUp = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0.5);
-  LiftAimCommand liftAimCommandDown = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, -0.5);
-  LiftAimCommand liftAimCommandStop = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0);
+
+  LiftAimCommand liftAimCommand = new LiftAimCommand(limelightSubsystem);
   
 
 
@@ -98,12 +93,9 @@ public class RobotContainer {
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
-    //bButton.onTrue(scoreCommands.outtake());
-    //aButton.onTrue(hangCommandHolder.hang());
+    bButton.onTrue(scoreCommands.outtake());
+    aButton.onTrue(liftAimCommand);
 
-    aButton.onTrue(hangCommandHolder.hangTest(0.3)); //CHANGE BUTTON
-    bButton.onTrue(hangCommandHolder.hangTest(-0.3)); //CHANGE BUTTON
-    rightTriggerCoDriver.onTrue(hangCommandHolder.hangTest(0)); //CHANGE BUTTON
     
 
   }

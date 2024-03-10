@@ -172,8 +172,8 @@ public class LimelightSubsystem extends SubsystemBase {
   // }
 
 
-
-
+    //NEW CODE START
+    //implementation?
   public boolean isTargetVisible() {
     NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
         
@@ -183,17 +183,16 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public double calculateDistanceToTarget() {
-    final double TARGET_HEIGHT = 1.8; //height to get in note
+    final double TARGET_HEIGHT = 1.8; //height to get in note in speaker
     final double LIMELIGHT_MOUNT_ANGLE = 85; // may have to adjust
     final double LIMELIGHT_LENS_HEIGHT = 0.3; // good
 
-    // Get the vertical angle to the target from Limelight
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
 
-    // Calculate the angle in radians
-    double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + ty);
+    // radians
+    double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty * 49.7));
 
-    // Calculate the distance to the target
+    // distance to target
     double distance = (TARGET_HEIGHT - LIMELIGHT_LENS_HEIGHT) / Math.tan(angleToTargetRadians);
 
     return distance;
@@ -204,17 +203,15 @@ public class LimelightSubsystem extends SubsystemBase {
     final double ANGLE_OFFSET = 15.0; // Base angle of the shooter when at minimum distance
     final double ANGLE_SCALE = 0.1; // Change in angle per unit of distance
 
-    // Calculate the desired angle based on the distance
+    // desired angle based on distance
     double angle = ANGLE_OFFSET + (ANGLE_SCALE * calculateDistanceToTarget());
 
-    // Ensure the calculated angle is within the physical limits of the shooter
-    double constrainedAngle = Math.max(Math.min(angle, 45), 15);
+    // ensure within limits
+    double constrainedAngle = Math.max(Math.min(angle, 0.78), 0.26); 
 
-    //change the angle to be encoder val need to get the angle to be equal to an encoder value distance
-    
 
-    // Code to set the shooter to the desired angle
-   EndEffectorSubsystem.lift(setpoint); //lift setpoint? figure out what to do here????? change angle to be encoder values
+    // Code to set the shooter to the desired angle ?????????? Encoder????
+    EndEffectorSubsystem.lift(-constrainedAngle); //lift setpoint? figure out what to do here????? change angle to be encoder values
   } 
 
 
@@ -222,16 +219,20 @@ public class LimelightSubsystem extends SubsystemBase {
     final double SPEED_OFFSET = 0.85; // Base speed of the shooter when at minimum distance (in RPM)
     final double SPEED_SCALE = 0.3; // Increase in speed per unit of distance (in RPM per meter)
 
-    // Calculate the desired speed based on the distance
+    // desired speed based on distance
     double speed = SPEED_OFFSET + (SPEED_SCALE * calculateDistanceToTarget());
 
-    // Ensure the calculated speed is within the physical limits of the shooter
+    // ensure within limits
     double constrainedSpeed = Math.max(Math.min(speed, 1), 0.85);
 
-    // Code to set the shooter to the desired speed
-    // This could involve setting the speed of a motor controller, for example:
+    // set the shooter to the desired speed ???? is this correct?????????
     EndEffectorSubsystem.shootLeadMotor(constrainedSpeed); //shoot speed
   }
+
+  //how should i call all of this?? 
+  //Goal: have lift auto adjust angle and while driving to ensure it is always at an angle to shoot
+  //then when press shoot button the speed should be whatever is calculated at that distance
+
 
 
 

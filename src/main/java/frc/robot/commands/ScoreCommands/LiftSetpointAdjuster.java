@@ -34,7 +34,7 @@ public class LiftSetpointAdjuster extends Command{
 
     @Override
     public void end(boolean interrupted){
-        endEffectorSubsystem.lift(setpoint);
+        EndEffectorSubsystem.lift(setpoint);
 
     }
 

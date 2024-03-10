@@ -24,7 +24,7 @@ public class ShootCommand extends Command{
 
     @Override 
     public void execute(){
-      shootSubsystem.shootLeadMotor(speed);
+      EndEffectorSubsystem.shootLeadMotor(speed);
     }
 
      @Override 

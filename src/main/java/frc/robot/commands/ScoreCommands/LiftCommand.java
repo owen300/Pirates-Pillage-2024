@@ -25,7 +25,7 @@ public class LiftCommand extends Command{
 
     @Override 
     public void execute(){
-       liftSubsystem.lift(setPoint);       
+       EndEffectorSubsystem.lift(setPoint);       
     }
 
     @Override 

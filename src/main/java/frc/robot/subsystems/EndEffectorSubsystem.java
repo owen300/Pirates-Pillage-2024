@@ -77,6 +77,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
 
       liftEncoder = new DutyCycleEncoder(SubsystemConstants.kLiftEncoderChannel); 
+
+      liftEncoder.setDistancePerRotation(Math.toRadians(360));
       liftEncoderPosition = liftEncoder.getAbsolutePosition();
 
       shootLead.burnFlash(); 
@@ -123,8 +125,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftLeadLeft.set(outputLift);
     liftLeadRight.set(outputLift);
    
-  //  SmartDashboard.putNumber("Lift Output", outputLift);
-  //  SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
+   SmartDashboard.putNumber("Lift Output", outputLift);
+   SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
   }
 
   public void limelightLift(double speed){
