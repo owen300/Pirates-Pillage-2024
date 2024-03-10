@@ -7,11 +7,13 @@ import frc.robot.subsystems.HangSubsystem;
 public class HangCommand extends Command{
 
     private final HangSubsystem hangSubsystem;
-    double speed; 
+    private final double setPoint;
+    private final double TOLERANCE = 0.5; 
+    double startTime;
 
-    public HangCommand(HangSubsystem hangSubsystem, double speed){
+    public HangCommand(HangSubsystem hangSubsystem, double setpoint){
         this.hangSubsystem = hangSubsystem; 
-        this.speed = speed; 
+        this.setPoint = setpoint;
         addRequirements(hangSubsystem);
     }
 
@@ -20,7 +22,12 @@ public class HangCommand extends Command{
 
     @Override 
     public void execute(){
-       hangSubsystem.hang(speed);       
+       hangSubsystem.hang(setPoint);       
+    }
+
+    @Override 
+    public boolean isFinished(){
+       return (hangSubsystem.getHangDistance() < setPoint + TOLERANCE && hangSubsystem.getHangDistance() > setPoint - TOLERANCE);
     }
     
 }

@@ -125,6 +125,9 @@ public final class Constants {
   }
 
   public static final class SubsystemConstants {
+
+    public static final double kLiftInitializedSetpoint = -0.245; 
+
     public static final int kIntakeMotorCANID = 15; 
     public static final int kIntakeSampleSize = 5; 
     public static final double kIntakeCurrentThreshold = 7; 
@@ -156,6 +159,12 @@ public final class Constants {
 
     public static final int kHangMotorCANID = 17; 
 
+    public static final double kHangP = 1; 
+    public static final double kHangI = 0.0; 
+    public static final double kHangD = 0;  
+
+    public static final double kHangMaxPower = 0.3;  
+
   }
 
   public static final class ScoreCommandHolderConstants {
@@ -167,6 +176,12 @@ public final class Constants {
     public static final double kAmpSetpoint = -0.32; 
     public static final double kSpeakerSetpoint = -0.04; 
     public static final double kSpeakerDistanceSetpoint = -0.05; 
+  }
+
+  public static final class HangCommandHolderConstants {
+
+    public static final double kHangUpSetpoint = 0; 
+    public static final double kHangDownSetpoint = 0; 
   }
 
   public static final class JoystickConstants {

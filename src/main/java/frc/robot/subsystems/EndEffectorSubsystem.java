@@ -73,7 +73,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftFollowRight.setIdleMode(IdleMode.kBrake);
       liftLeadRightPIDController = new PIDController(SubsystemConstants.kLiftLeadRightP, SubsystemConstants.kLiftLeadRightI, SubsystemConstants.kLiftLeadRightD);
       liftLeadRightPIDController.setTolerance(5, 10);
-      lift(-0.245);
+      lift(Constants.SubsystemConstants.kLiftInitializedSetpoint);
 
 
       liftEncoder = new DutyCycleEncoder(SubsystemConstants.kLiftEncoderChannel); 
