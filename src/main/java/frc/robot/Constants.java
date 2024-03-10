@@ -163,6 +163,8 @@ public final class Constants {
     public static final double kHangI = 0.0; 
     public static final double kHangD = 0;  
 
+    public static final int kHangEncoderChannel = 1; //CHANGE
+
     public static final double kHangMaxPower = 0.3;  
 
   }
@@ -180,9 +182,9 @@ public final class Constants {
 
   public static final class HangCommandHolderConstants {
 
-    public static final double kHangUpSetpoint = 0; 
-    public static final double kHangDownSetpoint = 0; 
-  }
+    public static final double kHangUpSetpoint = 0;  //CHANGE
+    public static final double kHangDownSetpoint = 0; //CHANGE
+  } 
 
   public static final class JoystickConstants {
     public static final int kXStick1 = 0;

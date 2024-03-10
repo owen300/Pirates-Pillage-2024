@@ -34,12 +34,15 @@ public class RobotContainer {
   
 
   //COMMANDS
-  ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem); 
+  ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
   HangCommandHolder hangCommandHolder = new HangCommandHolder(hangSubsystem, endEffectorSubsystem); 
   LiftAimCommand liftAimCommandUp = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0.5);
   LiftAimCommand liftAimCommandDown = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, -0.5);
   LiftAimCommand liftAimCommandStop = new LiftAimCommand(endEffectorSubsystem, limelightSubsystem, 0);
   
+
+
+
   //TRIGGERS 
   Trigger yButton = coDriverController.y(); 
   Trigger xButton = coDriverController.x(); 
@@ -48,6 +51,9 @@ public class RobotContainer {
   Trigger dpadUpCoDriver = coDriverController.povUp();
   Trigger dpadDownCoDriver = coDriverController.povDown();
   Trigger leftBumperCoDriver = coDriverController.leftBumper(); 
+  Trigger rightBumperCoDriver = coDriverController.rightBumper(); 
+  Trigger rightTriggerCoDriver = coDriverController.rightTrigger(); 
+
 
   Trigger aDriverButton = driverController.a(); 
   Trigger bDriverButton = driverController.b(); 
@@ -64,14 +70,14 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
-    //  swerveDriveSubsystem.setDefaultCommand(
-    //     new RunCommand(
-    //         () -> swerveDriveSubsystem.drive(
-    //             -MathUtil.applyDeadband(driverController.getLeftY(), OIConstants.kDriveDeadband),
-    //             -MathUtil.applyDeadband(driverController.getLeftX(), OIConstants.kDriveDeadband),
-    //             -MathUtil.applyDeadband(driverController.getRightX(), OIConstants.kDriveDeadband),
-    //             true, true),
-    //         swerveDriveSubsystem));
+     swerveDriveSubsystem.setDefaultCommand(
+        new RunCommand(
+            () -> swerveDriveSubsystem.drive(
+                -MathUtil.applyDeadband(driverController.getLeftY(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(driverController.getLeftX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(driverController.getRightX(), OIConstants.kDriveDeadband),
+                true, true),
+            swerveDriveSubsystem));
     setAutoCommands();
     SmartDashboard.putData("Autos", AutoChooser);
   }
@@ -92,8 +98,12 @@ public class RobotContainer {
     //Co-Driver Controls
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
-    bButton.onTrue(scoreCommands.outtake());
-    aButton.onTrue(hangCommandHolder.hang());
+    //bButton.onTrue(scoreCommands.outtake());
+    //aButton.onTrue(hangCommandHolder.hang());
+
+    aButton.onTrue(hangCommandHolder.hangTest(0.3)); //CHANGE BUTTON
+    bButton.onTrue(hangCommandHolder.hangTest(-0.3)); //CHANGE BUTTON
+    rightTriggerCoDriver.onTrue(hangCommandHolder.hangTest(0)); //CHANGE BUTTON
     
 
   }

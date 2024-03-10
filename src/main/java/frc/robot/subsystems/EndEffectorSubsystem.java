@@ -22,7 +22,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     public LinearFilter filterIntake;
 
 
-    private final CANSparkMax shootLead;
+    private static CANSparkMax shootLead;
     private final CANSparkMax shootFollow;
     public static double filteredCurrentShoot;
     public LinearFilter filterShoot;
@@ -34,12 +34,12 @@ public class EndEffectorSubsystem extends SubsystemBase {
     private final CANSparkMax liftLeadRight;
     private final CANSparkMax liftFollowRight;
 
-    PIDController liftLeadLeftPIDController; 
+    static PIDController liftLeadLeftPIDController; 
     PIDController liftLeadRightPIDController; 
 
     DutyCycleEncoder liftEncoder;
     double liftEncoderPosition; 
-    double liftEncoderSetpoint; 
+    static double liftEncoderSetpoint; 
    
 
     public EndEffectorSubsystem(){
@@ -94,7 +94,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     intakeMotor.setInverted(intakeMotorInverted);
   }
 
-  public void shootLeadMotor(double speed){
+  public static void shootLeadMotor(double speed){
     shootLead.set(speed);
   }
 
@@ -108,7 +108,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     liftEncoder.reset();
   }
 
-  public void lift(double pose) { 
+  public static void lift(double pose) { 
     liftLeadLeftPIDController.setSetpoint(pose);
     liftEncoderSetpoint = pose;
  }

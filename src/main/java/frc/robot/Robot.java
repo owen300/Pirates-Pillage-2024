@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     
     m_robotContainer.endEffectorSubsystem.resetliftEncoder();
+    m_robotContainer.hangSubsystem.resetHangEncoder();
   }
 
   @Override
@@ -59,7 +60,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     
      m_robotContainer.swerveDriveSubsystem.getRoll();
-     m_robotContainer.swerveDriveSubsystem.driveLimelight(true);
+    //  m_robotContainer.swerveDriveSubsystem.driveLimelight(true);
   }
 
  
