@@ -141,7 +141,7 @@ public class LimelightSubsystem extends SubsystemBase {
     }
 
     public boolean alignedToGoal(){
-      return ((getTX() <= 1) && (getTX() >= -1));
+      return ((getTY() <= 1) && (getTY() >= -1));
     }
 
 

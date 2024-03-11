@@ -180,6 +180,19 @@ public final class Constants {
     public static final double kHangDownSetpoint = 0; //CHANGE
   }
 
+  public static final class BlinkinConstants{
+    public static final int kBlinkinPort = 1;
+
+    //colors
+    public static final double kRed = 0.61;
+    public static final double kOrange = 0.65;
+    public static final double kYellow = 0.69;
+    public static final double kGreen = 0.77;
+    public static final double kBlue = 0.87;
+    public static final double kViolet = 0.91;
+    public static final double kWhite = 0.93;
+    public static final double kBlack = 0.99;
+}
 
   public static final class JoystickConstants {
     public static final int kXStick1 = 0;
