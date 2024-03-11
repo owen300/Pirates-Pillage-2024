@@ -182,52 +182,68 @@ public class LimelightSubsystem extends SubsystemBase {
     return targetVisible == 1;
   }
 
-  public double calculateDistanceToTarget() {
-    final double TARGET_HEIGHT = 1.8; //height to get in note in speaker
-    final double LIMELIGHT_MOUNT_ANGLE = 85; // may have to adjust
-    final double LIMELIGHT_LENS_HEIGHT = 0.3; // good
+  // public double calculateDistanceToTarget() {
+  //   final double TARGET_HEIGHT = 1.8; //height to get in note in speaker
+  //   final double LIMELIGHT_MOUNT_ANGLE = 85; // may have to adjust
+  //   final double LIMELIGHT_LENS_HEIGHT = 0.3; // good
 
-    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
+  //   double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
 
-    // radians
-    double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty * 49.7));
+  //   // radians
+  //   double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty * 49.7));
 
-    // distance to target
-    double distance = (TARGET_HEIGHT - LIMELIGHT_LENS_HEIGHT) / Math.tan(angleToTargetRadians);
+  //   // distance to target
+  //   double distance = (TARGET_HEIGHT - LIMELIGHT_LENS_HEIGHT) / Math.tan(angleToTargetRadians);
 
-    return distance;
-  }
-
-
-  public void setShooterAngle() {
-    final double ANGLE_OFFSET = 15.0; // Base angle of the shooter when at minimum distance
-    final double ANGLE_SCALE = 0.1; // Change in angle per unit of distance
-
-    // desired angle based on distance
-    double angle = ANGLE_OFFSET + (ANGLE_SCALE * calculateDistanceToTarget());
-
-    // ensure within limits
-    double constrainedAngle = Math.max(Math.min(angle, 0.78), 0.26); 
+  //   return distance;
+  // }
 
 
-    // Code to set the shooter to the desired angle ?????????? Encoder????
-    EndEffectorSubsystem.lift(-constrainedAngle); //lift setpoint? figure out what to do here????? change angle to be encoder values
+  public void setShooterAngle() {   
+    EndEffectorSubsystem.lift(getEncoderTarget());
   } 
 
+  public static double getEncoderTarget(){
 
-  public void setShooterSpeed() {
-    final double SPEED_OFFSET = 0.85; // Base speed of the shooter when at minimum distance (in RPM)
-    final double SPEED_SCALE = 0.3; // Increase in speed per unit of distance (in RPM per meter)
+    final double LIMELIGHT_MOUNT_ANGLE = 75; 
+    final int MIN_ENCODER_VALUE = 0; 
+    final double MAX_ENCODER_VALUE = 0.6;
 
-    // desired speed based on distance
-    double speed = SPEED_OFFSET + (SPEED_SCALE * calculateDistanceToTarget());
+    // final double ANGLE_OFFSET = 10; 
+    // final double ANGLE_SCALE = 1; 
 
-    // ensure within limits
-    double constrainedSpeed = Math.max(Math.min(speed, 1), 0.85);
+    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    SmartDashboard.putNumber("TV", tv);
 
-    // set the shooter to the desired speed ???? is this correct?????????
-    EndEffectorSubsystem.shootLeadMotor(constrainedSpeed); //shoot speed
+    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
+   // double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0.0);
+    
+    
+    // double angleToTargetRadians = (Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty * 49.7)) * ANGLE_SCALE) + ANGLE_OFFSET;
+    double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty*49.7)); //add angle offset here radians
+
+   
+    double encoderTarget = (angleToTargetRadians / (Math.PI / 2.0)) * (MAX_ENCODER_VALUE - MIN_ENCODER_VALUE) + MIN_ENCODER_VALUE;
+    encoderTarget = Math.max(Math.min(encoderTarget, MAX_ENCODER_VALUE), MIN_ENCODER_VALUE);
+
+    return -encoderTarget; 
+
   }
+
+
+  // public void setShooterSpeed() {
+  //   final double SPEED_OFFSET = 0.85; // Base speed of the shooter when at minimum distance (in RPM)
+  //   final double SPEED_SCALE = 0.3; // Increase in speed per unit of distance (in RPM per meter)
+
+  //   // desired speed based on distance
+  //   double speed = SPEED_OFFSET + (SPEED_SCALE * calculateDistanceToTarget());
+
+  //   // ensure within limits
+  //   double constrainedSpeed = Math.max(Math.min(speed, 1), 0.85);
+
+  //   // set the shooter to the desired speed ???? is this correct?????????
+  //   EndEffectorSubsystem.shootLeadMotor(constrainedSpeed); //shoot speed
+  // }
 
   //how should i call all of this?? 
   //Goal: have lift auto adjust angle and while driving to ensure it is always at an angle to shoot

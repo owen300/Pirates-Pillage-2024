@@ -143,7 +143,7 @@ public final class Constants {
 
     public static final int kLiftLeadLeft = 12; 
     public static final int kLiftFollowLeft = 11; 
-    public static final double kLiftLeadLeftP = 7.4; 
+    public static final double kLiftLeadLeftP = 1; 
     public static final double kLiftLeadLeftI = 0.0; 
     public static final double kLiftLeadLeftD = 0;  
     public static final double kLiftLeadLeftMaxPower = 1; 
@@ -171,7 +171,7 @@ public final class Constants {
 
   public static final class ScoreCommandHolderConstants {
     public static final double kHangSetpoint = -0.001; 
-    public static final double kIntakeFirstSetpoint = -0.07; 
+    public static final double kIntakeFirstSetpoint = -0.13; 
     public static final double kIntakeSecondSetpoint = -0.001; 
     public static final double kIntakeSetpoint = -0.001; 
     public static final double kCompactSetpoint = -0.5; 

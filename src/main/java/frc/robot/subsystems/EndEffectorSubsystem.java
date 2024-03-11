@@ -40,7 +40,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
     DutyCycleEncoder liftEncoder;
     double liftEncoderPosition; 
     static double liftEncoderSetpoint; 
-   
+
+
 
     public EndEffectorSubsystem(){
       intakeMotor = new CANSparkMax(SubsystemConstants.kIntakeMotorCANID, MotorType.kBrushless);
@@ -153,7 +154,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public double getPose(){
     return liftEncoder.getDistance();
   }
-
 
   @Override
   public void periodic(){

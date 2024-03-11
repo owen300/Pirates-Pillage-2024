@@ -78,5 +78,6 @@ public class ScoreCommandHolder extends Command {
     public Command intakeDown(){
         return new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangSetpoint); 
     }
+
  
 }

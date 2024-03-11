@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LiftAimCommand;
+import frc.robot.commands.ScoreCommands.LiftCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -32,8 +33,8 @@ public class RobotContainer {
 
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
-
   LiftAimCommand liftAimCommand = new LiftAimCommand(limelightSubsystem);
+  LiftCommand liftCommand = new LiftCommand(endEffectorSubsystem, LimelightSubsystem.getEncoderTarget() ); //for setpoint after limelight aim 
   
 
 
@@ -94,7 +95,9 @@ public class RobotContainer {
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
-    aButton.onTrue(liftAimCommand);
+    aButton.onTrue(liftAimCommand).onFalse(liftCommand);
+
+
 
     
 
