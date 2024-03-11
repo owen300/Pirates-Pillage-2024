@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
@@ -41,6 +43,13 @@ public class EndEffectorSubsystem extends SubsystemBase {
     double liftEncoderPosition; 
     static double liftEncoderSetpoint; 
 
+    private final CANSparkMax hangMotor;
+    RelativeEncoder hangEncoder; 
+    double hangEncoderPosition; 
+    static double hangEncoderSetpoint; 
+    PIDController hangPIDController; 
+
+    
 
 
     public EndEffectorSubsystem(){
@@ -82,12 +91,19 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftEncoder.setDistancePerRotation(Math.toRadians(360));
       liftEncoderPosition = liftEncoder.getAbsolutePosition();
 
+      hangMotor = new CANSparkMax(SubsystemConstants.kHangMotorCANID, MotorType.kBrushless); 
+      hangMotor.setIdleMode(IdleMode.kBrake);
+      hangEncoder = hangMotor.getEncoder();
+      hangEncoder.setPosition(0); 
+      hangPIDController = new PIDController(SubsystemConstants.kHangP, SubsystemConstants.kHangI, SubsystemConstants.kHangD);
+
       shootLead.burnFlash(); 
       shootFollow.burnFlash(); 
       liftLeadLeft.burnFlash();
       liftFollowLeft.burnFlash();
       liftLeadRight.burnFlash();
       liftFollowRight.burnFlash();
+
   }
 
   public void setIntakeSpeedDirection(double intakeMotorSpeed, boolean intakeMotorInverted){
@@ -155,6 +171,34 @@ public class EndEffectorSubsystem extends SubsystemBase {
     return liftEncoder.getDistance();
   }
 
+  public double getHangDistance(){
+    hangEncoderPosition = hangEncoder.getPosition();
+    SmartDashboard.putNumber("HangDist", hangEncoderPosition);
+    return hangEncoderPosition; 
+  }
+
+  public void resetEncoderHang(){
+    hangEncoder.setPosition(0);    
+  }
+
+  public void moveHang(double pose){
+    hangPIDController.setSetpoint(pose);
+    hangEncoderSetpoint = pose;
+  }
+
+  public void calculateHang(){
+    double output;
+    if(hangEncoderSetpoint > hangEncoder.getPosition())
+        output = MathUtil.clamp(hangPIDController.calculate(hangEncoder.getPosition()), -SubsystemConstants.kHangMaxPower, SubsystemConstants.kHangMaxPower);
+    else
+        output = MathUtil.clamp(hangPIDController.calculate(hangEncoder.getPosition()), -SubsystemConstants.kHangMaxPower, -SubsystemConstants.kHangMaxPower);
+    
+      hangMotor.set(output);
+
+   SmartDashboard.putNumber("Hang Output", output);
+   SmartDashboard.putNumber("Hang Setpoint", hangEncoderSetpoint);
+  }
+
   @Override
   public void periodic(){
     filteredCurrentIntake = filterIntake.calculate(intakeMotor.getOutputCurrent());
@@ -162,6 +206,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
     
     calculateLift();
     getLiftDistance();
+    calculateHang();
+    getHangDistance();
 
    }
 

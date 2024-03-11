@@ -3,6 +3,7 @@ package frc.robot.commands.ScoreCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
+import frc.robot.Constants.SubsystemConstants;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
@@ -53,6 +54,14 @@ public class ScoreCommandHolder extends Command {
             new IntakeCommand(endEffectorSubsystem, 0, false ),
             new ShootCommand(endEffectorSubsystem, 0) 
         ); 
+    }
+
+    public Command getHangReady(){
+        return new LiftCommand(endEffectorSubsystem, SubsystemConstants.kLiftInitializedSetpoint); 
+    }
+
+    public SequentialCommandGroup hang(){
+        return new SequentialCommandGroup(new LiftCommand(endEffectorSubsystem, SubsystemConstants.kLiftInitializedSetpoint), new HangCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangUpSetpoint), new HangCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangDownSetpoint) );
     }
 
     public SequentialCommandGroup outtake(){

@@ -96,9 +96,8 @@ public class RobotContainer {
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
     aButton.onTrue(liftAimCommand).onFalse(liftCommand);
-
-
-
+    dpadUpCoDriver.onTrue(scoreCommands.getHangReady());
+    dpadDownCoDriver.onTrue(scoreCommands.hang());
     
 
   }
