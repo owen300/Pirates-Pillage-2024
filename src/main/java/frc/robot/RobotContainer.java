@@ -61,6 +61,7 @@ public class RobotContainer {
   Trigger rightDriverBumper = driverController.rightBumper();
   Trigger dpadUpDriver = driverController.povUp();
   Trigger dpadDownDriver = driverController.povDown();
+  Trigger startButton = driverController.start();
 
 
 
@@ -86,9 +87,8 @@ public class RobotContainer {
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.intakeDown());
-  
-    dpadDownDriver.onTrue(scoreCommands.liftDown());
-    dpadUpDriver.onTrue(scoreCommands.liftUp());
+
+    startButton.onTrue(scoreCommands.getHangReady());
 
 
     //Co-Driver Controls
@@ -96,7 +96,6 @@ public class RobotContainer {
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
     aButton.onTrue(liftAimCommand).onFalse(liftCommand);
-    dpadUpCoDriver.onTrue(scoreCommands.getHangReady());
     dpadDownCoDriver.onTrue(scoreCommands.hang());
     
 

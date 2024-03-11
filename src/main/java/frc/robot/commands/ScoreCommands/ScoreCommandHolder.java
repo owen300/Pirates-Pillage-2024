@@ -3,7 +3,6 @@ package frc.robot.commands.ScoreCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
-import frc.robot.Constants.SubsystemConstants;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
@@ -56,24 +55,16 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-    public Command getHangReady(){
-        return new LiftCommand(endEffectorSubsystem, SubsystemConstants.kLiftInitializedSetpoint); 
+    public SequentialCommandGroup getHangReady(){
+        return new SequentialCommandGroup(new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kLiftHangSetpoint), new WaitCommand(0.5), new HangCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangUpSetpoint) ); 
     }
 
-    public SequentialCommandGroup hang(){
-        return new SequentialCommandGroup(new LiftCommand(endEffectorSubsystem, SubsystemConstants.kLiftInitializedSetpoint), new HangCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangUpSetpoint), new HangCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangDownSetpoint) );
+    public Command hang(){
+        return new HangCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangDownSetpoint);
     }
 
     public SequentialCommandGroup outtake(){
         return new SequentialCommandGroup( new Outtake(endEffectorSubsystem, 0.5, true), new WaitCommand(0.05), new Outtake(endEffectorSubsystem, 0, true)); 
-    }
-
-     public Command liftDown(){
-        return new LiftSetpointAdjuster(endEffectorSubsystem, false);
-    }
-
-    public Command liftUp(){
-        return new LiftSetpointAdjuster(endEffectorSubsystem, true);
     }
 
     public Command shootMotorZero(){

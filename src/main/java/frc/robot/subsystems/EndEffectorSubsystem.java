@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
@@ -44,10 +42,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     static double liftEncoderSetpoint; 
 
     private final CANSparkMax hangMotor;
-    RelativeEncoder hangEncoder; 
+    DutyCycleEncoder hangEncoder; 
     double hangEncoderPosition; 
     static double hangEncoderSetpoint; 
-    PIDController hangPIDController; 
+    static PIDController hangPIDController; 
 
     
 
@@ -93,8 +91,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
       hangMotor = new CANSparkMax(SubsystemConstants.kHangMotorCANID, MotorType.kBrushless); 
       hangMotor.setIdleMode(IdleMode.kBrake);
-      hangEncoder = hangMotor.getEncoder();
-      hangEncoder.setPosition(0); 
+
+      hangEncoder = new DutyCycleEncoder(SubsystemConstants.kHangEncoderChannel); 
+      hangEncoderPosition = hangEncoder.getAbsolutePosition();
+
       hangPIDController = new PIDController(SubsystemConstants.kHangP, SubsystemConstants.kHangI, SubsystemConstants.kHangD);
 
       shootLead.burnFlash(); 
@@ -146,52 +146,31 @@ public class EndEffectorSubsystem extends SubsystemBase {
    SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
   }
 
-  public void limelightLift(double speed){
-
-    if((getPose() < Constants.LimelightConstants.kLiftLimitUp) && (getPose() > Constants.LimelightConstants.kLiftLimitDown))
-      liftLeadLeft.set(speed);
-      liftLeadRight.set(speed);
-    if (getPose() > Constants.LimelightConstants.kLiftLimitUp){
-      if(speed > 0){
-        speed = 0; 
-      liftLeadLeft.set(speed);
-      liftLeadRight.set(speed);
-      }
-    }
-    else{
-      if (speed < 0)
-      speed = 0; 
-      liftLeadLeft.set(speed);
-      liftLeadRight.set(speed);
-    }
-
-  }
-
   public double getPose(){
     return liftEncoder.getDistance();
   }
 
   public double getHangDistance(){
-    hangEncoderPosition = hangEncoder.getPosition();
+    hangEncoderPosition = hangEncoder.getDistance();
     SmartDashboard.putNumber("HangDist", hangEncoderPosition);
     return hangEncoderPosition; 
   }
 
   public void resetEncoderHang(){
-    hangEncoder.setPosition(0);    
+    hangEncoder.reset();    
   }
 
-  public void moveHang(double pose){
+  public static void moveHang(double pose){
     hangPIDController.setSetpoint(pose);
     hangEncoderSetpoint = pose;
   }
 
   public void calculateHang(){
     double output;
-    if(hangEncoderSetpoint > hangEncoder.getPosition())
-        output = MathUtil.clamp(hangPIDController.calculate(hangEncoder.getPosition()), -SubsystemConstants.kHangMaxPower, SubsystemConstants.kHangMaxPower);
+    if(hangEncoderSetpoint > hangEncoder.getDistance())
+        output = MathUtil.clamp(hangPIDController.calculate(hangEncoder.getDistance()), -SubsystemConstants.kHangMaxPower, SubsystemConstants.kHangMaxPower);
     else
-        output = MathUtil.clamp(hangPIDController.calculate(hangEncoder.getPosition()), -SubsystemConstants.kHangMaxPower, -SubsystemConstants.kHangMaxPower);
+        output = MathUtil.clamp(hangPIDController.calculate(hangEncoder.getDistance()), -SubsystemConstants.kHangMaxPower, -SubsystemConstants.kHangMaxPower);
     
       hangMotor.set(output);
 

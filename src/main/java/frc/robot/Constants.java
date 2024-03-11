@@ -163,7 +163,9 @@ public final class Constants {
     public static final double kHangI = 0.0; 
     public static final double kHangD = 0;  
 
-    public static final double kHangMaxPower = 0.3;  
+    public static final double kHangMaxPower = 1;  
+
+    public static final int kHangEncoderChannel = 2; 
 
   }
 
@@ -173,11 +175,12 @@ public final class Constants {
     public static final double kIntakeSecondSetpoint = -0.001; 
     public static final double kIntakeSetpoint = -0.001; 
     public static final double kCompactSetpoint = -0.5; 
-    public static final double kAmpSetpoint = -1.8; 
-    public static final double kSpeakerSetpoint = -0.3; 
+    public static final double kAmpSetpoint = -1.686;
+    public static final double kSpeakerSetpoint = -0.35; 
     public static final double kSpeakerDistanceSetpoint = -0.4; 
-    public static final double kHangUpSetpoint = 0;  //CHANGE
-    public static final double kHangDownSetpoint = 0; //CHANGE
+    public static final double kHangUpSetpoint = 2.8;  
+    public static final double kHangDownSetpoint = 0; 
+    public static final double kLiftHangSetpoint = -1.6; 
   }
 
   public static final class BlinkinConstants{

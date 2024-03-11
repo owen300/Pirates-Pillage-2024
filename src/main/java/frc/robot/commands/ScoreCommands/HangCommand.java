@@ -22,7 +22,7 @@ public class HangCommand extends Command{
 
     @Override 
     public void execute(){
-       EndEffectorSubsystem.lift(setPoint);       
+       EndEffectorSubsystem.moveHang(setPoint);       
     }
 
     @Override 
