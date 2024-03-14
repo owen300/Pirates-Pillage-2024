@@ -1,6 +1,7 @@
 package frc.robot.commands.LimelightCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 
@@ -27,7 +28,8 @@ public class LiftAimCommand extends Command {
     @Override
     public void end(boolean interrupted){
 
-        EndEffectorSubsystem.lift(limelightSubsystem.getLastSetpoint()); 
+        EndEffectorSubsystem.lift(limelightSubsystem.getLastSetpoint());
+        BlinkinSubsystem.green();
         System.out.println("ended");
     }
 
