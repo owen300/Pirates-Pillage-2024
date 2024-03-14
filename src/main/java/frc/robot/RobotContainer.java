@@ -33,9 +33,9 @@ public class RobotContainer {
 
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
-  LiftAimCommand liftAimCommand = new LiftAimCommand(limelightSubsystem);
+  LiftAimCommand liftAimCommand = new LiftAimCommand(limelightSubsystem, endEffectorSubsystem);
   LiftCommand liftCommand = new LiftCommand(endEffectorSubsystem, LimelightSubsystem.getEncoderTarget() ); //for setpoint after limelight aim 
-  
+ 
 
 
 
@@ -87,6 +87,8 @@ public class RobotContainer {
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.intakeDown());
+    rightDriverBumper.onTrue(scoreCommands.setFlyWheel());
+
 
     startButton.onTrue(scoreCommands.getHangReady());
 
@@ -95,8 +97,9 @@ public class RobotContainer {
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
-    aButton.onTrue(liftAimCommand).onFalse(liftCommand);
+    aButton.whileTrue(liftAimCommand); 
     dpadDownCoDriver.onTrue(scoreCommands.hang());
+   
     
 
   }

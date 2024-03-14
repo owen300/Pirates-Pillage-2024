@@ -7,14 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.BlinkinSubsystem;
 
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  BlinkinSubsystem m_led = new BlinkinSubsystem(); 
 
   @Override
   public void robotInit() {
@@ -60,15 +58,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    
      m_robotContainer.swerveDriveSubsystem.getRoll();
-    if(m_robotContainer.limelightSubsystem.alignedToGoal() && m_robotContainer.limelightSubsystem.hasTarget()){
-        m_led.green();
-    }
-    if(m_robotContainer.limelightSubsystem.hasTarget()){
-        m_led.blue();
-    } 
-    else m_led.red();
+
 
 
     // m_robotContainer.swerveDriveSubsystem.driveLimelight(true);

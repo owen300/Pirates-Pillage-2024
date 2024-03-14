@@ -37,8 +37,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
     static PIDController liftLeadLeftPIDController; 
     PIDController liftLeadRightPIDController; 
 
-    DutyCycleEncoder liftEncoder;
-    double liftEncoderPosition; 
+    static DutyCycleEncoder liftEncoder;
+    static double liftEncoderPosition; 
     static double liftEncoderSetpoint; 
 
     private final CANSparkMax hangMotor;
@@ -117,7 +117,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     shootLead.set(speed);
   }
 
-  public double getLiftDistance(){
+  public static double getLiftDistance(){
     liftEncoderPosition = liftEncoder.getDistance();
     SmartDashboard.putNumber("LiftCurDist", liftEncoderPosition);
     return liftEncoderPosition;
@@ -126,6 +126,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public void resetliftEncoder(){
     liftEncoder.reset();
   }
+  public void testIntake(){ //delete
+    intakeMotor.set(0.3);
+  }
+
 
   public static void lift(double pose) { 
     liftLeadLeftPIDController.setSetpoint(pose);

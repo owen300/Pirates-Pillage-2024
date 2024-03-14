@@ -20,11 +20,11 @@ public class BlinkinSubsystem extends SubsystemBase {
     /**
      * @param value color value, see Constants
      */
-    public void color(double value) {
+    public static void color(double value) {
         m_led.set(value);
     }
 
-    public void red(){
+    public static void red(){
         color(BlinkinConstants.kRed);
     }
 
@@ -36,7 +36,7 @@ public class BlinkinSubsystem extends SubsystemBase {
         color(BlinkinConstants.kYellow);
     }
 
-    public void green(){
+    public static void green(){
         color(BlinkinConstants.kGreen);
     }
 

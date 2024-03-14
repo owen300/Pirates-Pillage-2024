@@ -14,6 +14,8 @@ public class LimelightSubsystem extends SubsystemBase {
     static double tx;
     static double ty;
     double ta;
+    double lastSetpoint;
+    
 
 
 
@@ -199,9 +201,16 @@ public class LimelightSubsystem extends SubsystemBase {
   // }
 
 
-  public void setShooterAngle() {   
-    EndEffectorSubsystem.lift(getEncoderTarget());
+  public void setShooterAngle() {  
+    lastSetpoint = getEncoderTarget();
+    EndEffectorSubsystem.lift(lastSetpoint);
+    
   } 
+
+  public double getLastSetpoint(){
+    return lastSetpoint;
+  }
+
 
   public static double getEncoderTarget(){
 
@@ -216,19 +225,23 @@ public class LimelightSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("TV", tv);
 
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
-   // double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0.0);
-    
-    
-    // double angleToTargetRadians = (Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty * 49.7)) * ANGLE_SCALE) + ANGLE_OFFSET;
+   
     double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty*49.7)); //add angle offset here radians
 
    
     double encoderTarget = (angleToTargetRadians / (Math.PI / 2.0)) * (MAX_ENCODER_VALUE - MIN_ENCODER_VALUE) + MIN_ENCODER_VALUE;
     encoderTarget = Math.max(Math.min(encoderTarget, MAX_ENCODER_VALUE), MIN_ENCODER_VALUE);
-
     return -encoderTarget; 
 
   }
+
+  // public static void setLED(){
+  //   if(EndEffectorSubsystem.getLiftDistance() < LimelightSubsystem.getEncoderTarget() && (EndEffectorSubsystem.getLiftDistance() > LimelightSubsystem.getEncoderTarget())){
+  //       BlinkinSubsystem.green();
+  //   } 
+  //   else BlinkinSubsystem.red();
+  // }
+
 
 
   // public void setShooterSpeed() {

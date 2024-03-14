@@ -27,7 +27,7 @@ public class HangCommand extends Command{
 
     @Override 
     public boolean isFinished(){
-       return (hangSubsystem.getLiftDistance() < setPoint + TOLERANCE && hangSubsystem.getLiftDistance() > setPoint - TOLERANCE);
+       return (EndEffectorSubsystem.getLiftDistance() < setPoint + TOLERANCE && EndEffectorSubsystem.getLiftDistance() > setPoint - TOLERANCE);
     }
     
 }
