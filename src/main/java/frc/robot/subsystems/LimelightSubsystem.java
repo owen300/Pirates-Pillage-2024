@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LimelightConstants;
 import frc.utils.LimelightUtils;
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -237,12 +238,13 @@ public class LimelightSubsystem extends SubsystemBase {
 
 
   public static double getX(){
+    LinearFilter filter = LinearFilter.movingAverage(5);
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
     double top = 900; 
     double degToRadians = Math.toRadians(18);
     double base = Math.tan(degToRadians+ty); 
     System.out.println(top/base);
-    return top/base; 
+    return filter.calculate(top/base); 
   }
 
   // public static void setShootAngle(){
