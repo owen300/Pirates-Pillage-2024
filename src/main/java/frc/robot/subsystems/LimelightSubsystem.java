@@ -206,7 +206,7 @@ public class LimelightSubsystem extends SubsystemBase {
     EndEffectorSubsystem.lift(lastSetpoint);
     
   } 
-
+ 
   public double getLastSetpoint(){
     return lastSetpoint;
   }
@@ -224,9 +224,9 @@ public class LimelightSubsystem extends SubsystemBase {
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     SmartDashboard.putNumber("TV", tv);
 
-    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
+    double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0);
    
-    double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (ty*49.7)); //add angle offset here radians
+    double angleToTargetRadians = Math.toRadians(LIMELIGHT_MOUNT_ANGLE + (tx*49.7)); //add angle offset here radians
 
    
     double encoderTarget = (angleToTargetRadians / (Math.PI / 2.0)) * (MAX_ENCODER_VALUE - MIN_ENCODER_VALUE) + MIN_ENCODER_VALUE;
