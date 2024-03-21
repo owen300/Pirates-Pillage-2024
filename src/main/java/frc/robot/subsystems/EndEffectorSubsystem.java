@@ -150,6 +150,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
    SmartDashboard.putNumber("Lift Setpoint", liftEncoderSetpoint);
   }
 
+  public boolean isLiftAtTarget() {
+    return liftLeadLeftPIDController.atSetpoint();
+  }
+
   public double getPose(){
     return liftEncoder.getDistance();
   }

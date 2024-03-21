@@ -20,6 +20,8 @@ public class Robot extends TimedRobot {
     
     m_robotContainer.endEffectorSubsystem.resetliftEncoder();
     m_robotContainer.endEffectorSubsystem.resetEncoderHang();
+
+    SmartAimLookup.populateTable();
   }
 
   @Override

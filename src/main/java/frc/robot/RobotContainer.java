@@ -11,11 +11,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
+import frc.robot.commands.LimelightCommands.AutoTargetCommand;
 import frc.robot.commands.LimelightCommands.LiftAimCommand;
 import frc.robot.commands.ScoreCommands.LiftCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.SmartLimelightSubsystem;
+import frc.robot.subsystems.SmartSwerveDriveSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
 public class RobotContainer {
@@ -27,13 +30,14 @@ public class RobotContainer {
 
   //SUBSYSTEM
   EndEffectorSubsystem endEffectorSubsystem = new EndEffectorSubsystem();
-  LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
-  SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem();
+  SmartLimelightSubsystem limelightSubsystem = new SmartLimelightSubsystem();
+  SmartSwerveDriveSubsystem swerveDriveSubsystem = new SmartSwerveDriveSubsystem(limelightSubsystem);
   
 
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
   LiftAimCommand liftAimCommand = new LiftAimCommand(limelightSubsystem, endEffectorSubsystem);
+  AutoTargetCommand autoTargetCommand = new AutoTargetCommand(limelightSubsystem, swerveDriveSubsystem, endEffectorSubsystem);
   LiftCommand liftCommand = new LiftCommand(endEffectorSubsystem, LimelightSubsystem.getEncoderTarget() ); //for setpoint after limelight aim 
  
 
@@ -64,6 +68,9 @@ public class RobotContainer {
   Trigger startButton = driverController.start();
 
 
+  Trigger autoFireReady = new Trigger(autoTargetCommand::getIsReadyToFire);
+
+
 
   public RobotContainer() {
     configureBindings();
@@ -72,7 +79,7 @@ public class RobotContainer {
             () -> swerveDriveSubsystem.drive(
                 -MathUtil.applyDeadband(driverController.getLeftY(), OIConstants.kDriveDeadband),
                 -MathUtil.applyDeadband(driverController.getLeftX(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(driverController.getRightX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(driverController.getRightX(), OIConstants.kDriveDeadband), // will be ignored if autoTargetCommand is running
                 true, true),
             swerveDriveSubsystem));
     setAutoCommands();
@@ -97,10 +104,12 @@ public class RobotContainer {
     xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
-    aButton.whileTrue(liftAimCommand); 
+    aButton.whileTrue(liftAimCommand);
+    rightBumperCoDriver.whileTrue(autoTargetCommand).onTrue(scoreCommands.setFlyWheel()).onFalse(scoreCommands.compactPosition());
     dpadDownCoDriver.onTrue(scoreCommands.hang());
    
     
+    //autoFireReady.onTrue(scoreCommands.shootNote());
 
   }
 
