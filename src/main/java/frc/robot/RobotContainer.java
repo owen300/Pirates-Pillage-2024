@@ -13,6 +13,8 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.LimelightCommands.LiftAimCommand;
 import frc.robot.commands.ScoreCommands.LiftCommand;
+import frc.robot.commands.ScoreCommands.LiftSetpointDown;
+import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -49,6 +51,8 @@ public class RobotContainer {
   Trigger leftBumperCoDriver = coDriverController.leftBumper(); 
   Trigger rightBumperCoDriver = coDriverController.rightBumper(); 
   Trigger rightTriggerCoDriver = coDriverController.rightTrigger(); 
+  Trigger dpadRight = coDriverController.povRight();
+  Trigger dpadleft = coDriverController.povLeft();
 
 
   Trigger aDriverButton = driverController.a(); 
@@ -99,6 +103,11 @@ public class RobotContainer {
     bButton.onTrue(scoreCommands.outtake());
     aButton.whileTrue(liftAimCommand); 
     dpadDownCoDriver.onTrue(scoreCommands.hang());
+    rightTriggerCoDriver.onTrue(scoreCommands.setFlyWheelZero());
+
+
+    dpadRight.whileTrue(new LiftSetpointUp(endEffectorSubsystem));
+    dpadleft.whileTrue(new LiftSetpointDown(endEffectorSubsystem));
    
     
 
