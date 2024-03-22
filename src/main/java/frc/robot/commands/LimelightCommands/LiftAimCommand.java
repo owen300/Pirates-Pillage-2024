@@ -18,17 +18,23 @@ public class LiftAimCommand extends Command {
         addRequirements(limelightSubsystem);
     }
 
+   //start flywheel?
+   @Override
+   public void initialize(){
+    EndEffectorSubsystem.shootLeadMotor(0.85);
+   }
+
 
     @Override 
     public void execute(){
-     limelightSubsystem.setShooterAngle();
+     LimelightSubsystem.setPosition();
      System.out.println("executed"); 
     }
 
     @Override
     public void end(boolean interrupted){
 
-        EndEffectorSubsystem.lift(limelightSubsystem.getLastSetpoint());
+       EndEffectorSubsystem.lift(LimelightSubsystem.getSetpoint());
         BlinkinSubsystem.green();
         System.out.println("ended");
     }

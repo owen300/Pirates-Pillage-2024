@@ -59,6 +59,11 @@ public class ScoreCommandHolder extends Command {
         return new ShootCommand(endEffectorSubsystem, 0.85); 
     }
 
+    public Command setFlyWheelZero(){
+        return new ShootCommand(endEffectorSubsystem, 0); 
+    }
+
+
     public SequentialCommandGroup getHangReady(){
         return new SequentialCommandGroup(new LiftCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kLiftHangSetpoint), new WaitCommand(0.5), new HangCommand(endEffectorSubsystem, ScoreCommandHolderConstants.kHangUpSetpoint) ); 
     }

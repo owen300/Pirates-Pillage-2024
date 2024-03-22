@@ -176,11 +176,13 @@ public final class Constants {
     public static final double kIntakeSetpoint = -0.001; 
     public static final double kCompactSetpoint = -0.5; 
     public static final double kAmpSetpoint = -1.686;
-    public static final double kSpeakerSetpoint = -0.35; 
+    public static final double kSpeakerSetpoint = -0.4; 
     public static final double kSpeakerDistanceSetpoint = -0.4; 
     public static final double kHangUpSetpoint = 2.8;  
     public static final double kHangDownSetpoint = 0; 
     public static final double kLiftHangSetpoint = -1.6; 
+    public static final double kFirstVisionSetpoint = -0.6;
+  
   }
 
   public static final class BlinkinConstants{

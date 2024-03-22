@@ -18,7 +18,8 @@ public class HangCommand extends Command{
     }
 
     @Override 
-    public void initialize(){}
+    public void initialize(){
+    }
 
     @Override 
     public void execute(){

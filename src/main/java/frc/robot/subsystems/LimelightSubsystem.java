@@ -16,6 +16,7 @@ public class LimelightSubsystem extends SubsystemBase {
     static double ty;
     double ta;
     double lastSetpoint;
+    static double setpoint;
     
 
 
@@ -238,14 +239,50 @@ public class LimelightSubsystem extends SubsystemBase {
 
 
   public static double getX(){
-    LinearFilter filter = LinearFilter.movingAverage(5);
+    LinearFilter filter = LinearFilter.movingAverage(10);
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
     double top = 900; 
+    double degRad = Math.toRadians(ty);
     double degToRadians = Math.toRadians(18);
-    double base = Math.tan(degToRadians+ty); 
+    double base = Math.tan(degToRadians+degRad); 
     System.out.println(top/base);
     return filter.calculate(top/base); 
   }
+
+  public static void setPosition(){
+    double oneFt = 1230; // 1 ft -->
+    double twoFt =1570; //2.2 ft
+
+    //2.2ft -->
+    double fourFt =2180; //4ft
+
+    double fiveFt =2470; // 5ft
+
+    if(getX() >= oneFt && getX()<=twoFt){
+      setpoint = -0.6;
+      System.out.println(setpoint);
+      EndEffectorSubsystem.lift(setpoint);}
+    else if(getX() >= twoFt && getX()<=fourFt){
+      setpoint = -0.65;
+      System.out.println(setpoint);
+      EndEffectorSubsystem.lift(setpoint);}
+    else if(getX() >= fourFt && getX()<=fiveFt){
+      setpoint = -0.75;
+      System.out.println(setpoint);
+      EndEffectorSubsystem.lift(setpoint);}
+    else
+      setpoint = -0.4;
+      System.out.println(setpoint);
+      EndEffectorSubsystem.lift(setpoint);
+
+  }
+
+  public static double getSetpoint(){
+    return setpoint; 
+  }
+
+
+
 
   // public static void setShootAngle(){
   //   if(x)
