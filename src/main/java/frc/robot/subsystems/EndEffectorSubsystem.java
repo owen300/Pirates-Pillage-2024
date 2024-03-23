@@ -126,10 +126,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public void resetliftEncoder(){
     liftEncoder.reset();
   }
-  public void testIntake(){ //delete
-    intakeMotor.set(0.3);
-  }
-
 
   public static void lift(double pose) { 
     liftLeadLeftPIDController.setSetpoint(pose);
