@@ -87,19 +87,15 @@ public class RobotContainer {
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.intakeDown());
     rightDriverBumper.onTrue(scoreCommands.setFlyWheel());
-
-
     startButton.onTrue(scoreCommands.getHangReady());
 
 
     //Co-Driver Controls
-    xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
+    // xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
     dpadDownCoDriver.onTrue(scoreCommands.hang());
     rightTriggerCoDriver.onTrue(scoreCommands.setFlyWheelZero());
-
-
     dpadRight.whileTrue(new LiftSetpointUp(endEffectorSubsystem));
     dpadleft.whileTrue(new LiftSetpointDown(endEffectorSubsystem));
    
