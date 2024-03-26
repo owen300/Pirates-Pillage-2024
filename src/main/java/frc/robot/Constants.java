@@ -167,6 +167,8 @@ public final class Constants {
 
     public static final int kHangEncoderChannel = 2; 
 
+    public static final int kSensorInput = 3; 
+
   }
 
   public static final class ScoreCommandHolderConstants {

@@ -3,7 +3,7 @@ package frc.robot.commands.AutoCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
-import frc.robot.commands.ScoreCommands.IntakeCommand;
+import frc.robot.commands.ScoreCommands.IntakeCurrentCommand;
 import frc.robot.commands.ScoreCommands.IntakeTimeCommand;
 import frc.robot.commands.ScoreCommands.LiftCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
@@ -64,7 +64,7 @@ public class AutoCommandHolder extends Command{
         return new SequentialCommandGroup(
             new LiftCommand(ScoreCommandHolderConstants.kIntakeFirstSetpoint),
             new LiftCommand(ScoreCommandHolderConstants.kIntakeSecondSetpoint),
-            new IntakeCommand(endEffectorSubsystem, 0.8, false), 
+            new IntakeCurrentCommand(endEffectorSubsystem, 0.8, false), 
             new IntakeTimeCommand(endEffectorSubsystem, 0.1, true, 0.3),
             new LiftCommand (ScoreCommandHolderConstants.kCompactSetpoint)
         ); 
@@ -73,7 +73,7 @@ public class AutoCommandHolder extends Command{
     public SequentialCommandGroup compactPositionAuto(){
         return new SequentialCommandGroup(
             new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint),
-            new IntakeCommand(endEffectorSubsystem, 0, false ),
+            new IntakeCurrentCommand(endEffectorSubsystem, 0, false ),
             new ShootCommand(0) 
         ); 
     }
