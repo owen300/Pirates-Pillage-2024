@@ -27,7 +27,10 @@ public class SmartSwerveDriveSubsystem extends SwerveDriveSubsystem {
     if (!isAutoFaceEnabled) {
       super.drive(xSpeed, ySpeed, rot, fieldRelative, rateLimit);
     } else {
-      double rotControlled = MathUtil.clamp(facePIDController.calculate(smartLimelightSubsystem.getTY()), -1.0, 1.0);
+      double tx = smartLimelightSubsystem.getTX();
+      double pidOut = facePIDController.calculate(tx);
+      //if (tx < 0) pidOut = -pidOut; // poor man's angle wrapping
+      double rotControlled = MathUtil.clamp(pidOut, -1.0, 1.0);
       super.drive(xSpeed, ySpeed, rotControlled, fieldRelative, rateLimit); // automatically face the target apriltag
     }
 
