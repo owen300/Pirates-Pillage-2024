@@ -38,7 +38,8 @@ public class SmartAimLookup {
             try {
                 Future<HashMap<Integer, Double>> f1 = executor.submit(() -> populateSegment(start, start + half_upper));
                 Future<HashMap<Integer, Double>> f2 = executor.submit(() -> populateSegment(start + half_upper, end + 1));
-                table = f1.get();
+                table = new HashMap<>(end - start + 2, 1);
+                table.putAll(f1.get());
                 table.putAll(f2.get());
             } catch (ExecutionException | InterruptedException ex) {
                 dualCoreSuccess = false;
@@ -52,7 +53,7 @@ public class SmartAimLookup {
     }
 
     private static HashMap<Integer, Double> populateSegment(int start, int end) {
-        HashMap<Integer, Double> segment = new HashMap<>();
+        HashMap<Integer, Double> segment = new HashMap<>(end - start + 1, 1);
 
         for (int i = start; i < end; i++) {
             Double approximation = approximateAngle((double) i / TABLE_FACTOR);
@@ -94,6 +95,16 @@ public class SmartAimLookup {
         } else {
             return 0;
         }
+    }
+
+    private static double getResult(double approx, double dh) {
+        // This is the fun part.
+        double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.ch) / dh)) * dh;
+        double part1 = dx + SmartAimConstants.spo - SmartAimConstants.rox - Math.cos(approx) * SmartAimConstants.shox + Math.sin(approx) * SmartAimConstants.shoy;
+        return part1 * Math.tan(approx)
+                - ((SmartAimConstants.g * Math.pow(part1, 2)) / (2 * Math.pow(SmartAimConstants.nvi, 2) * Math.pow(Math.cos(approx), 2)))
+                + (SmartAimConstants.roy + Math.sin(approx) * SmartAimConstants.shox + Math.cos(approx) * SmartAimConstants.shoy - SmartAimConstants.th - SmartAimConstants.sh);
+        // Did you have fun?
     }
 
     private static double getResultWithDrag(double approx, double dh) {

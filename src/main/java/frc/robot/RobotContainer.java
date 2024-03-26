@@ -1,10 +1,14 @@
 package frc.robot;
 
 
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -73,6 +77,7 @@ public class RobotContainer {
 
 
   public RobotContainer() {
+    registerNamedCommands();
     configureBindings();
      swerveDriveSubsystem.setDefaultCommand(
         new RunCommand(
@@ -113,12 +118,21 @@ public class RobotContainer {
 
   }
 
+  public void registerNamedCommands() {
+    NamedCommands.registerCommand("Intake Note", scoreCommands.intakeNote());
+    NamedCommands.registerCommand("Score Speaker", scoreCommands.scoreSpeaker());
+    NamedCommands.registerCommand("Compact Position", scoreCommands.compactPosition());
+  }
+
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(endEffectorSubsystem, scoreCommands, swerveDriveSubsystem); 
     AutoChooser.addOption("DriveBack", autos.driveBack(3)); //anywhere
     AutoChooser.addOption("Speaker", autos.autoSpeaker()); //anywhere
     AutoChooser.addOption("SpeakerTaxi", autos.autoSpeakerTaxi()); //anywhere with caution--prefferably center
     AutoChooser.addOption("2-SpeakerTaxi", autos.autoCenterSpeakerTaxiIntakeSpeaker()); //center only
+    AutoChooser.addOption("Taxi-FromBack-DirectAim", new PathPlannerAuto("Back-DirectAim"));
+    AutoChooser.addOption("Taxi-FromCenter-DirectAim", new PathPlannerAuto("Center-DirectAim"));
+    AutoChooser.addOption("Taxi-FromFront-DirectAim", new PathPlannerAuto("Front-DirectAim"));
   }
 
   public Command getAutonomousCommand() {
