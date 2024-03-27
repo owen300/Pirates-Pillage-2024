@@ -32,6 +32,18 @@
         {
           "type": "named",
           "data": {
+            "name": "Shoot Note test d"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Shoot Note test b"
           }
         },
@@ -45,18 +57,6 @@
           "type": "named",
           "data": {
             "name": "Shoot Note test c"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Note test d"
           }
         },
         {
