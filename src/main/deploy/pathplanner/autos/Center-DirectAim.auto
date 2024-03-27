@@ -42,21 +42,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "C-Center-To"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Compact Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "C-Center-From"
           }
         },
         {

@@ -20,7 +20,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.5
+            "waitTime": 1.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Note"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.1
           }
         },
         {
@@ -56,37 +68,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.5
+            "waitTime": 1.5
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Intake Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "B-Center-To"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Compact Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "B-Center-From"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score Speaker"
+            "name": "Shoot Note"
           }
         }
       ]
