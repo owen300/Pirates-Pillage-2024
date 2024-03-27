@@ -26,25 +26,45 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake Note"
+            "name": "Shoot Note"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "C-Center-To"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Note"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "C-Center-To"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Compact Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "C-Center-From"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Compact Position"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "C-Center-From"
+                }
+              }
+            ]
           }
         },
         {
@@ -57,12 +77,6 @@
           "type": "wait",
           "data": {
             "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Note"
           }
         },
         {
