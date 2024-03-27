@@ -30,12 +30,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.1
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Intake Note"
@@ -51,12 +45,6 @@
           "type": "named",
           "data": {
             "name": "Score Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
           }
         },
         {

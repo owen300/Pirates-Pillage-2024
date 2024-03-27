@@ -25,16 +25,6 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-    public SequentialCommandGroup intakeNote2(){
-        return new SequentialCommandGroup(
-            //new LiftCommand(ScoreCommandHolderConstants.kIntakeFirstSetpoint),
-            //new LiftCommand(ScoreCommandHolderConstants.kIntakeSecondSetpoint),
-            new IntakeCommand(endEffectorSubsystem, 1, false), 
-            new IntakeTimeCommand(endEffectorSubsystem, 0.1, true, 0.3),
-            new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint)
-        ); 
-    }
-
       public SequentialCommandGroup shootNote(){
         return new SequentialCommandGroup(
             new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
