@@ -16,15 +16,15 @@ public final class SmartAimConstants {
     shox and shoy are the x and y offsets of the shooter from the center of rotation respectively (at angle 0);
     nvi is the initial velocity of the note (tune this empirically);
     g is gravity in inches/second^2 (always 386.1 unless you need to run the robot on the moon or something) */
-    public static final double ch = 5.0; // TODO: CORRECT THIS
-    public static final double ca = 25.0; // TODO: CORRECT THIS
+    public static final double ch = 19.5;
+    public static final double ca = 18.0;
     public static final double th = 56.375;
     public static final double sh = 24.0625;
     public static final double spo = -9.0;
-    public static final double rox = -16.0; // TODO: CORRECT THIS
-    public static final double roy = 4.0; // TODO: CORRECT THIS
-    public static final double shox = 6.0; // TODO: CORRECT THIS
-    public static final double shoy = 20.0; // TODO: CORRECT THIS
+    public static final double rox = 1.785;
+    public static final double roy = -6.25;
+    public static final double shox = -6.633;
+    public static final double shoy = 21.5;
     public static final double nvi = 612; // TODO: TUNE THIS
     public static final double g = 386.1;
 

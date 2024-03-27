@@ -17,6 +17,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -72,8 +73,8 @@ public class SwerveDriveSubsystem extends SubsystemBase {
       new HolonomicPathFollowerConfig(
         new PIDConstants(5.0, 0.0, 0.0),
         new PIDConstants(5.0, 0.0, 0.0),
-        4.5,
-        0.4,
+        5.6,
+        Constants.DriveConstants.kWheelBase,
         new ReplanningConfig()
       ), () -> {
         

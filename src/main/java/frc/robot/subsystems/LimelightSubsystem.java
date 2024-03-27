@@ -50,7 +50,7 @@ public class LimelightSubsystem extends SubsystemBase {
     Double targetAngle = SmartAimLookup.getAngle(SmartAimLookup.tyToDx(getTY())); // Make sure that the lookup table has been populated before this runs
     if (targetAngle == null) return ScoreCommandHolderConstants.kSpeakerSetpoint;
    
-    double encoderTarget = (targetAngle / (Math.PI * 2.0)) + ENCODER_AT_ANGLE_ZERO;
+    double encoderTarget = targetAngle + ENCODER_AT_ANGLE_ZERO;
     encoderTarget = Math.min(encoderTarget, 0.0);
     return encoderTarget;
   }
