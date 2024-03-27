@@ -30,12 +30,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Intake Note"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "C-Center-To"
@@ -69,6 +63,12 @@
           "type": "named",
           "data": {
             "name": "Shoot Note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake Note"
           }
         }
       ]
