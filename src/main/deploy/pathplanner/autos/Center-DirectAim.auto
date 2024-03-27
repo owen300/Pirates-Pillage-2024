@@ -36,15 +36,33 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "C-Center-To"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Compact Position"
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "C-Center-From"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Score Speaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
           }
         },
         {
