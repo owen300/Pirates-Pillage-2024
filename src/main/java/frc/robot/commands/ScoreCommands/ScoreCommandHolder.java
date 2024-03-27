@@ -38,8 +38,7 @@ public class ScoreCommandHolder extends Command {
             new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
             new ShootCommand(0),
             new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint),
-            new IntakeCommand(endEffectorSubsystem, 0, false ),
-            new ShootCommand(0) 
+            new IntakeCommand(endEffectorSubsystem, 0, false)
         ); 
     }
 
