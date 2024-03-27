@@ -36,7 +36,7 @@ public class ScoreCommandHolder extends Command {
     public SequentialCommandGroup shootNote2(){
         return new SequentialCommandGroup(
             new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
-            new IntakeCommand(endEffectorSubsystem, 0, false),
+            new IntakeTimeCommand(endEffectorSubsystem, 0, false, 0.5),
             new ShootCommand(0),
             new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint)
         ); 
