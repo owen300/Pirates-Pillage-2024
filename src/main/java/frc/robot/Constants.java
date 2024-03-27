@@ -54,7 +54,7 @@ public final class Constants {
     // This changes the drive speed of the module (a pinion gear with more teeth
     // will result in a
     // robot that drives faster).
-    public static final int kDrivingMotorPinionTeeth = 14 ;
+    public static final int kDrivingMotorPinionTeeth = 15;
 
     public static final boolean kTurningEncoderInverted = true;
 
@@ -167,9 +167,11 @@ public final class Constants {
 
     public static final int kHangEncoderChannel = 2; 
 
+    public static final int kSensorInput = 3; 
+
     public static final double kFaceP = 1.0; 
     public static final double kFaceI = 0.0; 
-    public static final double kFaceD = 0.0;  
+    public static final double kFaceD = 0.0;
 
   }
 
@@ -180,11 +182,13 @@ public final class Constants {
     public static final double kIntakeSetpoint = -0.001; 
     public static final double kCompactSetpoint = -0.5; 
     public static final double kAmpSetpoint = -1.686;
-    public static final double kSpeakerSetpoint = -0.35; 
+    public static final double kSpeakerSetpoint = -0.4; 
     public static final double kSpeakerDistanceSetpoint = -0.4; 
     public static final double kHangUpSetpoint = 2.8;  
     public static final double kHangDownSetpoint = 0; 
     public static final double kLiftHangSetpoint = -1.6; 
+    public static final double kFirstVisionSetpoint = -0.6;
+  
   }
 
   public static final class BlinkinConstants{

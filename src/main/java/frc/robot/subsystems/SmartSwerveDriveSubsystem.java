@@ -6,16 +6,16 @@ import frc.robot.Constants.SubsystemConstants;
 
 public class SmartSwerveDriveSubsystem extends SwerveDriveSubsystem {
 
-  private SmartLimelightSubsystem smartLimelightSubsystem;
+  private LimelightSubsystem limelightSubsystem;
 
   private PIDController facePIDController;
   private boolean isAutoFaceEnabled = false;
 
-  public SmartSwerveDriveSubsystem(SmartLimelightSubsystem smartLimelightSubsystem) {
+  public SmartSwerveDriveSubsystem(LimelightSubsystem limelightSubsystem) {
     this.facePIDController = new PIDController(SubsystemConstants.kFaceP, SubsystemConstants.kFaceI, SubsystemConstants.kFaceD);
     this.facePIDController.setTolerance(2, 5);
     this.facePIDController.setSetpoint(0);
-    this.smartLimelightSubsystem = smartLimelightSubsystem;
+    this.limelightSubsystem = limelightSubsystem;
   }
 
   public void enableAutoFace(boolean enable) {
@@ -24,10 +24,10 @@ public class SmartSwerveDriveSubsystem extends SwerveDriveSubsystem {
 
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean rateLimit) {
 
-    if (!isAutoFaceEnabled) {
+    if (!isAutoFaceEnabled || !limelightSubsystem.getTV()) {
       super.drive(xSpeed, ySpeed, rot, fieldRelative, rateLimit);
     } else {
-      double tx = smartLimelightSubsystem.getTX();
+      double tx = limelightSubsystem.getTX();
       double pidOut = facePIDController.calculate(tx);
       //if (tx < 0) pidOut = -pidOut; // poor man's angle wrapping
       double rotControlled = MathUtil.clamp(pidOut, -1.0, 1.0);

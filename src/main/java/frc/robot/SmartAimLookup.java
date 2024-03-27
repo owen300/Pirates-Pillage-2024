@@ -64,13 +64,13 @@ public class SmartAimLookup {
         return segment;
     }
 
-    private static Double approximateAngle(double dh) {
+    private static Double approximateAngle(double dx) {
         double approx = Math.PI / 8; // start at 22.5 degrees so that it always finds the lower possible angle first
         double step = Math.PI / 8; // because of math, the higher possible angle will never be lower than 45 degrees, I think
         Integer stepDirection = 0;
         Integer lastStepDirection = 0;
         for (int i = 0; i < APPROXIMATION_PRECISION; i++) {
-            stepDirection = approximationStepDirection(approx, dh);
+            stepDirection = approximationStepDirection(approx, dx);
             if (stepDirection == null) return null;
             if (stepDirection == 0) return approx;
 
@@ -83,9 +83,9 @@ public class SmartAimLookup {
         return approx;
     }
 
-    private static Integer approximationStepDirection(double approx, double dh) {
+    private static Integer approximationStepDirection(double approx, double dx) {
         //double result = getResult(approx, dh);
-        double result = getResultWithDrag(approx, dh);
+        double result = getResultWithDrag(approx, dx);
         if (Double.isNaN(result)) return null;
 
         if (result > 0) {
@@ -97,7 +97,7 @@ public class SmartAimLookup {
         }
     }
 
-    private static double getResult(double approx, double dh) {
+    /* private static double getResult(double approx, double dh) {
         // This is the fun part.
         double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.ch) / dh)) * dh;
         double part1 = dx + SmartAimConstants.spo - SmartAimConstants.rox - Math.cos(approx) * SmartAimConstants.shox + Math.sin(approx) * SmartAimConstants.shoy;
@@ -105,9 +105,9 @@ public class SmartAimLookup {
                 - ((SmartAimConstants.g * Math.pow(part1, 2)) / (2 * Math.pow(SmartAimConstants.nvi, 2) * Math.pow(Math.cos(approx), 2)))
                 + (SmartAimConstants.roy + Math.sin(approx) * SmartAimConstants.shox + Math.cos(approx) * SmartAimConstants.shoy - SmartAimConstants.th - SmartAimConstants.sh);
         // Did you have fun?
-    }
+    } */
 
-    private static double getResultWithDrag(double approx, double dh) {
+    private static double getResultWithDrag(double approx, double dx) {
         // This is the really fun part.
         double Av = Math.sin(approx) * SmartAimConstants.Ah + Math.cos(approx) * SmartAimConstants.Av;
         double Ah = Math.sin(approx) * SmartAimConstants.Av + Math.cos(approx) * SmartAimConstants.Ah;
@@ -124,7 +124,7 @@ public class SmartAimLookup {
                 * ((1/Math.sqrt(1+Math.pow(Math.sqrt(1+Math.pow(Math.sin(approx),2)* part5),2)))
                 + part4);*/
 
-        double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.ch) / dh)) * dh;
+        //double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.ch) / dh)) * dh;
 
         double x = (dx + SmartAimConstants.spo) - (SmartAimConstants.rox + Math.cos(approx) * SmartAimConstants.shox - Math.sin(approx) * SmartAimConstants.shoy);
         double y = (SmartAimConstants.th + SmartAimConstants.sh) - (SmartAimConstants.roy + Math.sin(approx) * SmartAimConstants.shox + Math.cos(approx) * SmartAimConstants.shoy);
@@ -149,7 +149,21 @@ public class SmartAimLookup {
         // I blacked out for a few minutes and this strange math appeared on my screen. Should I see a doctor?
     }
 
-    public static Double getAngle(double ty) {
-        return table.get((int) Math.round(ty * TABLE_FACTOR));
+    public static Double getAngle(double dx) {
+        return table.get((int) Math.round(dx * TABLE_FACTOR));
+    }
+
+    public static double tyToDx(double ty) {
+        // how many degrees back is your limelight rotated from perfectly vertical?
+
+     // distance from the center of the Limelight lens to the floor
+ 
+     // distance from the target to the floor
+ 
+     double angleToGoalDegrees = SmartAimConstants.ca + ty;
+     double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
+ 
+     //calculate distance
+     return (SmartAimConstants.th - SmartAimConstants.ch) / Math.tan(angleToGoalRadians);
     }
 }

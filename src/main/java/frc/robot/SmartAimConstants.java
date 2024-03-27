@@ -8,14 +8,16 @@ package frc.robot;
 public final class SmartAimConstants {
     /* Physical configuration:
     ch is the height of the camera from the ground (inches);
+    ca is the angle of the camera back from vertical (degrees);
     th is the height of the apriltag from the ground (56.375 inches on a standard field);
     sh is the vertical distance between the center of the apriltag and the center of the speaker opening (24.0625 inches on a standard field);
     spo is the horizontal offset of the center of the speaker opening from the apriltag (-9 inches on a standard field);
     rox and roy are the x and y offsets of the center of rotation from the camera/limelight respectively;
-    shox and shoy are the x and y offsets of the shooter from the center of rotation respectively;
+    shox and shoy are the x and y offsets of the shooter from the center of rotation respectively (at angle 0);
     nvi is the initial velocity of the note (tune this empirically);
     g is gravity in inches/second^2 (always 386.1 unless you need to run the robot on the moon or something) */
     public static final double ch = 5.0; // TODO: CORRECT THIS
+    public static final double ca = 25.0; // TODO: CORRECT THIS
     public static final double th = 56.375;
     public static final double sh = 24.0625;
     public static final double spo = -9.0;

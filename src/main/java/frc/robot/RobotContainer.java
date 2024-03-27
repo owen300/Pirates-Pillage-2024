@@ -8,22 +8,20 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
-import frc.robot.commands.LimelightCommands.AutoTargetCommand;
-import frc.robot.commands.LimelightCommands.LiftAimCommand;
-import frc.robot.commands.ScoreCommands.LiftCommand;
+import frc.robot.commands.ScoreCommands.AutoTargetCommand;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.SmartLimelightSubsystem;
-import frc.robot.subsystems.SmartSwerveDriveSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
+import frc.robot.subsystems.SmartSwerveDriveSubsystem;
+import frc.robot.commands.ScoreCommands.LiftSetpointDown;
+import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 
 public class RobotContainer {
 
@@ -34,15 +32,14 @@ public class RobotContainer {
 
   //SUBSYSTEM
   EndEffectorSubsystem endEffectorSubsystem = new EndEffectorSubsystem();
-  SmartLimelightSubsystem limelightSubsystem = new SmartLimelightSubsystem();
+  LimelightSubsystem limelightSubsystem = new LimelightSubsystem("");
   SmartSwerveDriveSubsystem swerveDriveSubsystem = new SmartSwerveDriveSubsystem(limelightSubsystem);
+  //SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem();
   
 
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
-  LiftAimCommand liftAimCommand = new LiftAimCommand(limelightSubsystem, endEffectorSubsystem);
   AutoTargetCommand autoTargetCommand = new AutoTargetCommand(limelightSubsystem, swerveDriveSubsystem, endEffectorSubsystem);
-  LiftCommand liftCommand = new LiftCommand(endEffectorSubsystem, LimelightSubsystem.getEncoderTarget() ); //for setpoint after limelight aim 
  
 
 
@@ -57,6 +54,9 @@ public class RobotContainer {
   Trigger leftBumperCoDriver = coDriverController.leftBumper(); 
   Trigger rightBumperCoDriver = coDriverController.rightBumper(); 
   Trigger rightTriggerCoDriver = coDriverController.rightTrigger(); 
+  Trigger leftTriggerCoDriver = coDriverController.leftTrigger(); 
+  Trigger dpadRight = coDriverController.povRight();
+  Trigger dpadleft = coDriverController.povLeft();
 
 
   Trigger aDriverButton = driverController.a(); 
@@ -99,19 +99,19 @@ public class RobotContainer {
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.intakeDown());
-    rightDriverBumper.onTrue(scoreCommands.setFlyWheel());
-
-
     startButton.onTrue(scoreCommands.getHangReady());
 
-
+ 
     //Co-Driver Controls
-    xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
+    // xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
-    aButton.whileTrue(liftAimCommand);
-    rightBumperCoDriver.whileTrue(autoTargetCommand).onTrue(scoreCommands.setFlyWheel()).onFalse(scoreCommands.compactPosition());
+    rightBumperCoDriver.whileTrue(autoTargetCommand).onFalse(scoreCommands.compactPosition());
     dpadDownCoDriver.onTrue(scoreCommands.hang());
+    rightTriggerCoDriver.onTrue(scoreCommands.setFlyWheelZero());
+    leftTriggerCoDriver.onTrue(scoreCommands.setFlyWheel());
+    dpadRight.whileTrue(new LiftSetpointUp(endEffectorSubsystem));
+    dpadleft.whileTrue(new LiftSetpointDown(endEffectorSubsystem));
    
     
     //autoFireReady.onTrue(scoreCommands.shootNote());

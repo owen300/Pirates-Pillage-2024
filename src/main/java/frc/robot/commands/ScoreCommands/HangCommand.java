@@ -6,19 +6,18 @@ import frc.robot.subsystems.EndEffectorSubsystem;
 
 public class HangCommand extends Command{
 
-    private final EndEffectorSubsystem hangSubsystem;
     private final double setPoint;
     private final double TOLERANCE = 0.5; 
     double startTime;
 
-    public HangCommand(EndEffectorSubsystem hangSubsystem, double setpoint){
-        this.hangSubsystem = hangSubsystem; 
+    public HangCommand(double setpoint){
         this.setPoint = setpoint;
-        addRequirements(hangSubsystem);
+        addRequirements();
     }
 
     @Override 
-    public void initialize(){}
+    public void initialize(){
+    }
 
     @Override 
     public void execute(){
