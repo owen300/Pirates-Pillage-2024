@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.ScoreCommands.AutoTargetCommand;
+import frc.robot.commands.ScoreCommands.LiftSetpointDown;
+import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -40,6 +42,7 @@ public class RobotContainer {
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
   AutoTargetCommand autoTargetCommand = new AutoTargetCommand(limelightSubsystem, swerveDriveSubsystem, endEffectorSubsystem);
+ 
  
 
 
