@@ -26,12 +26,6 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Note"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Intake Note"
           }
         },
@@ -63,6 +57,12 @@
           "type": "wait",
           "data": {
             "waitTime": 1.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Note"
           }
         },
         {

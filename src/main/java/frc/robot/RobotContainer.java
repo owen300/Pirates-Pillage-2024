@@ -22,8 +22,6 @@ import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 import frc.robot.subsystems.SmartSwerveDriveSubsystem;
-import frc.robot.commands.ScoreCommands.LiftSetpointDown;
-import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 
 public class RobotContainer {
 
