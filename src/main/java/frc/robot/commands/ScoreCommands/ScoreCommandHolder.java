@@ -42,6 +42,30 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
+    public SequentialCommandGroup shootNote3a(){
+        return new SequentialCommandGroup(
+            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2)
+        ); 
+    }
+
+    public SequentialCommandGroup shootNote3b(){
+        return new SequentialCommandGroup(
+            new ShootCommand(0)
+        ); 
+    }
+
+    public SequentialCommandGroup shootNote3c(){
+        return new SequentialCommandGroup(
+            new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint)
+        ); 
+    }
+
+    public SequentialCommandGroup shootNote3d(){
+        return new SequentialCommandGroup(
+            new IntakeCommand(endEffectorSubsystem, 0, false)
+        ); 
+    }
+
     public SequentialCommandGroup scoreAmp(){
         return new SequentialCommandGroup(
             new ShootCommand(0.3),

@@ -124,6 +124,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("Shoot Note", scoreCommands.shootNote2());
     NamedCommands.registerCommand("Score Speaker", scoreCommands.scoreSpeaker());
     NamedCommands.registerCommand("Compact Position", scoreCommands.compactPosition());
+
+    NamedCommands.registerCommand("Shoot Note test a", scoreCommands.shootNote3a());
+    NamedCommands.registerCommand("Shoot Note test b", scoreCommands.shootNote3b());
+    NamedCommands.registerCommand("Shoot Note test c", scoreCommands.shootNote3c());
+    NamedCommands.registerCommand("Shoot Note test d", scoreCommands.shootNote3d());
   }
 
   public void setAutoCommands(){
