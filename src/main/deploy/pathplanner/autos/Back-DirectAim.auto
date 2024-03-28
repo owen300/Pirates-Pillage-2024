@@ -14,67 +14,51 @@
         {
           "type": "named",
           "data": {
-            "name": "Score Speaker"
+            "name": "Score Speaker and Shoot"
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 1.5
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Note"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "B-Back-To"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Shoot Note"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.1
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "B-Back-To"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Compact Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "B-Back-From"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Compact Position"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "B-Back-From"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Score Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Note"
+            "name": "Score Speaker and Shoot"
           }
         }
       ]

@@ -123,12 +123,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake Note", scoreCommands.intakeNote());
     NamedCommands.registerCommand("Shoot Note", scoreCommands.shootNote2());
     NamedCommands.registerCommand("Score Speaker", scoreCommands.scoreSpeaker());
-    NamedCommands.registerCommand("Compact Position", scoreCommands.compactPosition());
-
-    NamedCommands.registerCommand("Shoot Note test a", scoreCommands.shootNote3a());
-    NamedCommands.registerCommand("Shoot Note test b", scoreCommands.shootNote3b());
-    NamedCommands.registerCommand("Shoot Note test c", scoreCommands.shootNote3c());
-    NamedCommands.registerCommand("Shoot Note test d", scoreCommands.shootNote3d());
+    NamedCommands.registerCommand("Compact Position", scoreCommands.compactPosition2());
+    NamedCommands.registerCommand("Score Speaker and Shoot", scoreCommands.scoreSpeakerAndShootNote());
   }
 
   public void setAutoCommands(){
@@ -140,7 +136,7 @@ public class RobotContainer {
     AutoChooser.addOption("Taxi-FromBack-DirectAim", new PathPlannerAuto("Back-DirectAim"));
     AutoChooser.addOption("Taxi-FromCenter-DirectAim", new PathPlannerAuto("Center-DirectAim"));
     AutoChooser.addOption("Taxi-FromFront-DirectAim", new PathPlannerAuto("Front-DirectAim"));
-    AutoChooser.addOption("testing", new PathPlannerAuto("testing"));
+    //AutoChooser.addOption("testing", new PathPlannerAuto("testing"));
   }
 
   public Command getAutonomousCommand() {

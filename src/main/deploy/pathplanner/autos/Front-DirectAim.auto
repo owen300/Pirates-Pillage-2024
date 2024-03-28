@@ -14,79 +14,51 @@
         {
           "type": "named",
           "data": {
-            "name": "Score Speaker"
+            "name": "Score Speaker and Shoot"
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 2.5
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Note"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "F-Front-To"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Intake Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "F-Front-To"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Compact Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "F-Front-From"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.5
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Compact Position"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "F-Front-From"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Intake Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "F-Center-To"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Compact Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "F-Center-From"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score Speaker"
+            "name": "Score Speaker and Shoot"
           }
         }
       ]

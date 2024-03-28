@@ -14,19 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Score Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Note"
+            "name": "Score Speaker and Shoot"
           }
         },
         {
@@ -70,19 +58,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Score Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Note"
+            "name": "Score Speaker and Shoot"
           }
         }
       ]

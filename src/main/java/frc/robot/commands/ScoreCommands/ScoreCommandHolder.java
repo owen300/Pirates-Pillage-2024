@@ -36,33 +36,7 @@ public class ScoreCommandHolder extends Command {
     public SequentialCommandGroup shootNote2(){
         return new SequentialCommandGroup(
             new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
-            new IntakeTimeCommand(endEffectorSubsystem, 0, false, 0.5),
-            new ShootCommand(0),
-            new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint)
-        ); 
-    }
-
-    public SequentialCommandGroup shootNote3a(){
-        return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2)
-        ); 
-    }
-
-    public SequentialCommandGroup shootNote3b(){
-        return new SequentialCommandGroup(
-            new ShootCommand(0)
-        ); 
-    }
-
-    public SequentialCommandGroup shootNote3c(){
-        return new SequentialCommandGroup(
-            new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint)
-        ); 
-    }
-
-    public SequentialCommandGroup shootNote3d(){
-        return new SequentialCommandGroup(
-            new IntakeCommand(endEffectorSubsystem, 0, false)
+            compactPosition2()
         ); 
     }
 
@@ -80,11 +54,27 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
+    public SequentialCommandGroup scoreSpeakerAndShootNote(){
+        return new SequentialCommandGroup(
+            scoreSpeaker(),
+            new WaitCommand(1.5),
+            shootNote2()
+        ); 
+    }
+
     public SequentialCommandGroup compactPosition(){
         return new SequentialCommandGroup(
             new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint),
             new IntakeCommand(endEffectorSubsystem, 0, false ),
             new ShootCommand(0) 
+        ); 
+    }
+
+    public SequentialCommandGroup compactPosition2(){
+        return new SequentialCommandGroup(
+            new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint),
+            new ShootCommand(0),
+            new IntakeTimeCommand(endEffectorSubsystem, 0, false, 0.1)
         ); 
     }
 
