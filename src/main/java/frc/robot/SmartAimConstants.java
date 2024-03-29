@@ -39,6 +39,6 @@ public final class SmartAimConstants {
     public static final double p = 0.000020074;
     public static final double Av = 75.4;
     public static final double Ah = 28;
-    public static final double Cv = 0.99;
-    public static final double Ch = 0.23;
+    public static final double Cv = 0.02;
+    public static final double Ch = 0.15;
 }
