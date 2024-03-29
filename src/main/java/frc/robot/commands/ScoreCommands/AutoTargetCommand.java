@@ -28,7 +28,7 @@ public class AutoTargetCommand extends Command {
     @Override 
     public void execute(){
         EndEffectorSubsystem.lift(limelightSubsystem.getAutoAimEncoderTarget());
-        swerveDriveSubsystem.enableAutoFace(true);
+        //swerveDriveSubsystem.enableAutoFace(true);
         if (endEffectorSubsystem.isLiftAtTarget() && swerveDriveSubsystem.alignedToGoal()) isReadyToFire = true;
         System.out.println("executed"); 
     }
@@ -36,7 +36,7 @@ public class AutoTargetCommand extends Command {
     @Override
     public void end(boolean interrupted){
 
-        swerveDriveSubsystem.enableAutoFace(false);
+        //swerveDriveSubsystem.enableAutoFace(false);
         isReadyToFire = false;
         BlinkinSubsystem.green();
         System.out.println("ended");
