@@ -44,7 +44,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
   public Double getAutoAimEncoderTarget(){
 
-    final double ENCODER_AT_ANGLE_ZERO = -1.03;
+    final double ENCODER_AT_ANGLE_ZERO = -1.28;
    
     if (!getTV()) return ScoreCommandHolderConstants.kSpeakerSetpoint;
     double dx = SmartAimLookup.tyToDx(getTY());
