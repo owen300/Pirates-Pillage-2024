@@ -160,7 +160,7 @@ public class SmartAimLookup {
  
      // distance from the target to the floor
  
-     double angleToGoalDegrees = SmartAimConstants.ca + ty;
+     double angleToGoalDegrees = SmartAimConstants.ca + Math.abs(ty);
      double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
  
      //calculate distance

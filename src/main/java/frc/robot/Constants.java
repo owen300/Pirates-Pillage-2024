@@ -169,7 +169,7 @@ public final class Constants {
 
     public static final int kSensorInput = 3; 
 
-    public static final double kFaceP = 1.0; 
+    public static final double kFaceP = 0.1; 
     public static final double kFaceI = 0.0; 
     public static final double kFaceD = 0.0;
 
