@@ -30,7 +30,7 @@ public class SmartSwerveDriveSubsystem extends SwerveDriveSubsystem {
     } else {
       double tx = limelightSubsystem.getTX();
       //double pidOut = -tx * SubsystemConstants.kFaceP;
-      double pidOut = -facePIDController.calculate(tx);
+      double pidOut = facePIDController.calculate(tx);
       //if (tx > 0) pidOut = -pidOut; // poor man's angle wrapping
       double rotControlled = MathUtil.clamp(pidOut, -1.0, 1.0);
       super.drive(xSpeed, ySpeed, rotControlled, fieldRelative, rateLimit); // automatically face the target apriltag
