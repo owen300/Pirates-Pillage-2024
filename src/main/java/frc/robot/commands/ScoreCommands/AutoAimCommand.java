@@ -18,7 +18,8 @@ public class AutoAimCommand extends Command {
 
     @Override 
     public void execute(){
-        EndEffectorSubsystem.lift(limelightSubsystem.getAutoAimEncoderTarget());
+        Double target = limelightSubsystem.getAutoAimEncoderTarget();
+        if (target != null) EndEffectorSubsystem.lift(target);
     }
 
     @Override

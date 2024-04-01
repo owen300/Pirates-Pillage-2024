@@ -42,13 +42,15 @@ public class LimelightSubsystem extends SubsystemBase {
     displayData();
   }
 
-  public double getAutoAimEncoderTarget(){
+  public Double getAutoAimEncoderTarget(){
 
     final double ENCODER_AT_ANGLE_ZERO = -1.03;
    
     if (!getTV()) return ScoreCommandHolderConstants.kSpeakerSetpoint;
-    Double targetAngle = SmartAimLookup.getAngle(SmartAimLookup.tyToDx(getTY())); // Make sure that the lookup table has been populated before this runs
-    if (targetAngle == null) return ScoreCommandHolderConstants.kSpeakerSetpoint;
+    double dx = SmartAimLookup.tyToDx(getTY());
+    Double targetAngle = SmartAimLookup.getAngle(dx); // Make sure that the lookup table has been populated before this runs
+    SmartDashboard.putNumber("LimelightDistanceX", dx);
+    if (targetAngle == null) return null;
    
     double encoderTarget = targetAngle + ENCODER_AT_ANGLE_ZERO;
     encoderTarget = Math.min(encoderTarget, 0.0);
