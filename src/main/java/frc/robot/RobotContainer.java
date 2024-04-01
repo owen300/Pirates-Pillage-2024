@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
-import frc.robot.commands.ScoreCommands.AutoTargetCommand;
+import frc.robot.commands.ScoreCommands.AutoAimCommand;
+import frc.robot.commands.ScoreCommands.AutoFaceCommand;
 import frc.robot.commands.ScoreCommands.LiftSetpointDown;
 import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
@@ -39,7 +40,8 @@ public class RobotContainer {
 
   //COMMANDS
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
-  AutoTargetCommand autoTargetCommand = new AutoTargetCommand(limelightSubsystem, swerveDriveSubsystem, endEffectorSubsystem);
+  AutoAimCommand autoAimCommand = new AutoAimCommand(limelightSubsystem);
+  AutoFaceCommand autoFaceCommand = new AutoFaceCommand(swerveDriveSubsystem);
  
  
 
@@ -73,9 +75,6 @@ public class RobotContainer {
   Trigger startButton = driverController.start();
 
 
-  Trigger autoFireReady = new Trigger(autoTargetCommand::getIsReadyToFire);
-
-
 
   public RobotContainer() {
     registerNamedCommands();
@@ -107,15 +106,13 @@ public class RobotContainer {
     // xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
-    rightBumperCoDriver.whileTrue(autoTargetCommand).onFalse(scoreCommands.compactPosition());
+    rightBumperCoDriver.whileTrue(autoAimCommand).onFalse(scoreCommands.compactPosition());
+    leftBumperCoDriver.whileTrue(autoFaceCommand);
     dpadDownCoDriver.onTrue(scoreCommands.hang());
     rightTriggerCoDriver.onTrue(scoreCommands.setFlyWheelZero());
     leftTriggerCoDriver.onTrue(scoreCommands.setFlyWheel());
     dpadRight.whileTrue(new LiftSetpointUp(endEffectorSubsystem));
     dpadleft.whileTrue(new LiftSetpointDown(endEffectorSubsystem));
-   
-    
-    //autoFireReady.onTrue(scoreCommands.shootNote());
 
   }
 

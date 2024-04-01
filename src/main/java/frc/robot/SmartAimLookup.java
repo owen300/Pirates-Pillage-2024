@@ -16,9 +16,9 @@ import java.util.concurrent.Future;
 */
 public class SmartAimLookup {
 
-    private static final int TABLE_START = 50;
+    private static final int TABLE_START = 30;
     private static final int TABLE_END = 510;
-    private static final int TABLE_FACTOR = 2; // How many calculations to have per inch (i.e. = 2 means two calculations per inch, or one every 0.5 inches)
+    private static final int TABLE_FACTOR = 3; // How many calculations to have per inch (i.e. = 2 means two calculations per inch, or one every 0.5 inches)
 
     private static final int APPROXIMATION_PRECISION = 1000;
 
