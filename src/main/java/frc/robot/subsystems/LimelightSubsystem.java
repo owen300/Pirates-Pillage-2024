@@ -49,8 +49,10 @@ public class LimelightSubsystem extends SubsystemBase {
     if (!getTV()) return ScoreCommandHolderConstants.kSpeakerSetpoint;
     double dx = SmartAimLookup.tyToDx(getTY());
     Double targetAngle = SmartAimLookup.getAngle(dx); // Make sure that the lookup table has been populated before this runs
-    SmartDashboard.putNumber("LimelightDistanceX", dx);
     if (targetAngle == null) return null;
+
+    SmartDashboard.putNumber("LimelightDistanceX", dx);
+    SmartDashboard.putNumber("AutoAimTargetAngle", targetAngle);
    
     double encoderTarget = targetAngle + ENCODER_AT_ANGLE_ZERO;
     encoderTarget = Math.min(encoderTarget, 0.0);
