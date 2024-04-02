@@ -106,8 +106,8 @@ public class RobotContainer {
     // xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
     bButton.onTrue(scoreCommands.outtake());
-    rightBumperCoDriver.whileTrue(autoAimCommand).onFalse(scoreCommands.compactPosition());
-    leftBumperCoDriver.whileTrue(autoFaceCommand);
+    rightBumperCoDriver.whileTrue(autoAimCommand).whileTrue(autoFaceCommand).onFalse(scoreCommands.compactPosition());
+    leftBumperCoDriver.whileTrue(autoAimCommand).onFalse(scoreCommands.compactPosition());
     dpadDownCoDriver.onTrue(scoreCommands.hang());
     rightTriggerCoDriver.onTrue(scoreCommands.setFlyWheelZero());
     leftTriggerCoDriver.onTrue(scoreCommands.setFlyWheel());

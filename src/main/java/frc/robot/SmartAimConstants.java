@@ -25,7 +25,7 @@ public final class SmartAimConstants {
     public static final double roy = -6.25;
     public static final double shox = -6.633;
     public static final double shoy = 21.5;
-    public static final double nvi = 800;
+    public static final double nvi = 825;
     public static final double g = 386.1;
 
     /* Drag constants:
