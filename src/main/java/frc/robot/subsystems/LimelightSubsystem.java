@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ScoreCommandHolderConstants;
+import frc.robot.Constants;
 import frc.robot.SmartAimLookup;
 import frc.utils.LimelightUtils;
 
@@ -43,8 +44,6 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public Double getAutoAimEncoderTarget(){
-
-    final double ENCODER_AT_ANGLE_ZERO = -1.33;
    
     if (!getTV()) return ScoreCommandHolderConstants.kSpeakerSetpoint;
     double dx = SmartAimLookup.tyToDx(getTY());
@@ -54,7 +53,7 @@ public class LimelightSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("LimelightDistanceX", dx);
     SmartDashboard.putNumber("AutoAimTargetAngle", targetAngle);
    
-    double encoderTarget = targetAngle + ENCODER_AT_ANGLE_ZERO;
+    double encoderTarget = targetAngle + Constants.ScoreCommandHolderConstants.kAutoAimSetpoint;
     encoderTarget = Math.min(encoderTarget, 0.0);
     return encoderTarget;
   }

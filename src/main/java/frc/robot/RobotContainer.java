@@ -5,6 +5,8 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,6 +18,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.ScoreCommands.AutoAimCommand;
 import frc.robot.commands.ScoreCommands.AutoFaceCommand;
+import frc.robot.commands.ScoreCommands.ControllerRumbleCommand;
 import frc.robot.commands.ScoreCommands.LiftSetpointDown;
 import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
@@ -42,6 +45,7 @@ public class RobotContainer {
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
   AutoAimCommand autoAimCommand = new AutoAimCommand(limelightSubsystem);
   AutoFaceCommand autoFaceCommand = new AutoFaceCommand(swerveDriveSubsystem);
+  ControllerRumbleCommand controllerRumbleCommand = new ControllerRumbleCommand(driverController.getHID());
  
  
 
@@ -75,6 +79,10 @@ public class RobotContainer {
   Trigger startButton = driverController.start();
 
 
+  Trigger atAutoAimTarget = new Trigger(autoAimCommand::isAtTarget);
+  Trigger atAutoFaceTarget = new Trigger(autoFaceCommand::isAtTarget);
+
+
 
   public RobotContainer() {
     registerNamedCommands();
@@ -100,6 +108,8 @@ public class RobotContainer {
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.intakeDown());
     startButton.onTrue(scoreCommands.getHangReady());
+
+    atAutoAimTarget.and(atAutoFaceTarget).whileTrue(controllerRumbleCommand);
 
  
     //Co-Driver Controls

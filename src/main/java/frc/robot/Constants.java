@@ -169,9 +169,11 @@ public final class Constants {
 
     public static final int kSensorInput = 3; 
 
-    public static final double kFaceP = 0.025; 
-    public static final double kFaceI = 0.0; 
+    public static final double kFaceP = 0.01; 
+    public static final double kFaceI = 0.001; 
     public static final double kFaceD = 0.0;
+
+    public static final double kFaceTolerance = 0.5;
 
   }
 
@@ -188,6 +190,7 @@ public final class Constants {
     public static final double kHangDownSetpoint = 0; 
     public static final double kLiftHangSetpoint = -1.6; 
     public static final double kFirstVisionSetpoint = -0.6;
+    public static final double kAutoAimSetpoint = -1.33;
   
   }
 
