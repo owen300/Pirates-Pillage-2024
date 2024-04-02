@@ -18,7 +18,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.ScoreCommands.AutoAimCommand;
 import frc.robot.commands.ScoreCommands.AutoFaceCommand;
-import frc.robot.commands.ScoreCommands.ControllerRumbleCommand;
+import frc.robot.commands.ScoreCommands.AutoTargetNotifyCommand;
 import frc.robot.commands.ScoreCommands.LiftSetpointDown;
 import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
@@ -45,7 +45,7 @@ public class RobotContainer {
   ScoreCommandHolder scoreCommands = new ScoreCommandHolder(endEffectorSubsystem);
   AutoAimCommand autoAimCommand = new AutoAimCommand(limelightSubsystem);
   AutoFaceCommand autoFaceCommand = new AutoFaceCommand(swerveDriveSubsystem);
-  ControllerRumbleCommand controllerRumbleCommand = new ControllerRumbleCommand(driverController.getHID());
+  AutoTargetNotifyCommand autoTargetNotifyCommand = new AutoTargetNotifyCommand(/* driverController.getHID() */);
  
  
 
@@ -109,7 +109,7 @@ public class RobotContainer {
     xDriverButton.onTrue(scoreCommands.intakeDown());
     startButton.onTrue(scoreCommands.getHangReady());
 
-    atAutoAimTarget.and(atAutoFaceTarget).whileTrue(controllerRumbleCommand);
+    atAutoAimTarget.and(atAutoFaceTarget).whileTrue(autoTargetNotifyCommand);
 
  
     //Co-Driver Controls

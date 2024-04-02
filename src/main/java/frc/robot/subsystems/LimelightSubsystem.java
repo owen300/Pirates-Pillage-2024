@@ -51,7 +51,6 @@ public class LimelightSubsystem extends SubsystemBase {
     if (targetAngle == null) return null;
 
     SmartDashboard.putNumber("LimelightDistanceX", dx);
-    SmartDashboard.putNumber("AutoAimTargetAngle", targetAngle);
    
     double encoderTarget = targetAngle + Constants.ScoreCommandHolderConstants.kAutoAimSetpoint;
     encoderTarget = Math.min(encoderTarget, 0.0);

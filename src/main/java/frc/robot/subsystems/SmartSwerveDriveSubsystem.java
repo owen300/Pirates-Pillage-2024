@@ -13,8 +13,9 @@ public class SmartSwerveDriveSubsystem extends SwerveDriveSubsystem {
 
   public SmartSwerveDriveSubsystem(LimelightSubsystem limelightSubsystem) {
     this.facePIDController = new PIDController(SubsystemConstants.kFaceP, SubsystemConstants.kFaceI, SubsystemConstants.kFaceD);
-    this.facePIDController.setTolerance(SubsystemConstants.kFaceTolerance, 1);
+    this.facePIDController.setIZone(5);
     this.facePIDController.setSetpoint(0);
+    this.facePIDController.setTolerance(SubsystemConstants.kFaceTolerance, 1);
     this.limelightSubsystem = limelightSubsystem;
   }
 
