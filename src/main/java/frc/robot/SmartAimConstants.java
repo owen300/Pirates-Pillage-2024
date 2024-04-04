@@ -18,8 +18,8 @@ public final class SmartAimConstants {
     g is gravity in inches/second^2 (always 386.1 unless you need to run the robot on the moon or something) */
     public static final double ch = 19.5;
     public static final double ca = 18.0;
-    public static final double th = 56.375;
-    public static final double sh = 24.0625;
+    public static final double th = 54.25; // real field: 57.0; practice field: 54.25; standard: 56.375;
+    public static final double sh = 23.0; // real field 23.0; practice field: 23.0; standard: 24.0625;
     public static final double spo = -9.0;
     public static final double rox = 1.785;
     public static final double roy = -6.25;

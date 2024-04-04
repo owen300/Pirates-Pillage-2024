@@ -14,7 +14,7 @@ public class SmartSwerveDriveSubsystem extends SwerveDriveSubsystem {
   public SmartSwerveDriveSubsystem(LimelightSubsystem limelightSubsystem) {
     this.facePIDController = new PIDController(SubsystemConstants.kFaceP, SubsystemConstants.kFaceI, SubsystemConstants.kFaceD);
     this.facePIDController.setIZone(5);
-    this.facePIDController.setSetpoint(0);
+    this.facePIDController.setSetpoint(400);
     this.facePIDController.setTolerance(SubsystemConstants.kFaceTolerance, 1);
     this.limelightSubsystem = limelightSubsystem;
   }
@@ -31,7 +31,7 @@ public class SmartSwerveDriveSubsystem extends SwerveDriveSubsystem {
     } else {
       double tx = limelightSubsystem.getTX();
       double pidOut = -tx * SubsystemConstants.kFaceP;
-      //double pidOut = facePIDController.calculate(-tx);
+      //double pidOut = facePIDController.calculate(400 - tx);
       //if (tx > 0) pidOut = -pidOut; // poor man's angle wrapping
       double rotControlled = MathUtil.clamp(pidOut, -1.0, 1.0);
       super.drive(xSpeed, ySpeed, rotControlled, fieldRelative, rateLimit); // automatically face the target apriltag
