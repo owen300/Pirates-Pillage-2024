@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.swerveDriveSubsystem.getRoll();
+    m_robotContainer.endEffectorSubsystem.shootLeadMotor(0.85);
   }
 
   @Override
