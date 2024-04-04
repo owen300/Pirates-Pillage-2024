@@ -169,8 +169,8 @@ public final class Constants {
 
     public static final int kSensorInput = 3; 
 
-    public static final double kFaceP = 0.01; 
-    public static final double kFaceI = 0.001; 
+    public static final double kFaceP = 0.015; 
+    public static final double kFaceI = 0.002; 
     public static final double kFaceD = 0.0;
 
     public static final double kFaceTolerance = 0.5;

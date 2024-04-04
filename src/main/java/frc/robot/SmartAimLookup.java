@@ -97,39 +97,52 @@ public class SmartAimLookup {
         }
     }
 
-    /* private static double getResult(double approx, double dh) {
+    private static double getResult(double approx, double dx) {
         // This is the fun part.
-        double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.ch) / dh)) * dh;
+        //double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.camh) / dh)) * dh;
         double part1 = dx + SmartAimConstants.spo - SmartAimConstants.rox - Math.cos(approx) * SmartAimConstants.shox + Math.sin(approx) * SmartAimConstants.shoy;
         return part1 * Math.tan(approx)
                 - ((SmartAimConstants.g * Math.pow(part1, 2)) / (2 * Math.pow(SmartAimConstants.nvi, 2) * Math.pow(Math.cos(approx), 2)))
                 + (SmartAimConstants.roy + Math.sin(approx) * SmartAimConstants.shox + Math.cos(approx) * SmartAimConstants.shoy - SmartAimConstants.th - SmartAimConstants.sh);
         // Did you have fun?
-    } */
+    }
 
     private static double getResultWithDrag(double approx, double dx) {
+
+        boolean useNewDrag = false;
+
         // This is the really fun part.
         double Av = Math.sin(approx) * SmartAimConstants.Ah + Math.cos(approx) * SmartAimConstants.Av;
         double Ah = Math.sin(approx) * SmartAimConstants.Av + Math.cos(approx) * SmartAimConstants.Ah;
 
-        double kv = 0.5 * SmartAimConstants.p * Av * SmartAimConstants.Cv;
-        double kh = 0.5 * SmartAimConstants.p * Ah * SmartAimConstants.Ch;
+        double Cv = SmartAimConstants.Cv;
+        double Ch = SmartAimConstants.Ch;
+        double nvi = SmartAimConstants.nvi;
 
-        double part4 = Math.atan(SmartAimConstants.nvi * Math.sin(approx) * Math.sqrt(kv / (SmartAimConstants.m * SmartAimConstants.g)));
+        if (useNewDrag) {
+            Cv = Math.sin(approx) * SmartAimConstants.ChNew + Math.cos(approx) * SmartAimConstants.CvNew;
+            Ch = Math.sin(approx) * SmartAimConstants.CvNew + Math.cos(approx) * SmartAimConstants.ChNew;
+            nvi = SmartAimConstants.nviNew;
+        }
+
+        double kv = 0.5 * SmartAimConstants.p * Av * Cv;
+        double kh = 0.5 * SmartAimConstants.p * Ah * Ch;
+
+        double part4 = Math.atan(nvi * Math.sin(approx) * Math.sqrt(kv / (SmartAimConstants.m * SmartAimConstants.g)));
         double part6 = Math.sqrt(SmartAimConstants.m / (SmartAimConstants.g * kv));
         double b1 = part6
                 * part4;
-        double part5 = (kv * Math.pow(SmartAimConstants.nvi, 2)) / (SmartAimConstants.m * SmartAimConstants.g);
+        double part5 = (kv * Math.pow(nvi, 2)) / (SmartAimConstants.m * SmartAimConstants.g);
         /*double b2 = part6
                 * ((1/Math.sqrt(1+Math.pow(Math.sqrt(1+Math.pow(Math.sin(approx),2)* part5),2)))
                 + part4);*/
 
-        //double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.ch) / dh)) * dh;
+        //double dx = Math.cos(Math.asin((SmartAimConstants.th - SmartAimConstants.camh) / dh)) * dh;
 
         double x = (dx + SmartAimConstants.spo) - (SmartAimConstants.rox + Math.cos(approx) * SmartAimConstants.shox - Math.sin(approx) * SmartAimConstants.shoy);
         double y = (SmartAimConstants.th + SmartAimConstants.sh) - (SmartAimConstants.roy + Math.sin(approx) * SmartAimConstants.shox + Math.cos(approx) * SmartAimConstants.shoy);
 
-        double t = (SmartAimConstants.m / (kh * SmartAimConstants.nvi * Math.cos(approx))) * (Math.pow(Math.E, (kh * x) / SmartAimConstants.m) - 1);
+        double t = (SmartAimConstants.m / (kh * nvi * Math.cos(approx))) * (Math.pow(Math.E, (kh * x) / SmartAimConstants.m) - 1);
 
         double result;
         double part1 = Math.sqrt(SmartAimConstants.g * kv / SmartAimConstants.m);
@@ -164,6 +177,6 @@ public class SmartAimLookup {
      double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
  
      //calculate distance
-     return (SmartAimConstants.th - SmartAimConstants.ch) / Math.tan(angleToGoalRadians);
+     return (SmartAimConstants.th - SmartAimConstants.camh) / Math.tan(angleToGoalRadians);
     }
 }
