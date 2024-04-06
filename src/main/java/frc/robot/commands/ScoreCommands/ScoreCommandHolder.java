@@ -56,7 +56,7 @@ public class ScoreCommandHolder extends Command {
 
      public SequentialCommandGroup shuttle(){
         return new SequentialCommandGroup(
-            new ShootCommand(0.65),
+            new ShootCommand(0.72),
             new LiftCommand(ScoreCommandHolderConstants.kSpeakerSetpoint)
         ); 
     }
