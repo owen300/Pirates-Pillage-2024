@@ -54,6 +54,13 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
+     public SequentialCommandGroup shuttle(){
+        return new SequentialCommandGroup(
+            new ShootCommand(0.65),
+            new LiftCommand(ScoreCommandHolderConstants.kSpeakerSetpoint)
+        ); 
+    }
+
     public SequentialCommandGroup scoreSpeakerAndShootNote(){
         return new SequentialCommandGroup(
             scoreSpeaker(),

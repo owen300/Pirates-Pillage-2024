@@ -104,6 +104,7 @@ public class RobotContainer {
     aDriverButton.onTrue(scoreCommands.intakeNote());
     leftDriverTrigger.onTrue(scoreCommands.scoreAmp()); 
     rightDriverTrigger.onTrue(scoreCommands.scoreSpeaker());
+    rightDriverBumper.onTrue(scoreCommands.shuttle());
     bDriverButton.onTrue(scoreCommands.shootNote());
     yDriverButton.onTrue(scoreCommands.compactPosition());
     xDriverButton.onTrue(scoreCommands.intakeDown());
