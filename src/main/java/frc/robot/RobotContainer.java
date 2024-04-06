@@ -144,6 +144,7 @@ public class RobotContainer {
     AutoChooser.addOption("Taxi-FromBack-DirectAim", new PathPlannerAuto("Back-DirectAim"));
     AutoChooser.addOption("Taxi-FromCenter-DirectAim", new PathPlannerAuto("Center-DirectAim"));
     AutoChooser.addOption("Taxi-FromFront-DirectAim", new PathPlannerAuto("Front-DirectAim"));
+    AutoChooser.addOption("Taxi-FromFront-EXIT", new PathPlannerAuto("Copy of Front-DirectAim"));
     //AutoChooser.addOption("testing", new PathPlannerAuto("testing"));
   }
 
