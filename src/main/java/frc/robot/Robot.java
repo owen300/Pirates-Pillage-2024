@@ -8,10 +8,13 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  ScoreCommandHolder scorecommands;
+  
 
   private RobotContainer m_robotContainer;
 
@@ -23,7 +26,7 @@ public class Robot extends TimedRobot {
     
     m_robotContainer.endEffectorSubsystem.resetliftEncoder();
     m_robotContainer.endEffectorSubsystem.resetEncoderHang();
-
+    ScoreCommandHolder scorecommands=new ScoreCommandHolder(m_robotContainer.endEffectorSubsystem);
     SmartAimLookup.populateTable();
     System.gc();
   }

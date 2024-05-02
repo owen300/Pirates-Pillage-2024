@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import java.util.function.DoubleSupplier;
+
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -15,7 +18,12 @@ import frc.robot.Constants.SubsystemConstants;
 
 
 public class EndEffectorSubsystem extends SubsystemBase {
-    
+  
+  double p=0.01;
+  double i=0.0;
+  double d=0.0;
+  public PIDController shooterPID=new PIDController(p, i, d);
+   public static boolean usepid=true;
     private final CANSparkMax intakeMotor;
     public boolean intakeMotorInverted; 
     public double intakeMotorSpeed; 
@@ -109,6 +117,28 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftFollowRight.burnFlash();
 
   }
+  public void shooterpidmode(){
+    double[] pid={p,i,d};
+    shooterPID.setSetpoint(4824.6);
+    shooterPID.calculate(shootLead.getEncoder().getVelocity());
+    SmartDashboard.putNumber("shooter current speed",shootLead.getEncoder().getVelocity());
+    SmartDashboard.putNumber("shooter target speed",4824.6);
+    SmartDashboard.putNumberArray("p i d",pid);
+    double[] newpid=SmartDashboard.getNumberArray("p i d",pid);
+    if(!pid.equals(newpid)){
+    for(int ii=0; ii<newpid.length;ii++){
+      if(ii==0)p=newpid[ii];
+      if(ii==1)i=newpid[ii];
+      if(ii==2)d=newpid[ii];
+      shooterPID.setP(p);
+      shooterPID.setI(i);
+      shooterPID.setD(d);
+    }
+    if(usepid){
+      shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity()));
+    }
+  }
+  }
 
   public void setIntakeSpeedDirection(double intakeMotorSpeed, boolean intakeMotorInverted){
     this.intakeMotorSpeed = intakeMotorSpeed; 
@@ -201,6 +231,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     getLiftDistance();
     calculateHang();
     getHangDistance();
+    shooterpidmode();
 
   }
 

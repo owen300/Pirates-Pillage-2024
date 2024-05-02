@@ -29,11 +29,11 @@ public class AutoCommandHolder extends Command{
     }
 
     public SequentialCommandGroup autoSpeaker(){
-        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(3), shootNoteAuto());
+        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(1), shootNoteAuto());
     }
 
     public SequentialCommandGroup autoSpeakerTaxi(){
-        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(3), shootNoteAuto(), driveBack(3));
+        return new SequentialCommandGroup(scoreSpeakerAuto(), new WaitCommand(1), shootNoteAuto(), driveBack(3));
     }
 
     public SequentialCommandGroup autoCenterSpeakerTaxiIntakeSpeaker(){
@@ -46,7 +46,6 @@ public class AutoCommandHolder extends Command{
     //METHODS
     public SequentialCommandGroup scoreSpeakerAuto(){
         return new SequentialCommandGroup(
-            new ShootCommand(0.85),
             new LiftCommand(ScoreCommandHolderConstants.kSpeakerDistanceSetpoint),
             new LiftCommand(ScoreCommandHolderConstants.kSpeakerSetpoint)
         ); 
@@ -54,8 +53,7 @@ public class AutoCommandHolder extends Command{
 
      public SequentialCommandGroup shootNoteAuto(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
-            new ShootCommand(0),
+            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 1),
             compactPositionAuto()
         ); 
     }
@@ -73,8 +71,7 @@ public class AutoCommandHolder extends Command{
     public SequentialCommandGroup compactPositionAuto(){
         return new SequentialCommandGroup(
             new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint),
-            new IntakeCurrentCommand(endEffectorSubsystem, 0, false ),
-            new ShootCommand(0) 
+            new IntakeCurrentCommand(endEffectorSubsystem, 0, false )
         ); 
     }
 

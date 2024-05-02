@@ -22,12 +22,17 @@ public class ShootCommand extends Command{
 
     @Override 
     public void execute(){
+      EndEffectorSubsystem.usepid=false;
       EndEffectorSubsystem.shootLeadMotor(speed);
+      if(Timer.getFPGATimestamp() - startTime > 0.45){
+      EndEffectorSubsystem.usepid=true;
+      }
     }
 
      @Override 
     public boolean isFinished(){ 
       return Timer.getFPGATimestamp() - startTime > 0.5;
+      
     }
 
 }

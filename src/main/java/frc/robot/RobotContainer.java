@@ -1,6 +1,8 @@
 package frc.robot;
 
 
+import java.util.function.BooleanSupplier;
+
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -10,6 +12,8 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,10 +28,16 @@ import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.SwerveDriveSubsystem;
 import frc.robot.subsystems.SmartSwerveDriveSubsystem;
+import frc.robot.subsystems.SwerveDriveSubsystem;
+import frc.utils.LimelightUtils.LimelightTarget_Detector;
+
 
 public class RobotContainer {
+  boolean autoaim = false;
+  boolean state=false;
+  boolean laststate=true;
+  BooleanSupplier autoaimsupplier=()-> autoaim;
 
   public static CommandXboxController driverController= new CommandXboxController(0); 
   public static CommandXboxController coDriverController= new CommandXboxController(1); 
@@ -52,10 +62,9 @@ public class RobotContainer {
 
 
   //TRIGGERS 
-  Trigger yButton = coDriverController.y(); 
-  Trigger xButton = coDriverController.x(); 
-  Trigger aButton = coDriverController.a();
-  Trigger bButton = coDriverController.b();
+  Trigger yButton = driverController.y(); 
+  
+
   Trigger dpadUpCoDriver = coDriverController.povUp();
   Trigger dpadDownCoDriver = coDriverController.povDown();
   Trigger leftBumperCoDriver = coDriverController.leftBumper(); 
@@ -66,17 +75,17 @@ public class RobotContainer {
   Trigger dpadleft = coDriverController.povLeft();
 
 
-  Trigger aDriverButton = driverController.a(); 
-  Trigger bDriverButton = driverController.b(); 
-  Trigger xDriverButton = driverController.x(); 
-  Trigger yDriverButton = driverController.y(); 
-  Trigger leftDriverTrigger = driverController.leftTrigger(); 
-  Trigger leftDriverBumper = driverController.leftBumper(); 
-  Trigger rightDriverTrigger = driverController.rightTrigger();
-  Trigger rightDriverBumper = driverController.rightBumper();
-  Trigger dpadUpDriver = driverController.povUp();
-  Trigger dpadDownDriver = driverController.povDown();
-  Trigger startButton = driverController.start();
+  Trigger aCoDriverButton = coDriverController.a(); 
+  Trigger bCoDriverButton = coDriverController.b(); 
+  Trigger xCoDriverButton = coDriverController.x(); 
+  Trigger yCoDriverButton = coDriverController.y(); 
+  Trigger leftDriverTrigger = coDriverController.leftTrigger(); 
+  Trigger leftDriverBumper = coDriverController.leftBumper(); 
+  Trigger rightDriverTrigger = coDriverController.rightTrigger();
+  Trigger rightDriverBumper = coDriverController.rightBumper();
+  Trigger dpadUpDriver = coDriverController.povUp();
+  Trigger dpadDownDriver = coDriverController.povDown();
+  Trigger startButton = coDriverController.start();
 
 
   Trigger atAutoAimTarget = new Trigger(autoAimCommand::isAtTarget);
@@ -100,30 +109,29 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    //Driver Controls
-    aDriverButton.onTrue(scoreCommands.intakeNote());
+    
+    aCoDriverButton.onTrue(scoreCommands.intakeNote());
     leftDriverTrigger.onTrue(scoreCommands.scoreAmp()); 
     rightDriverTrigger.onTrue(scoreCommands.scoreSpeaker());
-    rightDriverBumper.onTrue(scoreCommands.shuttle());
-    bDriverButton.onTrue(scoreCommands.shootNote());
-    yDriverButton.onTrue(scoreCommands.compactPosition());
-    xDriverButton.onTrue(scoreCommands.intakeDown());
+    dpadleft.onTrue(scoreCommands.shuttle()); //TODO: fix this
+    bCoDriverButton.onTrue(scoreCommands.shootNote());
+    yCoDriverButton.onTrue(scoreCommands.compactPosition());
+    xCoDriverButton.onTrue(scoreCommands.intakeDown());
     startButton.onTrue(scoreCommands.getHangReady());
 
     atAutoAimTarget.and(atAutoFaceTarget).whileTrue(autoTargetNotifyCommand);
 
  
     //Co-Driver Controls
-    // xButton.onTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
-    yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));
-    bButton.onTrue(scoreCommands.outtake());
-    rightBumperCoDriver.whileTrue(autoAimCommand).whileTrue(autoFaceCommand).onFalse(scoreCommands.compactPosition());
-    leftBumperCoDriver.whileTrue(autoAimCommand).onFalse(scoreCommands.compactPosition());
+  
+    yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));// driver button
+
+     dpadRight.onTrue(scoreCommands.outtake());
+     rightBumperCoDriver.whileTrue(autoAimCommand).whileTrue(autoFaceCommand).whileFalse(scoreCommands.compactPosition());
     dpadDownCoDriver.onTrue(scoreCommands.hang());
-    rightTriggerCoDriver.onTrue(scoreCommands.setFlyWheelZero());
-    leftTriggerCoDriver.onTrue(scoreCommands.setFlyWheel());
-    dpadRight.whileTrue(new LiftSetpointUp(endEffectorSubsystem));
-    dpadleft.whileTrue(new LiftSetpointDown(endEffectorSubsystem));
+  
+    
+    
 
   }
 
@@ -151,5 +159,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return AutoChooser.getSelected(); 
   }
+  
 
 }

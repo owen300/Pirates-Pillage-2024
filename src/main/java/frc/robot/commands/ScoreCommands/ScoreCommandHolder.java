@@ -1,6 +1,7 @@
 package frc.robot.commands.ScoreCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
 import frc.robot.subsystems.EndEffectorSubsystem;
@@ -27,15 +28,14 @@ public class ScoreCommandHolder extends Command {
 
       public SequentialCommandGroup shootNote(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
-            new ShootCommand(0.85),
+            new IntakeTimeCommand(endEffectorSubsystem, 1, false, 1),
             compactPosition()
         ); 
     }
 
     public SequentialCommandGroup shootNote2(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 0.7, false, 2),
+            new IntakeTimeCommand(endEffectorSubsystem, 1, false, 1),
             compactPosition2()
         ); 
     }
@@ -49,7 +49,6 @@ public class ScoreCommandHolder extends Command {
 
     public SequentialCommandGroup scoreSpeaker(){
         return new SequentialCommandGroup(
-            new ShootCommand(0.85),
             new LiftCommand(ScoreCommandHolderConstants.kSpeakerSetpoint)
         ); 
     }
@@ -64,7 +63,7 @@ public class ScoreCommandHolder extends Command {
     public SequentialCommandGroup scoreSpeakerAndShootNote(){
         return new SequentialCommandGroup(
             scoreSpeaker(),
-            new WaitCommand(1.5),
+            new WaitCommand(1),
             shootNote2()
         ); 
     }
@@ -86,7 +85,7 @@ public class ScoreCommandHolder extends Command {
     }
 
     public Command setFlyWheel(){
-        return new ShootCommand(0.85); 
+        return new InstantCommand(()->endEffectorSubsystem.shooterpidmode(),endEffectorSubsystem);
     }
 
     public Command setFlyWheelZero(){
