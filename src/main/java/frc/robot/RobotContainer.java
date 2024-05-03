@@ -157,6 +157,7 @@ public class RobotContainer {
     AutoChooser.addOption("amp-side-3-note", new PathPlannerAuto("Amp-side-3-note"));
     AutoChooser.addOption("amp-side-3-note-sideshoot", new PathPlannerAuto("Amp-side-3-note-side-shoot"));
     AutoChooser.addOption("Source-3-note", new PathPlannerAuto("Source-3-note"));
+    AutoChooser.addOption("Center-3-note", new PathPlannerAuto("Center-3-note"));
   }
 
   public Command getAutonomousCommand() {
