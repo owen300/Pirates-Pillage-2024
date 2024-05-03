@@ -28,14 +28,14 @@ public class ScoreCommandHolder extends Command {
 
       public SequentialCommandGroup shootNote(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 1, false, 1),
+            new IntakeTimeCommand(endEffectorSubsystem, 1, false, 0.7),
             compactPosition()
         ); 
     }
 
     public SequentialCommandGroup shootNote2(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 1, false, 1),
+            new IntakeTimeCommand(endEffectorSubsystem, 1, false, 0.7),
             compactPosition2()
         ); 
     }
