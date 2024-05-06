@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.352855322898146,
-      "y": 5.5779404527559056
+      "x": 0.68,
+      "y": 4.42
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -18,41 +18,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake Note Fast"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "C-Center-To"
-                }
-              }
-            ]
+            "pathName": "To-Source-Far"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Posistion"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "C-Center-From"
-                }
-              }
-            ]
+            "pathName": "From-Source-Far-no-adjustments"
           }
         },
         {
@@ -62,15 +36,41 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "to-center-far-note"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "F-Front-To"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Note Fast"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "from-center-far"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "F-Front-From-no-adj"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot Posistion"
+                }
+              }
+            ]
           }
         },
         {

@@ -32,7 +32,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
 
     private static CANSparkMax shootLead;
-    private final CANSparkMax shootFollow;
+    private static CANSparkMax shootFollow;
     public static double filteredCurrentShoot;
     public LinearFilter filterShoot;
     
@@ -69,7 +69,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
       shootLead = new CANSparkMax(SubsystemConstants.kShootLead, MotorType.kBrushless);
       shootFollow =  new CANSparkMax(SubsystemConstants.kShootFollow, MotorType.kBrushless);
-      shootFollow.follow(shootLead, false);
+     
       shootLead.setIdleMode(IdleMode.kCoast);
       shootFollow.setIdleMode(IdleMode.kCoast); 
       filterShoot = LinearFilter.movingAverage(SubsystemConstants.kShootSampleSize); 
@@ -120,7 +120,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public void shooterpidmode(){
     double[] pid={p,i,d};
     shooterPID.setSetpoint(4824.6);
-    shooterPID.calculate(shootLead.getEncoder().getVelocity());
     SmartDashboard.putNumber("shooter current speed",shootLead.getEncoder().getVelocity());
     SmartDashboard.putNumber("shooter target speed",4824.6);
     SmartDashboard.putNumberArray("p i d",pid);
@@ -136,6 +135,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     }
     if(usepid){
       shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity()));
+      shootFollowMotor(shooterPID.calculate(shootFollow.getEncoder().getVelocity()));
     }
   }
   }
@@ -147,8 +147,15 @@ public class EndEffectorSubsystem extends SubsystemBase {
     intakeMotor.setInverted(intakeMotorInverted);
   }
 
+  public static void shootMotors(double speed){
+    shootFollowMotor(speed);
+    shootLeadMotor(speed);
+  }
   public static void shootLeadMotor(double speed){
     shootLead.set(speed);
+  }
+  public static void shootFollowMotor(double speed){
+   shootFollow.set(speed);
   }
 
   public static double getLiftDistance(){

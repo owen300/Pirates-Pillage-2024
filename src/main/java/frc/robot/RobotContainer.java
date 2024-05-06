@@ -140,8 +140,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("Shoot Posistion", scoreCommands.scoreSpeaker());
     NamedCommands.registerCommand("Shoot Note", scoreCommands.shootNote2());
     NamedCommands.registerCommand("Score Speaker", scoreCommands.scoreSpeaker());
-    NamedCommands.registerCommand("Compact Position", scoreCommands.compactPosition2());
+    NamedCommands.registerCommand("Compact Position", scoreCommands.compactPosition());
     NamedCommands.registerCommand("Score Speaker and Shoot", scoreCommands.scoreSpeakerAndShootNote());
+    NamedCommands.registerCommand("Intake Note Fast", scoreCommands.intakeNoteFast());
   }
 
   public void setAutoCommands(){
@@ -157,6 +158,7 @@ public class RobotContainer {
     AutoChooser.addOption("amp-side-3-note", new PathPlannerAuto("Amp-side-3-note"));
     AutoChooser.addOption("amp-side-3-note-sideshoot", new PathPlannerAuto("Amp-side-3-note-side-shoot"));
     AutoChooser.addOption("Source-3-note", new PathPlannerAuto("Source-3-note"));
+    AutoChooser.addOption("Source-3-note-no-adjustments(TEST FIRST)", new PathPlannerAuto("Source-3-note-no-adj"));
     AutoChooser.addOption("Center-3-note", new PathPlannerAuto("Center-3-note"));
   }
 

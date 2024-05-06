@@ -24,9 +24,6 @@ public class ShootCommand extends Command{
     public void execute(){
       EndEffectorSubsystem.usepid=false;
       EndEffectorSubsystem.shootLeadMotor(speed);
-      if(Timer.getFPGATimestamp() - startTime > 0.45){
-      EndEffectorSubsystem.usepid=true;
-      }
     }
 
      @Override 
