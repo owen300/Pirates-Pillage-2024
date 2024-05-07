@@ -109,7 +109,7 @@ public class SmartAimLookup {
 
     private static double getResultWithDrag(double approx, double dx) {
 
-        boolean useNewDrag = false;
+        boolean useNewDrag = true;
 
         // This is the really fun part.
         double Av = Math.sin(approx) * SmartAimConstants.Ah + Math.cos(approx) * SmartAimConstants.Av;
