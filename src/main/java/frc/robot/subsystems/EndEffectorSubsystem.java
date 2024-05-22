@@ -1,11 +1,10 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
-import java.util.function.DoubleSupplier;
-
 import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
@@ -19,9 +18,9 @@ import frc.robot.Constants.SubsystemConstants;
 
 public class EndEffectorSubsystem extends SubsystemBase {
   
-  double p=0.01;
-  double i=0.0;
-  double d=0.0;
+  public static double p=0.000000000000048;
+  public static double i=0.0;
+  public static double d=0.000000;
   public PIDController shooterPID=new PIDController(p, i, d);
    public static boolean usepid=true;
     private final CANSparkMax intakeMotor;
@@ -61,6 +60,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     
 
     public EndEffectorSubsystem(){
+      shooterPID.setTolerance(30);
       intakeMotor = new CANSparkMax(SubsystemConstants.kIntakeMotorCANID, MotorType.kBrushless);
       intakeMotorSpeed = 0; 
       intakeMotorInverted = false; 
@@ -117,28 +117,16 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftFollowRight.burnFlash();
 
   }
+  public static boolean lastusepid=false;
   public void shooterpidmode(){
-    double[] pid={p,i,d};
-    shooterPID.setSetpoint(4824.6);
     SmartDashboard.putNumber("shooter current speed",shootLead.getEncoder().getVelocity());
-    SmartDashboard.putNumber("shooter target speed",4824.6);
-    SmartDashboard.putNumberArray("p i d",pid);
-    double[] newpid=SmartDashboard.getNumberArray("p i d",pid);
-    if(!pid.equals(newpid)){
-    for(int ii=0; ii<newpid.length;ii++){
-      if(ii==0)p=newpid[ii];
-      if(ii==1)i=newpid[ii];
-      if(ii==2)d=newpid[ii];
-      shooterPID.setP(p);
-      shooterPID.setI(i);
-      shooterPID.setD(d);
+    if(usepid&&(lastusepid != usepid)){
+      shootMotors(0.95);
+    }else if(usepid!=lastusepid) {
+      shootMotors(0.3);
     }
-    if(usepid){
-      shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity()));
-      shootFollowMotor(shooterPID.calculate(shootFollow.getEncoder().getVelocity()));
-    }
-  }
-  }
+    lastusepid=usepid;
+   }
 
   public void setIntakeSpeedDirection(double intakeMotorSpeed, boolean intakeMotorInverted){
     this.intakeMotorSpeed = intakeMotorSpeed; 
@@ -148,8 +136,11 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   public static void shootMotors(double speed){
-    shootFollowMotor(speed);
-    shootLeadMotor(speed);
+    // shootFollowMotor(speed);
+    // shootLeadMotor(speed);
+    shootLead.getPIDController().setReference(speed, ControlType.kDutyCycle);
+    shootFollow.getPIDController().setReference(speed, ControlType.kDutyCycle);
+   
   }
   public static void shootLeadMotor(double speed){
     shootLead.set(speed);

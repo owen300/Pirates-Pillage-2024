@@ -7,15 +7,15 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.
+
+
+wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
@@ -23,14 +23,10 @@ import frc.robot.commands.AutoCommands.AutoCommandHolder;
 import frc.robot.commands.ScoreCommands.AutoAimCommand;
 import frc.robot.commands.ScoreCommands.AutoFaceCommand;
 import frc.robot.commands.ScoreCommands.AutoTargetNotifyCommand;
-import frc.robot.commands.ScoreCommands.LiftSetpointDown;
-import frc.robot.commands.ScoreCommands.LiftSetpointUp;
 import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SmartSwerveDriveSubsystem;
-import frc.robot.subsystems.SwerveDriveSubsystem;
-import frc.utils.LimelightUtils.LimelightTarget_Detector;
 
 
 public class RobotContainer {
@@ -113,9 +109,9 @@ public class RobotContainer {
     aCoDriverButton.onTrue(scoreCommands.intakeNote());
     leftDriverTrigger.onTrue(scoreCommands.scoreAmp()); 
     rightDriverTrigger.onTrue(scoreCommands.scoreSpeaker());
-    dpadleft.onTrue(scoreCommands.shuttle()); //TODO: fix this
+    dpadleft.onTrue(scoreCommands.shuttle()); 
     bCoDriverButton.onTrue(scoreCommands.shootNote());
-    yCoDriverButton.onTrue(scoreCommands.compactPosition());
+    yCoDriverButton.onTrue(new InstantCommand(()->CommandScheduler.getInstance().cancelAll())).onFalse(scoreCommands.compactPosition());
     xCoDriverButton.onTrue(scoreCommands.intakeDown());
     startButton.onTrue(scoreCommands.getHangReady());
 
@@ -127,7 +123,7 @@ public class RobotContainer {
     yButton.onTrue(new InstantCommand(swerveDriveSubsystem::zeroHeading));// driver button
 
      dpadRight.onTrue(scoreCommands.outtake());
-     rightBumperCoDriver.whileTrue(autoAimCommand).whileTrue(autoFaceCommand).whileFalse(scoreCommands.compactPosition());
+     rightBumperCoDriver.onTrue(new InstantCommand(()->endEffectorSubsystem.usepid=true)).whileTrue(autoAimCommand).whileTrue(autoFaceCommand).whileFalse(scoreCommands.compactPosition()).onFalse(new InstantCommand(()->endEffectorSubsystem.usepid=false));
     dpadDownCoDriver.onTrue(scoreCommands.hang());
   
     
@@ -138,7 +134,7 @@ public class RobotContainer {
   public void registerNamedCommands() {
     NamedCommands.registerCommand("Intake Note", scoreCommands.intakeNote());
     NamedCommands.registerCommand("Shoot Posistion", scoreCommands.scoreSpeaker());
-    NamedCommands.registerCommand("Shoot Note", scoreCommands.shootNote2());
+    NamedCommands.registerCommand("Shoot Note", scoreCommands.shootNote());
     NamedCommands.registerCommand("Score Speaker", scoreCommands.scoreSpeaker());
     NamedCommands.registerCommand("Compact Position", scoreCommands.compactPosition());
     NamedCommands.registerCommand("Score Speaker and Shoot", scoreCommands.scoreSpeakerAndShootNote());

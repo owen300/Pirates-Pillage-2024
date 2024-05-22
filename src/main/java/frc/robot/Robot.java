@@ -12,8 +12,9 @@ import frc.robot.commands.ScoreCommands.ScoreCommandHolder;
 
 
 public class Robot extends TimedRobot {
+  private static Robot   instance;
   private Command m_autonomousCommand;
-  ScoreCommandHolder scorecommands;
+  public ScoreCommandHolder scorecommands;
   
 
   private RobotContainer m_robotContainer;
@@ -29,6 +30,15 @@ public class Robot extends TimedRobot {
     ScoreCommandHolder scorecommands=new ScoreCommandHolder(m_robotContainer.endEffectorSubsystem);
     SmartAimLookup.populateTable();
     System.gc();
+  }
+  public Robot()
+  {
+    instance = this;
+  }
+
+  public static Robot getInstance()
+  {
+    return instance;
   }
 
   @Override
@@ -63,7 +73,7 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.swerveDriveSubsystem.getRoll();
-    m_robotContainer.endEffectorSubsystem.shootLeadMotor(0.85);
+    //m_robotContainer.endEffectorSubsystem.shootLeadMotor(0.85);
   }
 
   @Override

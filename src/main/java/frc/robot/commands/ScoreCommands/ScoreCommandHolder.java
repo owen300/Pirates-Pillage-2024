@@ -2,6 +2,7 @@ package frc.robot.commands.ScoreCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ScoreCommandHolderConstants;
 import frc.robot.subsystems.EndEffectorSubsystem;
@@ -18,17 +19,17 @@ public class ScoreCommandHolder extends Command {
 
      public SequentialCommandGroup intakeNote(){
         return new SequentialCommandGroup(
-            new InstantCommand(()->endEffectorSubsystem.usepid=true),
+            new InstantCommand(()->endEffectorSubsystem.usepid=false),
             new LiftCommand(ScoreCommandHolderConstants.kIntakeFirstSetpoint),
             new LiftCommand(ScoreCommandHolderConstants.kIntakeSecondSetpoint),
             new IntakeCommand(endEffectorSubsystem, 1, false), 
-            new IntakeTimeCommand(endEffectorSubsystem, 0.1, true, 0.3),
+            new IntakeTimeCommand(endEffectorSubsystem, 0.1, true, 0.2),
             new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint)
         ); 
     }
     public SequentialCommandGroup intakeNoteFast(){
         return new SequentialCommandGroup(
-            new InstantCommand(()->endEffectorSubsystem.usepid=true),
+            new InstantCommand(()->endEffectorSubsystem.usepid=false),
             new LiftCommand(ScoreCommandHolderConstants.kIntakeSecondSetpoint),
             new IntakeCommand(endEffectorSubsystem, 1, false), 
             new IntakeTimeCommand(endEffectorSubsystem, 0.1, true, 0.3),
@@ -38,8 +39,9 @@ public class ScoreCommandHolder extends Command {
 
       public SequentialCommandGroup shootNote(){
         return new SequentialCommandGroup(
-            new IntakeTimeCommand(endEffectorSubsystem, 1, false, 0.9),
-            compactPosition()
+            new SmartShootCommand(endEffectorSubsystem, 1, false)//,
+            // new IntakeTimeCommand(endEffectorSubsystem, 1, false, 0.9),
+            //compactPosition()
         ); 
     }
 
@@ -80,10 +82,12 @@ public class ScoreCommandHolder extends Command {
         ); 
     }
 
-    public SequentialCommandGroup compactPosition(){
-        return new SequentialCommandGroup(
-            new InstantCommand(()->endEffectorSubsystem.usepid=true),
+    public ParallelCommandGroup compactPosition(){
+        return new ParallelCommandGroup(
             new LiftCommand(ScoreCommandHolderConstants.kCompactSetpoint),
+            new InstantCommand(()->endEffectorSubsystem.lastusepid=true),
+            new InstantCommand(()->endEffectorSubsystem.usepid=false),
+            new InstantCommand(()->endEffectorSubsystem.shootMotors(0.3)),
             new IntakeCommand(endEffectorSubsystem, 0, false )
         ); 
     }
@@ -118,8 +122,11 @@ public class ScoreCommandHolder extends Command {
         return new IntakeCommand(endEffectorSubsystem, 0, false); 
     }
 
-    public Command intakeDown(){
-        return new LiftCommand(ScoreCommandHolderConstants.kHangSetpoint); 
+    public ParallelCommandGroup intakeDown(){
+        return new ParallelCommandGroup(
+            new LiftCommand(ScoreCommandHolderConstants.kHangSetpoint),
+            new InstantCommand(()->endEffectorSubsystem.usepid=false)
+            ); 
     }
 
  
