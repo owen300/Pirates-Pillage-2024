@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Robot;
 import frc.robot.subsystems.EndEffectorSubsystem;
 public class IntakeandCompact extends Command{
 
@@ -35,13 +34,15 @@ public class IntakeandCompact extends Command{
 
     @Override
     public void end(boolean interrupted){
+        ScoreCommandHolder score=new ScoreCommandHolder(intakeSubsystem);
       if(interrupted){
-            ParallelCommandGroup robot= Robot.getInstance().scorecommands.compactPosition();
+
+            ParallelCommandGroup robot= score.compactPosition();
             CommandScheduler.getInstance().schedule(robot);
         }
         
         else {
-            ParallelCommandGroup robot= Robot.getInstance().scorecommands.compactPosition();
+            ParallelCommandGroup robot= score.compactPosition();
             CommandScheduler.getInstance().schedule(robot);
         }
     }

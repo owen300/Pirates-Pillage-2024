@@ -22,20 +22,23 @@ public class SmartShootCommand extends Command{
     @Override 
     public void initialize(){
       intakeSubsystem.setIntakeSpeedDirection(speed, inverted);
+      if(intakeSubsystem.getSensorInput()) stop =true;
+      
     }
 
     @Override 
     public boolean isFinished(){ 
-        return intakeSubsystem.getSensorInput(); 
+        if(intakeSubsystem.getSensorInput()) return true;
+        return stop;
     }
 
     @Override
     public void end(boolean interrupted){
       if(interrupted){
-            CommandScheduler.getInstance().schedule(new IntakeandCompact(intakeSubsystem, 1,false,0.2));
+            CommandScheduler.getInstance().schedule(new IntakeandCompact(intakeSubsystem, 1,false,0.25));
         }
         else {
-            CommandScheduler.getInstance().schedule(new IntakeandCompact(intakeSubsystem, 1,false,0.2));
+            CommandScheduler.getInstance().schedule(new IntakeandCompact(intakeSubsystem, 1,false,0.25));
         }
     }
 }
