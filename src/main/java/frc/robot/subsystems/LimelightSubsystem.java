@@ -2,8 +2,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ScoreCommandHolderConstants;
 import frc.robot.Constants;
+import frc.robot.Constants.ScoreCommandHolderConstants;
+import frc.robot.Robot;
 import frc.robot.SmartAimLookup;
 import frc.utils.LimelightUtils;
 
@@ -16,15 +17,39 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public double getTX() {
-    return LimelightUtils.getTX(limelightName);
+    boolean doRejectUpdate=false;
+    LimelightUtils.SetRobotOrientation("limelight", Robot.getInstance().m_robotContainer.swerveDriveSubsystem.m_odometry.getPoseMeters().getRotation().getDegrees(), 0.0, 0.0, 0.0, 0.0, 0.0);
+    LimelightUtils.PoseEstimate mt2 = LimelightUtils.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+    if(mt2.tagCount == 0)
+    {
+      doRejectUpdate = true;
+    
+    return 999999999; 
+    }
+    return Math.tan(Math.abs((-0.0381)-mt2.pose.getX())/(mt2.pose.getY()-5.547868)); 
   }
 
   public double getTY() {
-    return LimelightUtils.getTY(limelightName);
+    boolean doRejectUpdate=false;
+    LimelightUtils.SetRobotOrientation("limelight", Robot.getInstance().m_robotContainer.swerveDriveSubsystem.m_odometry.getPoseMeters().getRotation().getDegrees(), 0.0, 0.0, 0.0, 0.0, 0.0);
+    LimelightUtils.PoseEstimate mt2 = LimelightUtils.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+    if(mt2.tagCount == 0)
+    {
+      doRejectUpdate = true;
+    
+    return 999999999; 
+    }
+    return Math.sqrt(((Math.abs((-0.0381)-mt2.pose.getX())) * (Math.abs((-0.0381)-mt2.pose.getX()))) + ((Math.abs((5.547868)-mt2.pose.getY())) * (Math.abs((5.547868)-mt2.pose.getY()))));
   }
 
   public boolean getTV() {
-    return LimelightUtils.getTV(limelightName);
+    LimelightUtils.SetRobotOrientation("limelight", Robot.getInstance().m_robotContainer.swerveDriveSubsystem.m_odometry.getPoseMeters().getRotation().getDegrees(), 0.0, 0.0, 0.0, 0.0, 0.0);
+    LimelightUtils.PoseEstimate mt2 = LimelightUtils.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+    if(mt2.tagCount == 0)
+    {
+      return false;
+    }
+    return true;
   }
 
   public double getTA() {
@@ -46,7 +71,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public Double getAutoAimEncoderTarget(){
    
     if (!getTV()) return ScoreCommandHolderConstants.kSpeakerSetpoint;
-    double dx = SmartAimLookup.tyToDx(getTY());
+    double dx =(getTY());
     Double targetAngle = SmartAimLookup.getAngle(dx); // Make sure that the lookup table has been populated before this runs
     if (targetAngle == null) return null;
 

@@ -17,7 +17,7 @@ public class Robot extends TimedRobot {
   public ScoreCommandHolder scorecommands;
   
 
-  private RobotContainer m_robotContainer;
+  public RobotContainer m_robotContainer;
 
   @Override
   public void robotInit() {
