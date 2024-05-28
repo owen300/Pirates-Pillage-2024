@@ -61,14 +61,10 @@ public class RobotContainer {
   Trigger yButton = driverController.y(); 
   
 
-  Trigger dpadUpCoDriver = coDriverController.povUp();
-  Trigger dpadDownCoDriver = coDriverController.povDown();
-  Trigger leftBumperCoDriver = coDriverController.leftBumper(); 
-  Trigger rightBumperCoDriver = coDriverController.rightBumper(); 
-  Trigger rightTriggerCoDriver = coDriverController.rightTrigger(); 
-  Trigger leftTriggerCoDriver = coDriverController.leftTrigger(); 
-  Trigger dpadRight = coDriverController.povRight();
+  Trigger dpadDownCoDriver = coDriverController.povDown(); 
+  Trigger rightBumperCoDriver = coDriverController.rightBumper();
   Trigger dpadleft = coDriverController.povLeft();
+  Trigger dpadRight = coDriverController.povRight();
 
 
   Trigger aCoDriverButton = coDriverController.a(); 
@@ -76,11 +72,8 @@ public class RobotContainer {
   Trigger xCoDriverButton = coDriverController.x(); 
   Trigger yCoDriverButton = coDriverController.y(); 
   Trigger leftDriverTrigger = coDriverController.leftTrigger(); 
-  Trigger leftDriverBumper = coDriverController.leftBumper(); 
   Trigger rightDriverTrigger = coDriverController.rightTrigger();
-  Trigger rightDriverBumper = coDriverController.rightBumper();
   Trigger dpadUpDriver = coDriverController.povUp();
-  Trigger dpadDownDriver = coDriverController.povDown();
   Trigger startButton = coDriverController.start();
 
 
