@@ -27,8 +27,6 @@ public final class SmartAimConstants {
     public static final double shoy = 21.5;
     public static final double nvi = 790; // with old drag values, the best value is 790
     public static final double nviNew = 790; // with new drag values
-
-    
     public static final double g = 386.1;
 
     /* Drag constants:

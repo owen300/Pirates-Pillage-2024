@@ -43,7 +43,7 @@ public class RobotContainer {
   //SUBSYSTEM
   EndEffectorSubsystem endEffectorSubsystem = new EndEffectorSubsystem();
   LimelightSubsystem limelightSubsystem = new LimelightSubsystem("");
-  public SmartSwerveDriveSubsystem swerveDriveSubsystem = new SmartSwerveDriveSubsystem(limelightSubsystem);
+  SmartSwerveDriveSubsystem swerveDriveSubsystem = new SmartSwerveDriveSubsystem(limelightSubsystem);
   //SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem();
   
 
