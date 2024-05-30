@@ -17,12 +17,12 @@ import frc.robot.Constants.SubsystemConstants;
 
 
 public class EndEffectorSubsystem extends SubsystemBase {
-  
-  public static double p=0.000000000000048;
+  public static double f=0.9;
+  public static double p=0; //0.001;
   public static double i=0.0;
   public static double d=0.000000;
   public PIDController shooterPID=new PIDController(p, i, d);
-   public static boolean usepid=true;
+   public static boolean usepid=false;
     private final CANSparkMax intakeMotor;
     public boolean intakeMotorInverted; 
     public double intakeMotorSpeed; 
@@ -117,11 +117,29 @@ public class EndEffectorSubsystem extends SubsystemBase {
       liftFollowRight.burnFlash();
 
   }
-  public static boolean lastusepid=false;
+  public static boolean lastusepid=true;
+  private static double[] pid={p,i,d};
   public void shooterpidmode(){
+    SmartDashboard.putNumber("Target speed",5392.2);
+    SmartDashboard.putNumberArray("pid", pid);
+    double[] newpids=SmartDashboard.getNumberArray("pid", pid);
+    if (!newpids.equals(pid)) {
+        pid=newpids;
+        shooterPID.setP(pid[0]);
+        shooterPID.setI(pid[1]);
+        shooterPID.setD(pid[2]);
+    }
+    SmartDashboard.putNumber("f",f);
+    double newF = SmartDashboard.getNumber("f",f);
+    if (newF != f) {
+        f=newF;
+    }
     SmartDashboard.putNumber("shooter current speed",shootLead.getEncoder().getVelocity());
     if(usepid&&(lastusepid != usepid)){
-      shootMotors(0.95);
+      shooterPID.setSetpoint(5392.2);
+      shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity())+f);
+      shootFollowMotor(shooterPID.calculate(shootFollow.getEncoder().getVelocity())+f);
+     // shootMotors(0.95);
     }else if(usepid!=lastusepid) {
       shootMotors(0.3);
     }

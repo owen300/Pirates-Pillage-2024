@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.endEffectorSubsystem.resetEncoderHang();
     ScoreCommandHolder scorecommands=new ScoreCommandHolder(m_robotContainer.endEffectorSubsystem);
     SmartAimLookup.populateTable();
+    //FollowPathCommand.warmupCommand().schedule();
     System.gc();
   }
   public Robot()

@@ -4,6 +4,7 @@ package frc.robot;
 import java.util.function.BooleanSupplier;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
@@ -95,6 +96,7 @@ public class RobotContainer {
             swerveDriveSubsystem));
     setAutoCommands();
     SmartDashboard.putData("Autos", AutoChooser);
+    
   }
 
   private void configureBindings() {
