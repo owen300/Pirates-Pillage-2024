@@ -17,7 +17,7 @@ import frc.robot.Constants.SubsystemConstants;
 
 
 public class EndEffectorSubsystem extends SubsystemBase {
-  public static double f=0.9;
+  public static double f=0.000177;
   public static double p=0; //0.001;
   public static double i=0.0;
   public static double d=0.000000;
@@ -135,10 +135,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
         f=newF;
     }
     SmartDashboard.putNumber("shooter current speed",shootLead.getEncoder().getVelocity());
-    if(usepid&&(lastusepid != usepid)){
+    if(usepid){
       shooterPID.setSetpoint(5392.2);
-      shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity())+f);
-      shootFollowMotor(shooterPID.calculate(shootFollow.getEncoder().getVelocity())+f);
+      shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity())+f*shooterPID.getSetpoint());
+      shootFollowMotor(shooterPID.calculate(shootFollow.getEncoder().getVelocity())+f*shooterPID.getSetpoint());
      // shootMotors(0.95);
     }else if(usepid!=lastusepid) {
       shootMotors(0.3);
