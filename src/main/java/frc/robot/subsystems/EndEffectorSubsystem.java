@@ -17,10 +17,10 @@ import frc.robot.Constants.SubsystemConstants;
 
 
 public class EndEffectorSubsystem extends SubsystemBase {
-  public static double f=0.000177;
-  public static double p=0; //0.001;
-  public static double i=0.0;
-  public static double d=0.000000;
+  public static double f=0.000185;
+  public static double p=0.001; 
+  public static double i=0.000001;
+  public static double d=0.000001;
   public PIDController shooterPID=new PIDController(p, i, d);
    public static boolean usepid=false;
     private final CANSparkMax intakeMotor;
@@ -136,7 +136,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     }
     SmartDashboard.putNumber("shooter current speed",shootLead.getEncoder().getVelocity());
     if(usepid){
-      shooterPID.setSetpoint(5392.2);
+      shooterPID.setSetpoint(5392.2);//5392.2
       shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity())+f*shooterPID.getSetpoint());
       shootFollowMotor(shooterPID.calculate(shootFollow.getEncoder().getVelocity())+f*shooterPID.getSetpoint());
      // shootMotors(0.95);
