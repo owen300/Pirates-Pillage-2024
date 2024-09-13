@@ -18,8 +18,8 @@ import frc.robot.Constants.SubsystemConstants;
 
 public class EndEffectorSubsystem extends SubsystemBase {
   public static double f=0.000185;
-  public static double p=0.001; 
-  public static double i=0.000001;
+  public static double p=0.0002; 
+  public static double i=0.000003;
   public static double d=0.000001;
   public PIDController shooterPID=new PIDController(p, i, d);
    public static boolean usepid=false;
@@ -60,7 +60,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
     
 
     public EndEffectorSubsystem(){
-      shooterPID.setTolerance(30);
+      shooterPID.setIZone(70);
+      shooterPID.setTolerance(20);
       intakeMotor = new CANSparkMax(SubsystemConstants.kIntakeMotorCANID, MotorType.kBrushless);
       intakeMotorSpeed = 0; 
       intakeMotorInverted = false; 
@@ -120,7 +121,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public static boolean lastusepid=true;
   private static double[] pid={p,i,d};
   public void shooterpidmode(){
-    SmartDashboard.putNumber("Target speed",5392.2);
+    SmartDashboard.putNumber("Target speed",3000);
     SmartDashboard.putNumberArray("pid", pid);
     double[] newpids=SmartDashboard.getNumberArray("pid", pid);
     if (!newpids.equals(pid)) {
@@ -136,7 +137,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     }
     SmartDashboard.putNumber("shooter current speed",shootLead.getEncoder().getVelocity());
     if(usepid){
-      shooterPID.setSetpoint(5392.2);//5392.2
+      shooterPID.setSetpoint(5000);//5392.2
       shootLeadMotor(shooterPID.calculate(shootLead.getEncoder().getVelocity())+f*shooterPID.getSetpoint());
       shootFollowMotor(shooterPID.calculate(shootFollow.getEncoder().getVelocity())+f*shooterPID.getSetpoint());
      // shootMotors(0.95);
